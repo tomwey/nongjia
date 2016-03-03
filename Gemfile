@@ -61,7 +61,7 @@ gem 'rack-utf8_sanitizer'
 gem 'state_machine'
 
 # rest请求
-# gem 'rest-client'
+gem 'rest-client'
 
 # Use unicorn as the app server
 gem 'unicorn'
