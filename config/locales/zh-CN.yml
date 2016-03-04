@@ -4,6 +4,7 @@
       user: "用户"
       admin: "管理员"
       category: "类别"
+      product: "产品"
       banner: "广告"
     attributes:
       user:
@@ -19,6 +20,15 @@
       category:
         name: "类别名"
         sort: "显示顺序"
+      product: 
+        title: "产品标题"
+        intro: "产品简介"
+        price: "产品价格"
+        m_price: "产品市场价格"
+        on_save: "是否上架"
+        images: "产品缩略图"
+        detail_images: "产品简介图"
+        
       banner:
         image: "广告图片"
         title: "标题"
