@@ -3,6 +3,8 @@ class Product < ActiveRecord::Base
   
   validates :title, :price, :m_price, presence: true
   
+  mount_uploaders :images, ImageUploader
+  
   # 价格检查
   validate :price_lower_than_or_equal_to_m_price
   def price_lower_than_or_equal_to_m_price

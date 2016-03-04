@@ -5,6 +5,7 @@
       admin: "管理员"
       category: "类别"
       product: "产品"
+      admin_user: "管理员"
       banner: "广告"
     attributes:
       user:
@@ -12,22 +13,35 @@
         nickname: "昵称"
         avatar: "头像"
         signature: "个性签名"
-      admin:
+      admin_user:
         email: "邮箱"
         password: "密码"
         current_password: "旧密码"
         password_confirmation: "确认密码"
+        current_sign_in_at: "最新登录时间"
+        current_sign_in_ip: "最新登录IP"
+        last_sign_in_at: "上次登录时间"
+        last_sign_in_ip: "上次登录IP"
+        sign_in_count: "登录次数"
+        created_at: "创建时间"
+        updated_at: "更新时间"
       category:
         name: "类别名"
+        image: "缩略图"
         sort: "显示顺序"
+        products_count: "产品总数"
       product: 
+        category: "所属类别"
         title: "产品标题"
         intro: "产品简介"
         price: "产品价格"
         m_price: "产品市场价格"
-        on_save: "是否上架"
+        on_sale: "是否上架"
         images: "产品缩略图"
         detail_images: "产品简介图"
+        stock: "库存"
+        visit: "访问量"
+        visible: "是否可见"
         
       banner:
         image: "广告图片"
@@ -38,7 +52,7 @@
     errors:
       models:
         user: "用户"
-        admin: "管理员"
+        admin_user: "管理员"
         category: "类别"
       messages:
         inclusion: "不包含于列表中"
