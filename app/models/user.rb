@@ -11,4 +11,26 @@ class User < ActiveRecord::Base
     self.private_token = SecureRandom.uuid.gsub('-', '') if self.private_token.blank?
   end
   
+  def avatar_url(size)
+    if avatar.blank?
+      "avatar/#{size}.png"
+    else
+      avatar.url(size)
+    end
+  end
+  
+  def block!
+    self.verified = false
+    self.save!
+  end
+  
+  def unblock!
+    self.verified = true
+    self.save!
+  end
+  
+  def nickname
+    self[:nickname] || self.mobile
+  end
+  
 end

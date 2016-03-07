@@ -13,6 +13,8 @@
         nickname: "昵称"
         avatar: "头像"
         signature: "个性签名"
+        private_token: "Token"
+        verified: "账户可用"
       admin_user:
         email: "邮箱"
         password: "密码"

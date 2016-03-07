@@ -1,0 +1,6 @@
+"zh-CN":
+  active_admin:
+    batch_actions:
+      labels:
+        block: "禁用账号"
+        unblock: "启用账号"
