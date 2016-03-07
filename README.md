@@ -1,3 +1,3 @@
 # Demo
 
-`user address admin category product order vendor coupon`
+`address order vendor coupon`
