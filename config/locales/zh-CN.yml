@@ -32,6 +32,7 @@
         image: "缩略图"
         sort: "显示顺序"
         products_count: "产品总数"
+        created_at: "创建时间"
       product: 
         category: "所属类别"
         title: "产品标题"

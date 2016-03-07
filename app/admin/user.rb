@@ -7,6 +7,8 @@ permit_params :list, :of, [:nickname, :avatar, :mobile], :on, :model
 
 actions :index, :show
 
+menu priority: 2, label: "用户"
+
 #
 # or
 #

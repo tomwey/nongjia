@@ -12,6 +12,8 @@ permit_params :list, :of, [:category_id, :title, :price, :m_price, :intro, :stoc
 #   permitted << :other if params[:action] == 'create' && current_user.admin?
 #   permitted
 # end
+menu priority: 4, label: "产品"
+
 actions :index, :show, :new, :create, :edit, :update
 
 filter :title

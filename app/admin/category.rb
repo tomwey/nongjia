@@ -13,15 +13,26 @@ permit_params :list, :of, [:name, :image, :sort], :on, :model
 #   permitted
 # end
 
+menu priority: 3, label: "类别"
+
+actions :all, except: [:destroy]
+
+filter :name
+filter :sort
+filter :created_at
+
 index do
   selectable_column
-  column :id
-  column :name
-  column :image do |category|
+  column('#', :id, sortable: true) { |c| link_to c.id, admin_category_path(c) }
+  column(:name, sortable: false) { |c| link_to c.name, admin_category_path(c) }
+  column :image, sortable: false do |category|
     image_tag category.image.url(:small)
   end
+  column :products_count
   column :sort
-  actions
+  actions defaults: false do |c|
+    item '编辑', edit_admin_category_path(c)
+  end
 end
 
 show do
