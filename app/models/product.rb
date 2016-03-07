@@ -24,6 +24,15 @@ class Product < ActiveRecord::Base
     end
   end
   
+  def sale!
+    self.on_sale = true
+    self.save!
+  end
+  
+  def unsale!
+    self.on_sale = false
+    self.save!
+  end
   
   def add_visit
     self.class.increment_counter(:visit, self.id)

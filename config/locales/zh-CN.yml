@@ -44,6 +44,7 @@
         stock: "库存"
         visit: "访问量"
         visible: "是否可见"
+        created_at: "创建时间"
         
       banner:
         image: "广告图片"

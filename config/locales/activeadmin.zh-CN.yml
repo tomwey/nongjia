@@ -2,5 +2,7 @@
   active_admin:
     batch_actions:
       labels:
-        block: "禁用账号"
-        unblock: "启用账号"
+        block: "禁用"
+        unblock: "启用"
+        sale: "上架"
+        unsale: "下架"
