@@ -3,7 +3,7 @@ ActiveAdmin.register Product do
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
-permit_params :list, :of, [:category_id, :title, :price, :m_price, :intro, :stock, {images:[]}], :on, :model
+permit_params :list, :of, [:category_id, :title, :price, :m_price, :intro, :stock, {images:[]}, {detail_images:[]}], :on, :model
 #
 # or
 #
@@ -23,13 +23,13 @@ index do
   column :stock
   column :on_sale
   column :images do |product|
-    ul do
+    # ul do
       product.images.each do |img|
-        li do
-          image_tag(img.url(:small))
+        span do
+          image_tag(img.url(:small), size: '60x60')
         end
       end
-    end
+    # end
   end
   actions
   
@@ -43,6 +43,25 @@ show do
     row :m_price
     row :intro
     row :stock
+    row :images do |product|
+      # ul do
+        product.images.each do |img|
+          span do
+            image_tag(img.url(:small))
+          end
+        end
+      # end
+    end
+    
+    row :detail_images do |product|
+      # ul do
+        product.detail_images.each do |img|
+          div do
+            image_tag(img.url)
+          end
+        end
+      # end
+    end
     
   end
 end
@@ -55,9 +74,10 @@ form html: { multipart: true } do |f|
     f.input :title
     f.input :price
     f.input :m_price
-    f.input :images, as: :file, input_html: { multiple: true }
-    f.input :intro
     f.input :stock
+    f.input :images, as: :file, input_html: { multiple: true }
+    f.input :detail_images, as: :file, input_html: { multiple: true }
+    f.input :intro
   end
   
   actions
