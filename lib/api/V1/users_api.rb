@@ -125,6 +125,16 @@ module API
       
       resource :user do
         
+        desc "获取个人资料"
+        params do
+          requires :token, type: String, desc: "用户认证Token"
+        end
+        get :me do
+          # user = authenticate!
+          user = User.find_by(private_token: params[:token])
+          render_json(user, API::V1::Entities::User)
+        end # end get me
+        
         desc "修改头像"
         params do
           requires :token,  type: String, desc: "用户认证Token, 必须"

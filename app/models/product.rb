@@ -6,6 +6,10 @@ class Product < ActiveRecord::Base
   mount_uploaders :images, PictureUploader
   mount_uploaders :detail_images, DetailImageUploader
   
+  scope :no_delete, -> { where(visible: true) }
+  scope :saled,     -> { where(on_sale: true) }
+  scope :hot,       -> { order('id DESC') }
+  
   # 价格检查
   validate :price_lower_than_or_equal_to_m_price
   def price_lower_than_or_equal_to_m_price
