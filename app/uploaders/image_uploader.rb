@@ -13,6 +13,10 @@ class ImageUploader < BaseUploader
   version :small, from_version: :thumb do
     process resize_to_fill: [84, 84]
   end
+  
+  version :icon do
+    process resize_to_fill: [120,120]
+  end
 
   def filename
     if super.present?
