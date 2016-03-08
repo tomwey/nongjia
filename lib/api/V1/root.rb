@@ -10,6 +10,14 @@ module API
       mount API::V1::UsersAPI
       mount API::V1::CategoriesAPI
       
+      # 开发文档配置
+      add_swagger_documentation(
+          :api_version => "api/v1",
+          hide_documentation_path: true,
+          # mount_path: "/api/v1/api_doc",
+          hide_format: true
+      )
+      
     end
   end
 end

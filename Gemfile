@@ -61,6 +61,9 @@ gem 'newrelic-grape'
 # for api 跨域访问
 gem 'rack-cors', require: 'rack/cors'
 gem 'rack-utf8_sanitizer'
+# API doc
+gem 'grape-swagger'
+gem 'grape-swagger-rails'
 
 gem 'state_machine'
 

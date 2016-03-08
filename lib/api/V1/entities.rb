@@ -11,7 +11,7 @@ module API
       # 用户详情
       class User < Base
         expose :private_token, as: :token, format_with: :null
-        expose :mobile
+        expose :mobile, format_with: :null
         expose :nickname do |model, opts|
           model.nickname || model.mobile
         end

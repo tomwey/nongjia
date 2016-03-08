@@ -24,7 +24,9 @@ menu priority: 2, label: "用户"
 filter :nickname
 filter :mobile
 
-scope :all, default: true
+scope :all, default: true do |users|
+  users.where(visible: true)
+end
 
 scope '正常用户', :verified do |users|
   users.where(verified: true)
@@ -36,13 +38,17 @@ index do
   column "头像" do |user|
     link_to image_tag(user.avatar_url(:large), size: '60x60'), admin_user_path(user)
   end
-  column :nickname, sortable: false
+  column(:nickname, sortable: false) do |user|
+    user.nickname || user.mobile
+  end
   column :mobile, sortable: false
   column "Token", :private_token, sortable: false
   column "账号可用" do |user|
     user.verified ? "可用" : "禁用"
   end
-  
+  column "三方认证" do |user|
+    user.authorizations.map(&:provider).join(',')
+  end
   actions defaults: false do |user|
     if user.verified
       item "禁用", block_admin_user_path(user), method: :put
@@ -90,6 +96,15 @@ show do
     row :private_token
     row :verified do |user|
       user.verified ? "可用" : "禁用"
+    end
+    row '三方认证' do |user|
+      ul do
+        user.authorizations.each do |auth|
+          li do
+            auth.provider + ': ' + auth.uid
+          end
+        end
+      end
     end
   end
 end

@@ -1,3 +1,4 @@
+require 'grape-swagger'
 module API
   class Dispatch < Grape::API
     use ActionDispatch::RemoteIp

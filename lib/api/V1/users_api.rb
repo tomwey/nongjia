@@ -36,20 +36,21 @@ module API
           optional :avatar_url, type: String, desc: "第三方登录用户的头像URL地址"
         end
         post :login do
-          auth = Authorization.find_by(provider: params[:provider], uid: params[:uid])
+          provider = params[:provider].downcase
+          auth = Authorization.where('lower(provider) = ? and uid = ?', provider, params[:uid]).first
           if auth.present?
-            return render_json(auth.user, API::V1::Entities::User)
+            return render_json(auth.user, API::V1::Entities::User, opts: auth)
           end
           
           user = User.new
           user.nickname = params[:nickname] if params[:nickname].present?
           user.remote_avatar_url = params[:avatar_url] if params[:avatar_url].present?
-          user.authorizations << Authorization.new(provider: params[:provider], uid: params[:uid])
+          user.authorizations << Authorization.new(provider: provider, uid: params[:uid])
           
           if user.save
             # 添加认证
             # Authorization.create!(provider: params[:provider], uid: params[:uid], user_id: user.id)
-            render_json(user, API::V1::Entities::User)
+            render_json(user, API::V1::Entities::User, opts: auth)
           else
             render_error(1006, user.errors.full_messages.join(','))
           end
@@ -57,34 +58,62 @@ module API
         
         desc "绑定手机号"
         params do
-          requires :token,  type: String, desc: "用户认证Token"
+          # requires :token,  type: String, desc: "用户认证Token"
           requires :uid,        type: String, desc: "第三方登录用户唯一ID"
           requires :provider,   type: String, desc: "第三方登录平台名称，例如：Wechat, QQ, Weibo等"
           requires :mobile, type: String, desc: "用户手机"
           requires :code,   type: String, desc: "验证码"
         end
         post :bind do
-          user = authenticate!
+          # user = authenticate!
           
           # 手机号检测
           unless check_mobile(params[:mobile])
             return render_error(1001, "不正确的手机号")
           end
           
-          if user.mobile.present?
+          provider = params[:provider].downcase
+          
+          auth = Authorization.where('lower(provider) = ? and uid = ?', provider, params[:uid]).first
+          if auth.blank?
+            return render_error(1003, "不正确的uid或provider")
+          end
+          
+          auth_user = auth.user
+          
+          if auth_user.blank?
+            return render_error(1004, "非法用户")
+          end
+          
+          if auth_user.mobile.present?
             return render_error(1005, "您已经绑定过手机")
           end
           
           current_user = User.find_by(mobile: params[:mobile])
           if current_user.present?
             # 该手机号已经存在或者被绑定过
-            current_user.authorizations.find_or_create_by!(provider: params[:provider], uid: params[:uid])
+            # 更新用户的个人资料
+            if current_user.nickname.blank?
+              current_user.nickname = auth_user.nickname
+            end
+            if current_user.avatar.blank?
+              current_user.avatar   = auth_user.avatar
+            end
+            current_user.save!
+            
+            # 绑定认证
+            auth.user_id = current_user.id
+            auth.save!
+            
+            # 软删除之前的三方认证账号
+            auth_user.update!({ visible: false })
+            
+            # 返回结果
             render_json(current_user, API::V1::Entities::User)
           else
             # 该手机号不存在或者未被绑定过，直接将手机号绑定到登录账号
-            user.mobile = params[:mobile]
-            if user.save
-              render_json(user, API::V1::Entities::User)
+            if auth_user.update_attribute(:mobile, params[:mobile])
+              render_json(auth_user, API::V1::Entities::User)
             else
               render_error(1006, user.errors.full_messages.join(','))
             end
