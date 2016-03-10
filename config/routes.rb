@@ -1,3 +1,4 @@
+require 'api/dispatch'
 Rails.application.routes.draw do
   
   ######################### 微信公众平台开发 ###########################
