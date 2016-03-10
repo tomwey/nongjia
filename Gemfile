@@ -30,6 +30,9 @@ gem 'activeadmin', github: 'activeadmin'
 # 防止大量请求的IP
 gem 'rack-attack'
 
+# 支持解析xml
+gem 'actionpack-xml_parser'
+
 # Use postgresql as the database for Active Record
 gem 'pg'
 
