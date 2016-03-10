@@ -5,7 +5,7 @@ class Weixin::ApplicationController < ActionController::Base
   layout "weixin"
   protect_from_forgery with: :null_session
   # 验证请求是否来自于微信服务器
-  # before_filter :check_weixin_legality
+  before_filter :check_weixin_legality
   
   # 验证当前微信用户是否可用
   before_filter :check_weixin_user

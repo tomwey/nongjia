@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
   ######################### 微信公众平台开发 ###########################
-  post '/wechat' => 'weixin/home#welcome', defaults: { format: 'xml' }, constraints: Weixin::Router.new(type: 'text', content: 'Hello2BizUser')
+  post '/wechat' => 'weixin/home#welcome', defaults: { format: 'xml' }
   get "/wechat" => 'weixin/home#show'
   get "/fetch_access_token" => 'weixin/home#fetch_access_token'
   
