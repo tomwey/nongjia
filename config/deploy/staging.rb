@@ -1,8 +1,8 @@
 set :stage, :staging
 set :branch, 'master'
 
-set :server_name, "YOUR-SERVER-DOMAINNAME" #"lease-goods-stage.afterwind.cn"
-set :port, "80" # 都是80端口
+set :server_name, "#{fetch(:application)}-staging.masaoko.com"
+#set :port, "80" # 都是80端口
 
 role :app, %w{deployer@120.132.57.133}
 role :web, %w{deployer@120.132.57.133}
