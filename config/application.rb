@@ -18,7 +18,13 @@ module CentralServices
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-    config.autoload_paths.push(*%W(#{config.root}/lib))
+    # config.autoload_paths.push(*%W(#{config.root}/lib))
+    
+    # Dir.glob('lib/capistrano/tasks/*.cap').each { |r| import r }
+    # Dir.glob('lib/capistrano/**/*.rb').each { |r| import r }
+    
+    # config.paths.add File.join('lib', 'api'), glob: File.join('**', '*.rb')
+    config.autoload_paths += %W(#{Rails.root}/lib)
     # config.autoload_paths += %W(#{config.root}/app/api)
     # config.paths.add File.join("app", "api"), glob: File.join("**","*.rb")
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
