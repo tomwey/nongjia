@@ -1,6 +1,6 @@
 # encoding: utf-8
 class PhotoUploader < BaseUploader
-  include CarrierWave::WebP::Converter
+  # include CarrierWave::WebP::Converter
 
   version :small do
     process resize_to_fill: [80, 80]
