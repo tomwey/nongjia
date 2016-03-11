@@ -5,6 +5,13 @@ Rails.application.routes.draw do
   get "/wechat" => 'weixin/home#show'
   get "/fetch_access_token" => 'weixin/home#fetch_access_token'
   
+  resource :wechat, only: [:show, :create] do
+    collection do
+      get :shop
+      get :direct_message_box
+    end
+  end
+  
   ############################### end ################################
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
