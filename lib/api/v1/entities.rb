@@ -36,6 +36,9 @@ module API
         expose :category, using: API::V1::Entities::Category
         expose :stock, format_with: :null
         expose :on_sale
+        expose :thumb_image do |model, opts|
+          model.images.first.url(:small)
+        end
       end
       
       # 产品详情
