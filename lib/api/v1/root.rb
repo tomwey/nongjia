@@ -11,6 +11,8 @@ module API
       mount API::V1::CategoriesAPI
       mount API::V1::ProductsAPI
       
+      mount API::V1::WechatAuthAPI
+      
       # 开发文档配置
       add_swagger_documentation(
           :api_version => "api/v1",
