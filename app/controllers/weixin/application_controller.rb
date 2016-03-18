@@ -43,7 +43,7 @@ class Weixin::ApplicationController < ActionController::Base
           sub_button: [
             { type: 'view',
               name: '拔鸡毛',
-              url: ''
+              url: 'http://nj-shop.shuiguoshe.com'
             }
           ]
         },
@@ -53,22 +53,22 @@ class Weixin::ApplicationController < ActionController::Base
             {
               type: 'view',
               name: '我的订单',
-              url: ''
+              url: 'http://nj-shop.shuiguoshe.com'
             },
             {
               type: 'view',
               name: '个人中心',
-              url: ''
+              url: 'http://nj-shop.shuiguoshe.com'
             },
             {
               type: 'view',
               name: '优惠券',
-              url: ''
+              url: 'http://nj-shop.shuiguoshe.com'
             },
             {
               type: 'view',
               name: '帮助',
-              url: ''
+              url: 'http://nj-shop.shuiguoshe.com'
             }
           ]
         }
