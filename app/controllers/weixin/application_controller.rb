@@ -35,27 +35,42 @@ class Weixin::ApplicationController < ActionController::Base
     post_body = {
       button: [
         { type: 'view',
-          name: 'APP下载',
-          url: 'http://www.baidu.com'
+          name: '商城',
+          url: 'http://nj-shop.shuiguoshe.com'
         },
         {
-          name: '搜索',
+          name: '福利',
           sub_button: [
             { type: 'view',
-              name: '查询城市',
-              url: 'http://shuiguoshe.com'
-            },
-            {
-              type: 'click',
-              name: '附近',
-              key: 'hotel'
+              name: '拔鸡毛',
+              url: ''
             }
           ]
         },
         {
-          type: 'click',
-          name: '更多',
-          key: 'more'
+          name: '我',
+          sub_button: [
+            {
+              type: 'view',
+              name: '我的订单',
+              url: ''
+            },
+            {
+              type: 'view',
+              name: '个人中心',
+              url: ''
+            },
+            {
+              type: 'view',
+              name: '优惠券',
+              url: ''
+            },
+            {
+              type: 'view',
+              name: '帮助',
+              url: ''
+            }
+          ]
         }
       ]
     }.to_json
