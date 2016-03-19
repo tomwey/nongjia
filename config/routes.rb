@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   get "/fetch_access_token" => 'weixin/home#fetch_access_token'
   
   
+  namespace :wechat_shop do
+    root 'home#index'
+  end
   
   ############################### end ################################
   devise_for :admin_users, ActiveAdmin::Devise.config

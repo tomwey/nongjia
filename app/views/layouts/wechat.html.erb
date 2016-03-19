@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no,width=device-width,height=device-height">
   <title>农家商城</title>
   <%= stylesheet_link_tag 'wechat', media: 'all' %>
-  <%= javascript_include_tag 'wechat', 'data-turbolinks-track' => true %>
 </head>
-<body ontouchstart>
-  <div class="container js_container">
-    
+<body>
+  <div class="container">
+    <%= yield %>
   </div>
-  <%= yield %>
+  
+  <%= javascript_include_tag 'wechat', 'data-turbolinks-track' => true %>
 </body>
 </html>
