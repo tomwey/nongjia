@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   
   namespace :wechat_shop do
     root 'home#index'
+    resources :products, only: [:show]
   end
   
   ############################### end ################################

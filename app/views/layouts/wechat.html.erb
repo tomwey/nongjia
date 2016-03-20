@@ -8,11 +8,15 @@
   <%= stylesheet_link_tag 'wechat', media: 'all' %>
 </head>
 <body>
+  
+  <%= content_for?(:header) ? yield(:header) : '' %>
+  
   <div class="container">
     <%= yield %>
   </div>
   
-  <%= yield :toolbar %>
+  <%= content_for?(:toolbar) ? yield(:toolbar) : '' %>
+  <%= content_for?(:tabbar) ? yield(:tabbar) : '' %>
   
   <%= javascript_include_tag 'wechat', 'data-turbolinks-track' => true %>
 </body>

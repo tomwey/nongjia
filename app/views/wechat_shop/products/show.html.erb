@@ -1,0 +1,37 @@
+<% content_for :header do %>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        返回
+      </div>
+      <div class="col-md-6">
+        <%= @product.title %>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+  </div>
+</nav>
+<% end %>
+
+<div class="product" style="margin-top: 30px;">
+  ddddd
+</div>
+
+<% content_for :toolbar do %>
+<nav class="navbar navbar-fixed-bottom wechat-shop-toolbar">
+  <div class="toolbar-item price">
+    ¥ 99
+  </div>
+  <div class="toolbar-item">
+    <div class="input-digit-control">
+      <a class="adds-on minus">-</a>
+      <span class="digit">1</span>
+      <a class="adds-on plus">+</a>
+    </div>
+  </div>
+  <div class="toolbar-item buy">
+    <a class="">立即购买</a>
+  </div>
+</nav>
+<% end %>

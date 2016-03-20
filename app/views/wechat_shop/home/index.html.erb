@@ -5,7 +5,7 @@
 <div class="home-products">
   <% @products.each_with_index do |product, index| %>
   <div class="product <%= index % 2 == 1 ? "product-pull-right" : "" %>">
-    <a class="product-link">
+    <a class="product-link" href="<%= wechat_shop_product_path(product) %>">
       <%= image_tag product.images.first.url(:small) %>
       <div class="product-info">
         <h2 class="title"><%= product.title %></h2>
@@ -16,9 +16,9 @@
   <% end %>
 </div>
 
-<% content_for :toolbar do %>
+<% content_for :tabbar do %>
 <nav class="navbar navbar-default navbar-fixed-bottom">
-  <ul class="shop-toolbar">
+  <ul class="wechat-shop-tabbar">
     <li class="active"><%= link_to '首页', wechat_shop_root_path %></li>
     <li><%= link_to '我的订单', '#' %></li>
     <li><%= link_to '个人中心', '#' %></li>
