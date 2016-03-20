@@ -33,4 +33,22 @@ class User < ActiveRecord::Base
     self.save!
   end
   
+  def self.fromWechatAuth(result)
+    auth = WechatAuth.find_by(open_id: result['openid'])
+    if auth.blank?
+      user = User.new
+      auth = WechatAuth.create!(open_id: result['openid'],
+                                access_token: result['access_token'],
+                                refresh_token: result['refresh_token'],
+                                )
+    end
+    # {
+    #    "access_token":"ACCESS_TOKEN",
+    #    "expires_in":7200,
+    #    "refresh_token":"REFRESH_TOKEN",
+    #    "openid":"OPENID",
+    #    "scope":"SCOPE",
+    # }
+  end
+  
 end
