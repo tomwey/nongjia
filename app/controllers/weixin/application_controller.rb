@@ -36,7 +36,7 @@ class Weixin::ApplicationController < ActionController::Base
       button: [
         { type: 'view',
           name: '商城',
-          url: 'http://nj-shop.shuiguoshe.com'
+          url: 'http://nongjia.shuiguoshe.com/wechat_shop'
         },
         {
           name: '福利',
