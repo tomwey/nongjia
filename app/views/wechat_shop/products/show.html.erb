@@ -1,21 +1,52 @@
 <% content_for :header do %>
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container">
-    <div class="row">
-      <div class="col-md-3">
-        返回
-      </div>
-      <div class="col-md-6">
-        <%= @product.title %>
-      </div>
-      <div class="col-md-3"></div>
+    <div class="navbar-item left-button">
+      <a href="javascript:history.back()">返回</a>
     </div>
+    <div class="navbar-item title-view">
+      <%= @product.title %>
+    </div>
+    
   </div>
 </nav>
+
+<div id="carousel-images" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <% if @product.images.size > 1 %>
+  <ol class="carousel-indicators">
+    <% @product.images.each_with_index do |image_url, index| %>
+        <li data-target="#carousel-images" data-slide-to="<%= index %>" class="<%= index == 0 ? "active" : "" %>"></li>
+    <% end %>
+  </ol>
+  <% end %>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    <% @product.images.each_with_index do |image_url, index| %>
+      <div class="item <%= index == 0 ? "active" : "" %>">
+        <%= image_tag image_url, style: "width: 100%; height: 206px;" %>
+      </div>
+    <% end %>
+  </div>
+
+</div>
+
 <% end %>
 
-<div class="product" style="margin-top: 30px;">
-  ddddd
+<div class="product" style="margin-top: 10px; padding-bottom: 40px;">
+  <div class="base-info">
+    <h2 class="title"><%= @product.title %></h2>
+    <p class="green price">¥ <%= @product.price %></p>
+    <p>有货，下单后1-3天内发顺丰</p>
+  </div>
+  
+  <div class="detail-info">
+    <h2 class="title">产品详情</h2>
+    <% @product.detail_images.each do |img| %>
+    <%= image_tag img, style: 'width: 100%'  %>
+    <% end %>
+  </div>
 </div>
 
 <% content_for :toolbar do %>
