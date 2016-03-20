@@ -15,3 +15,13 @@
   </div>
   <% end %>
 </div>
+
+<% content_for :toolbar do %>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+  <ul class="shop-toolbar">
+    <li class="active"><%= link_to '首页', wechat_shop_root_path %></li>
+    <li><%= link_to '我的订单', '#' %></li>
+    <li><%= link_to '个人中心', '#' %></li>
+  </ul>
+</nav>
+<% end %>
