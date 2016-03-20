@@ -8,7 +8,7 @@
     <a class="product-link" href="<%= wechat_shop_product_path(product) %>">
       <%= image_tag product.images.first.url(:small) %>
       <div class="product-info">
-        <h2 class="title"><%= product.title %></h2>
+        <h2 class="title"><%= truncate(product.title, length: 15) %></h2>
         <p class="price">¥ <%= product.price %></p>
       </div>
     </a>
