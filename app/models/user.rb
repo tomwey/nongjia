@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
   
   has_many :authorizations, dependent: :destroy, inverse_of: :user
-  
+  has_many :orders, inverse_of: :user
+  has_many :shipments, dependent: :destroy, inverse_of: :user
   # validates :mobile, presence: true
   # validates :mobile, format: { with: /\A1[3|4|5|7|8][0-9]\d{4,8}\z/, message: "请输入11位正确的手机号" },
   #                    length: { is: 11 },
