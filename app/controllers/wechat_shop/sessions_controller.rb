@@ -3,7 +3,7 @@ class WechatShop::SessionsController < WechatShop::ApplicationController
   def new
     if session['wechat.code'].blank?
       # 首先去获取code
-      url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=#{Setting.wx_app_id}&redirect_uri=#{Setting.wx_redirect_uri}&response_type=code&scope=snsapi_userinfo&state=nj_shop#wechat_redirect"
+      url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=#{Setting.wx_app_id}&redirect_uri=#{Rack::Utils.escape(Setting.wx_redirect_uri)}&response_type=code&scope=snsapi_userinfo&state=nj_shop#wechat_redirect"
       redirect(url)
     else
       # 有code直接进行登录授权操作
