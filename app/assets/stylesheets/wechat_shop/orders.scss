@@ -1,0 +1,99 @@
+.new-order{
+  background-color: #eaeaea;
+  margin-top: -30px;
+  height: 100%;
+  .input-item {
+    text-decoration: none;
+    display: block;
+    color: $w_black;
+    background-color: white;
+    margin-bottom: 10px;
+    padding: 15px;
+    clear: both;
+    font-size: 1em;
+  }
+  
+  .right-arrow {
+    color: #aaa;
+//    font-size: 1.5em;
+//    font-size: 24px;
+    font-weight: normal;
+  }
+  
+  .shipment-info {
+  }
+  .product-info {
+    clear: both;
+    height: 90px;
+    .product-image {
+      display: block;
+      
+      float: left;
+      width: 60px;
+      height: 60px;
+      margin: 0;
+      padding: 0;
+    }
+    .product-caption {
+      margin-left: 70px;
+      p {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+  
+//  .fee-info {
+//    dt {
+//      float: left;
+//    }
+////    dd {
+////      float: right;
+////    }
+//  }
+}
+
+.order-toolbar {
+  background-color: rgb(20,20,20);
+  clear: both;
+  margin: 0;
+  padding: 0;
+  
+  height: $w_toolbarHeight;
+  line-height: $w_toolbarHeight;
+  
+  .toolbar-item {
+    float: left;
+    
+    height: 100%;
+    
+    margin:0;
+    padding: 0;
+    
+    text-align: center;
+    font-size: 1.2em;
+    color: white;
+  }
+  
+  .total-fee {
+    width: 60%;
+    text-align: left;
+    padding-left: 15px;
+  }
+  
+  .pay {
+    width: 40%;
+    float: right;
+    background-color: red;
+    a {
+      margin: 0;
+      padding: 0;
+      display: block;
+      background-color: $w_green;
+      width: 100%;
+      height: 100%;
+      color: white;
+      text-decoration: none;
+    }
+  }
+}

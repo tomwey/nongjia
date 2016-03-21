@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     root 'home#index'
     resources :products, only: [:show]
     resources :orders
+    resources :shipments
     
     get    'login'    => 'sessions#new',       as: :login
     get    'redirect' => 'sessions#save_user', as: :redirect_uri

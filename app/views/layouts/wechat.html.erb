@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no,width=device-width,height=device-height">
-  <title>农家商城</title>
+  <title><%= render_page_title %></title>
   <%= stylesheet_link_tag 'wechat', media: 'all' %>
   
 </head>
@@ -12,13 +12,12 @@
   
   <%= content_for?(:header) ? yield(:header) : '' %>
   
-  <div class="container">
-    <%= yield %>
-  </div>
+  <%= yield %>
   
   <%= content_for?(:toolbar) ? yield(:toolbar) : '' %>
   <%= content_for?(:tabbar) ? yield(:tabbar) : '' %>
   
   <%= javascript_include_tag 'wechat', 'data-turbolinks-track' => true %>
+  <%= yield :scripts %>
 </body>
 </html>

@@ -1,19 +1,21 @@
-<div class="box">
-  <a class="home-help-link">农家：让城里人直接购买乡下的土货 ></a>
-</div>
-
-<div class="home-products">
-  <% @products.each_with_index do |product, index| %>
-  <div class="product <%= index % 2 == 1 ? "product-pull-right" : "" %>">
-    <a class="product-link" href="<%= wechat_shop_product_path(product) %>">
-      <%= image_tag product.images.first.url(:small) %>
-      <div class="product-info">
-        <h2 class="title"><%= truncate(product.title, length: 15) %></h2>
-        <p class="price">¥ <%= product.price %></p>
-      </div>
-    </a>
+<div class="container">
+  <div class="box">
+    <a class="home-help-link">农家：让城里人直接购买乡下的土货 ></a>
   </div>
-  <% end %>
+
+  <div class="home-products">
+    <% @products.each_with_index do |product, index| %>
+    <div class="product <%= index % 2 == 1 ? "product-pull-right" : "" %>">
+      <a class="product-link" href="<%= wechat_shop_product_path(product) %>">
+        <%= image_tag product.images.first.url(:small) %>
+        <div class="product-info">
+          <h2 class="title"><%= truncate(product.title, length: 15) %></h2>
+          <p class="price">¥ <%= product.price %></p>
+        </div>
+      </a>
+    </div>
+    <% end %>
+  </div>
 </div>
 
 <% content_for :tabbar do %>

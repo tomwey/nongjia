@@ -1,0 +1,83 @@
+// 产品详情页面
+.header-body {
+//  position: relative;
+}
+
+#carousel-images {
+  margin: 0;
+  padding: 0;
+  margin-top: -30px;
+  position: relative;
+}
+
+.toolbar-item .input-digit-control {
+  background-color: #eaeaea;
+  width: 90%;
+  height: 40px;
+  line-height: 40px;
+  margin-top: 5px;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  clear: both;
+  color: $w_black;
+  .adds-on {
+    display: block;
+    height: 100%;
+    width: 30px;
+    color: $w_black;
+    font-size: 1.6em;
+    text-decoration: none;
+    &.plus {
+      float: right;
+      margin-right: 2px;
+    }
+    &.minus {
+      float: left;
+      margin-left: 2px;
+    }
+  }
+}
+
+.toolbar-item {
+    &.price {
+      font-size: 1.5em;
+    }
+    &.buy {
+//      width: 33%;
+      float: right;
+      a {
+        text-decoration: none;
+        display: block;
+        margin-top: -1px;
+        color: white;
+        width: 100%;
+        height: 51px;
+//        line-height: 50px;
+        background-color: $w_green;
+      }
+      
+    }
+}
+
+.product {
+  
+  .base-info {
+    border-bottom: 1px dashed #eaeaea;
+    .title {
+      font-size: 1.5em;
+      font-weight: normal;
+    
+      color: $w_black;
+    }
+    .price {
+      font-size: 1.5em;
+    }
+  }
+  
+  .detail-info {
+    .title {
+      font-size: 1.5em;
+    }
+  }
+}

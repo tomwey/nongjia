@@ -1,0 +1,48 @@
+<div class="new-order">
+  <%= form_for [:wechat_shop, @order] do |f| %>
+    <a class="input-item shipment-info" href="<%= wechat_shop_shipments_path %>">
+      
+      <div class="pull-right right-arrow">
+        <i class="fa fa-angle-right" style="font-size: 24px"></i>
+      </div>
+      <%= render_shipment_info %>
+    </a>
+    <input type="hidden" name="current_shipment_id" value="">
+    
+    <div class="input-item product-info">
+      <%= image_tag @order.product.images.first.url(:small), class: 'product-image' %>
+      <div class="product-caption">
+        <p><%= @order.product.title %></p>
+        <p><span class="green">¥<%= @order.product.price %></span> × <%= @order.quantity %></p>
+      </div>   
+    </div>
+    
+    <div class="input-item">
+      <p>配送说明：下单后1-3天发货</p>
+      <%= f.text_field :note, placeholder: '订单备注', class: 'form-control' %>
+    </div>
+    
+    <a class="input-item" href="#">
+      <div class="pull-right right-arrow">
+        <i class="fa fa-angle-right" style="font-size: 24px"></i>
+      </div>
+      <span>优惠券</span>
+    </a>
+    
+    <div class="input-item fee-info">
+      dkdkkdd
+    </div>
+    
+  <% end %>
+</div>
+
+<% content_for :toolbar do %>
+<nav class="navbar navbar-fixed-bottom order-toolbar">
+  <div class="toolbar-item total-fee">
+    应付金额: ¥ <%= @order.product.price * @order.quantity %>
+  </div>
+  <div class="toolbar-item pay">
+    <a href="javascript:;" onclick="payment()">立即支付</a>
+  </div>
+</nav>
+<% end %>

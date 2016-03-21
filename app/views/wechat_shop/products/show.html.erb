@@ -30,35 +30,65 @@
 
 <% end %>
 
-<div class="product" style="margin-top: 10px; padding-bottom: 40px;">
-  <div class="base-info">
-    <h2 class="title"><%= @product.title %></h2>
-    <p class="green price">¥ <%= @product.price %></p>
-    <p>有货，下单后1-3天内发顺丰</p>
-  </div>
+<div class="container">
+  <div class="product" style="margin-top: 10px; padding-bottom: 40px;">
+    <div class="base-info">
+      <h2 class="title"><%= @product.title %></h2>
+      <p class="green price">¥ <%= @product.price %></p>
+      <p>有货，下单后1-3天内发顺丰</p>
+    </div>
   
-  <div class="detail-info">
-    <h2 class="title">产品详情</h2>
-    <% @product.detail_images.each do |img| %>
-    <%= image_tag img, style: 'width: 100%'  %>
-    <% end %>
+    <div class="detail-info">
+      <h2 class="title">产品详情</h2>
+      <% @product.detail_images.each do |img| %>
+      <%= image_tag img, style: 'width: 100%'  %>
+      <% end %>
+    </div>
   </div>
 </div>
 
 <% content_for :toolbar do %>
 <nav class="navbar navbar-fixed-bottom wechat-shop-toolbar">
   <div class="toolbar-item price">
-    ¥ 99
+    ¥ <%= @product.price %>
   </div>
   <div class="toolbar-item">
     <div class="input-digit-control">
-      <a class="adds-on minus">-</a>
-      <span class="digit">1</span>
-      <a class="adds-on plus">+</a>
+      <a class="adds-on minus" href="javascript:;" onclick="changeDigit(false)">－</a>
+      <span class="digit" data-minimum='1' data-maximum='5' id="digit-control">1</span>
+      <a class="adds-on plus" href="javascript:;" onclick="changeDigit(true)">＋</a>
     </div>
   </div>
   <div class="toolbar-item buy">
-    <a class="">立即购买</a>
+    <a href="javascript:;" onclick="checkout()">立即购买</a>
   </div>
 </nav>
+<% end %>
+
+<% content_for :scripts do %>
+<script>
+function changeDigit(flag) {
+  // alert(flag);
+  var $digitControl = $('#digit-control');
+  var digit = parseInt($digitControl.text());
+  var min = parseInt($digitControl.data('minimum'));
+  var max = parseInt($digitControl.data('maximum'));
+  // alert(min + ':' + max)
+  if (flag) {
+    if ( digit < max ) {
+      digit ++;
+    }
+  } else {
+    if ( digit > min ) {
+      digit --;
+    }
+  }
+  
+  $digitControl.text(digit);
+}
+
+function checkout() {
+  window.location.href = '<%= new_wechat_shop_order_path(pid: @product.id) %>' + '&q=' + $('#digit-control').text();
+}
+</script>
 <% end %>

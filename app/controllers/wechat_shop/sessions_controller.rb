@@ -44,8 +44,7 @@ class WechatShop::SessionsController < WechatShop::ApplicationController
     if user
       log_in user
       session['wechat.code'] = nil
-      redirect_to(session[:return_to] || wechat_shop_root_path)
-      session[:return_to] = nil
+      redirect_back_or(wechat_shop_root_path)
     else
       flash[:error] = '登录认证失败'
       redirect_to(request.referrer || wechat_shop_root_path) 
