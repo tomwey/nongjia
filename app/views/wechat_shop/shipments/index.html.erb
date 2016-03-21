@@ -1,0 +1,30 @@
+<div class="shipments">
+  <% @shipments.each do |shipment| %>
+  <div class="shipment-item">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-9">
+          <div class="base-info">
+            <h2><%= shipment.name %><span class="mobile"><%= shipment.mobile %></span></h2>
+            <p class="address"><%= shipment.address %></p>
+          </div>
+        </div>
+        <div class="col-xs-3">
+          <div class="actions">
+            <a href="#"><i class="fa fa-trash"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  
+  <div class="container">
+    <div class="new-shipment">
+      <a href="#" class="new-button"><i class="fa fa-plus"></i> 新增地址</a>
+      <a href="javascript:history.go(-1)" class="new-button back-button">返回</a>
+    </div>
+  </div>
+
+</div>
+  

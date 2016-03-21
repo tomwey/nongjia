@@ -1,5 +1,8 @@
 class WechatShop::OrdersController < WechatShop::ApplicationController
 
+  before_filter :require_user
+  before_filter :check_user
+
   def new
     # puts request.url
     # puts params

@@ -11,10 +11,12 @@
 @import "wechat_shop/home";
 @import "wechat_shop/products";
 @import "wechat_shop/orders";
+@import "wechat_shop/shipments";
 
 body {
-  padding-top: 30px;
+//  padding-top: 30px;
   padding-bottom: 30px;
+//  background-color: white;
 }
 
 a {
@@ -39,7 +41,7 @@ a {
 }
 
 // 回首页按钮
-.go-home {
+.nb-circle-button {
   display: block;
   width: 40px;
   height: 40px;
@@ -55,6 +57,9 @@ a {
   text-align: center;
   color: white;
   font-size: 1.3em;
+  &:hover {
+    color: white;
+  };
 }
 
 .wechat-shop-toolbar {
