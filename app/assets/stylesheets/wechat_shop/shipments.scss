@@ -1,8 +1,11 @@
 .shipments {
+  padding-top: 10px;
   background-color: #eaeaea;
   .shipment-item {
     background-color: white;
-    margin-top: 10px;
+    margin: 0;
+    margin-bottom: 10px;
+    padding: 10px 0;
     
     .actions {
       text-align: right;
@@ -26,6 +29,8 @@
       }
       
       .address {
+        margin: 0;
+        padding: 0;
         color: rgb(137,137,137);
         font-size: 1.2em;
       }
@@ -35,7 +40,7 @@
 }
 
 .new-shipment {
-  margin-top: 20px;
+  margin-top: 10px;
   .new-button {
     display: block;
     width: 100%;
