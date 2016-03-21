@@ -7,7 +7,8 @@ class WechatShop::SessionsController < WechatShop::ApplicationController
       redirect(url)
     else
       # 有code直接进行登录授权操作
-      redirect("/wechat_shop/redirect?code=#{session['wechat.code']}&state=nj_shop")
+      # redirect("/wechat_shop/redirect?code=#{session['wechat.code']}&state=nj_shop")
+      redirect_to wechat_shop_redirect_uri_path(code: session['wechat.code'], state: 'nj_shop')
     end
   end
   
@@ -39,13 +40,14 @@ class WechatShop::SessionsController < WechatShop::ApplicationController
       return 
     end
     
-    # auth = WechatAuth.find_by(open_id: openid);
-    user = User.fromWechatAuth(result)
+    user = User.from_wechat_uth(result)
     if user
       log_in user
+      session['wechat.code'] = nil
       redirect_to(session[:return_to] || wechat_shop_root_path)
       session[:return_to] = nil
     else
+      flash[:error] = '登录认证失败'
       redirect_to(request.referrer || wechat_shop_root_path) 
     end
     

@@ -11,9 +11,9 @@ Rails.application.routes.draw do
     resources :products, only: [:show]
     resources :orders
     
-    get    'login'    => 'sessions#new',     as: :login
+    get    'login'    => 'sessions#new',       as: :login
     get    'redirect' => 'sessions#save_user', as: :redirect_uri
-    delete 'logout'   => 'sessions#destroy', as: :logout
+    delete 'logout'   => 'sessions#destroy',   as: :logout
   end
   
   ############################### end ################################
