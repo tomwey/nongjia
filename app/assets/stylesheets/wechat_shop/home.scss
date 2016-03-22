@@ -22,9 +22,6 @@
     width: 48%;
     margin-bottom: 4%;
     border: 1px solid #eaeaea;
-//    border-radius: 4px;
-//    -webkit-border-radius: 4px;
-//    -moz-border-radius: 4px;
     
     .product-link {
       display: block;
@@ -37,12 +34,8 @@
     
     img {
       display: block;
-//      border-radius: 4px;
-//      -webkit-border-radius: 4px;
-//      -moz-border-radius: 4px;
       width: 100%;
       height: auto;
-//      margin-bottom: -10px;
     }
     
     .product-info {
@@ -50,14 +43,10 @@
       h2 {
         font-size: 1.2em;
         font-weight: normal;
-        margin: 0;
-        padding: 0;
       }
       p {
         font-size: 1.2em;
         color: $w_green;
-        margin: 0;
-        padding: 0;
       }
     }
   }
@@ -70,13 +59,8 @@
 .wechat-shop-tabbar {
   list-style: none;
   clear: left;
-  margin: 0;
-  padding: 0;
   li {
     float: left;
-    
-    margin: 0;
-    padding: 0;
     
     width :33.333333%;
     height: $w_tabbarHeight;
