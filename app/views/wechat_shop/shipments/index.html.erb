@@ -1,6 +1,6 @@
 <div class="shipments">
   <% @shipments.each do |shipment| %>
-  <div class="shipment-item">
+  <div class="shipment-item" data-id='<%= shipment.id %>' onclick="updateShipment(this)">
     <div class="container">
       <div class="row">
         <div class="col-xs-9">
@@ -27,4 +27,25 @@
   </div>
 
 </div>
+
+<% content_for :scripts do %>
+<script>
+function updateShipment(ele) {
+  var id = $(ele).data('id');
+  $.ajax({
+    type: "PATCH",
+    url: "<%= update_current_shipment_wechat_shop_user_path %>",
+    data: {
+      shipment_id: id
+    }
+  }).done(function(result) {
+    if (result === '0') {
+      window.location.href = '<%= new_wechat_shop_order_path %>'
+    } else {
+      alert('设置地址失败');
+    }
+  });
+}
+</script>
+<% end %>
   

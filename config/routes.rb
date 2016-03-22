@@ -11,6 +11,12 @@ Rails.application.routes.draw do
     resources :products, only: [:show]
     resources :orders
     resources :shipments
+    resource  :user do
+      patch 'update_current_shipment' => 'users#update_current_shipment'
+      collection do
+        get :orders
+      end
+    end
     
     get    'login'    => 'sessions#new',       as: :login
     get    'redirect' => 'sessions#save_user', as: :redirect_uri
