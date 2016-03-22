@@ -2,7 +2,25 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
 
   before_filter :require_user
   before_filter :check_user
-
+  
+  def index
+    @orders = current_user.orders.order('id DESC')
+    @current = 'orders_index'
+    @page_title = '我的订单'
+  end
+  
+  def no_pay
+    @orders = current_user.orders.no_pay.order('id DESC')
+    @current = 'orders_no_pay'
+    render :index
+  end
+  
+  def shipping
+    @orders = current_user.orders.shipping.order('id DESC')
+    @current = 'orders_shipping'
+    render :index
+  end
+  
   def new
     # 放到session里面
     save_pid_and_quantity_to_session(params[:pid], params[:q])
@@ -17,6 +35,8 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
     @order = Order.new
     @order.product = product
     @order.quantity = user_order_quantity
+    @order.total_fee = product.price * @order.quantity
+    @order.discount_fee = 0
     
     @page_title = '确认订单'
     

@@ -1,13 +1,8 @@
 <div class="new-order">
   <%= form_for [:wechat_shop, @order] do |f| %>
     <a class="input-item shipment-info" href="<%= wechat_shop_shipments_path %>">
-      
-      <div class="pull-right right-arrow">
-        <i class="fa fa-angle-right" style="font-size: 24px"></i>
-      </div>
       <%= render_shipment_info %>
     </a>
-    <input type="hidden" name="current_shipment_id" value="">
     
     <div class="input-item product-info">
       <%= image_tag @order.product.images.first.url(:small), class: 'product-image' %>
@@ -30,7 +25,26 @@
     </a>
     
     <div class="input-item fee-info">
-      dkdkkdd
+      <table class="fee-info-table">
+        <tr>
+          <td class="td-label">商品金额</td>
+          <td class="td-value">¥ <%= @order.total_fee %></td>
+          <%= f.hidden_field :total_fee, value: @order.total_fee %>
+        </tr>
+        <tr>
+          <td class="td-label">运费</td>
+          <td class="td-value">¥ 0.00</td>
+        </tr>
+        <tr>
+          <td class="td-label">优惠</td>
+          <td class="td-value discount">-¥ <%= @order.discount_fee %></td>
+          <%= f.hidden_field :discount_fee, value: @order.discount_fee %>
+        </tr>
+        <tr>
+          <td class="td-label">应付金额</td>
+          <td class="td-value">¥ <%= @order.total_fee - @order.discount_fee %></td>
+        </tr>
+      </table>
     </div>
     
   <% end %>
@@ -39,10 +53,18 @@
 <% content_for :toolbar do %>
 <nav class="navbar navbar-fixed-bottom order-toolbar">
   <div class="toolbar-item total-fee">
-    应付金额: ¥ <%= @order.product.price * @order.quantity %>
+    应付金额: ¥ <%= @order.total_fee - @order.discount_fee %>
   </div>
   <div class="toolbar-item pay">
     <a href="javascript:;" onclick="payment()">立即支付</a>
   </div>
 </nav>
+<% end %>
+
+<% content_for :scripts do %>
+<script>
+function payment() {
+  $('.new-order form').submit();
+}
+</script>
 <% end %>

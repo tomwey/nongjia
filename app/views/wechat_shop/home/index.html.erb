@@ -19,11 +19,5 @@
 </div>
 
 <% content_for :tabbar do %>
-<nav class="navbar navbar-default navbar-fixed-bottom">
-  <ul class="wechat-shop-tabbar">
-    <li class="active"><%= link_to '首页', wechat_shop_root_path %></li>
-    <li><%= link_to '我的订单', '#' %></li>
-    <li><%= link_to '个人中心', '#' %></li>
-  </ul>
-</nav>
+<%= render '/wechat_shop/shared/tabbar' %>
 <% end %>

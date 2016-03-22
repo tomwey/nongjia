@@ -18,8 +18,8 @@ class WechatShop::UsersController < WechatShop::ApplicationController
     end
   end
   
-  def orders
-    
+  def settings
+    @current = 'user_settings'
   end
   
 end

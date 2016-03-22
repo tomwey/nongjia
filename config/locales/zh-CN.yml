@@ -7,6 +7,7 @@
       product: "产品"
       admin_user: "管理员"
       banner: "广告"
+      order: "订单"
     attributes:
       user:
         mobile: "手机"
@@ -46,6 +47,10 @@
         visit: "访问量"
         visible: "是否可见"
         created_at: "创建时间"
+      order:
+        user_id: '用户'
+        product_id: '产品'
+        order_no: '订单号'
         
       banner:
         image: "广告图片"

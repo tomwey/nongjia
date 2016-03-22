@@ -12,6 +12,10 @@
   
   <%= content_for?(:header) ? yield(:header) : '' %>
   
+  <div class="container">
+    <%= notice_message if action_name != 'home' %>
+  </div>
+  
   <%= yield %>
   
   <%= content_for?(:toolbar) ? yield(:toolbar) : '' %>

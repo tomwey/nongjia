@@ -9,13 +9,19 @@ Rails.application.routes.draw do
   namespace :wechat_shop do
     root 'home#index'
     resources :products, only: [:show]
-    resources :orders
+    resources :orders do
+      collection do
+        get :no_pay
+        get :shipping
+      end
+    end
     resources :shipments
     resource  :user do
       patch 'update_current_shipment' => 'users#update_current_shipment'
       collection do
         get :orders
       end
+      get :settings, on: :member
     end
     
     get    'login'    => 'sessions#new',       as: :login

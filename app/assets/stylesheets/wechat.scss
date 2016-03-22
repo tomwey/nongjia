@@ -9,7 +9,7 @@
 @import "wechat_shop/orders";
 @import "wechat_shop/shipments";
 
-h1,h2,h3,h4,h5,h6,p,img,ul,li {
+h1,h2,h3,h4,h5,h6,p,img,ul,li,a,table,section,aside {
   margin: 0;
   padding: 0;
 }
@@ -40,7 +40,7 @@ a {
   padding: 10px;
 //  margin: 0 0 20px 0;
   background-color: white;
-  border: 1px solid #eaeaea; 
+  border: 1px solid $w_borderColor; 
 }
 
 // 回首页按钮
@@ -54,7 +54,7 @@ a {
   position: fixed;
   left: 10px;
   top: 10px;
-  z-index: 1;
+  z-index: 168;
 
   background-color: rgba(0,0,0,0.7);
   text-align: center;
@@ -63,6 +63,41 @@ a {
   &:hover {
     color: white;
   };
+}
+
+.wechat-shop-tabbar {
+  width: 100%;
+  
+  list-style: none;
+  clear: left;
+  li {
+    float: left;
+    
+    width :33.333333%;
+    height: $w_tabbarHeight;
+    line-height: $w_tabbarHeight;
+    
+    text-align: center;
+    font-size: 1.2em;
+    border-right: 1px solid $w_borderColor;
+    &:last-child {
+      border: 0;
+    };
+    a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      color: $w_black;
+      text-decoration: none;
+    }
+    
+    &.active {
+      a {
+        color: $w_green;
+      }
+      
+    }
+  }
 }
 
 .wechat-shop-toolbar {
@@ -79,4 +114,16 @@ a {
     font-size: 1.2em;
     color: white;
   }
+}
+
+.empty-result-box {
+  padding: 10px 0;
+  width: 168px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5em;
+  color: rgb(201,201,201);
+  border: 1px dashed rgb(201,201,201);
+  margin: 0 auto;
+  margin-top: 50%;
 }
