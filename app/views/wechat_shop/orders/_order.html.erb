@@ -16,7 +16,10 @@
       </div>
     </div>
     <div class="panel-footer">
-      <span class="state pull-right label label-info"><%= render_order_state(order) %></span>
+      <div class="pull-right">
+        <span class="state label label-info"><%= render_order_state(order) %></span>
+        <%= link_to '去支付', '#', class: 'green', style: 'padding: 5px; padding-right:0; text-decoration: none;' %>
+      </div>
       <span class="fee">订单金额: ¥ <%= order.total_fee - order.discount_fee %></span>
     </div>
   </div>

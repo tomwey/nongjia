@@ -1,0 +1,47 @@
+.user-header {
+  width: 100%;
+  padding: 6% 0;
+  text-align: center;
+  background-color: $w_green;
+  .nickname {
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: white;
+  }
+}
+
+.user-info-table {
+  width: 100%;
+  tr {
+//    padding: 20px;
+    border-bottom: 1px solid $w_borderColor;
+    cursor: pointer;
+  }
+  
+  td {
+    vertical-align: middle;
+    padding: 15px 0;
+    font-size: 1.2em;
+    color: $w_black;
+  }
+  
+  .cell-left {
+    padding-left: 15px;
+    width: 60%;
+  }
+  .cell-right {
+    padding-right: 15px;
+    text-align: right;
+  }
+  
+  .blank-row {
+    height: 20px !important;
+    background-color: #eaeaea;
+  }
+  
+  .cell-label {
+    padding-left: 10px;
+  }
+  
+  
+}

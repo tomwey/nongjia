@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       end
     end
     resources :shipments
+    resources :coupons
     resource  :user do
       patch 'update_current_shipment' => 'users#update_current_shipment'
       collection do

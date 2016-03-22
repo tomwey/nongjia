@@ -1,3 +1,41 @@
+<div class="user-header">
+  <%= user_avatar_tag(@user, :big) %>
+  <p class="nickname"><%= @user.nickname %></p>
+</div>
+
+<div class="user-info">
+  <table class="user-info-table">
+    <tr onclick="gotoLink('<%= wechat_shop_orders_path %>')">
+      <td class="cell-left">我的订单</td>
+      <td class="cell-right"><i class='fa fa-angle-right' style='font-size: 24px'></i></td>
+    </tr>
+    <tr onclick="gotoLink('<%= wechat_shop_shipments_path %>')">
+      <td class="cell-left">收货地址</td>
+      <td class="cell-right"><i class='fa fa-angle-right' style='font-size: 24px'></i></td>
+    </tr>
+    <tr class="blank-row">
+        <td colspan="2"></td>
+    </tr>
+    <tr onclick="gotoLink('<%= wechat_shop_coupons_path %>')">
+      <td class="cell-left">我的优惠券</td>
+      <td class="cell-right"><i class='fa fa-angle-right' style='font-size: 24px'></i></td>
+    </tr>
+    <tr onclick="gotoLink('')">
+      <td class="cell-left">售后服务</td>
+      <td class="cell-right"><i class='fa fa-angle-right' style='font-size: 24px'></i></td>
+    </tr>
+    
+  </table>
+</div>
+
 <% content_for :tabbar do %>
   <%= render '/wechat_shop/shared/tabbar' %>
+<% end %>
+
+<% content_for :scripts do %>
+<script>
+function gotoLink(url) {
+  window.location.href = url;
+}
+</script>
 <% end %>
