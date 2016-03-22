@@ -9,12 +9,13 @@
   
 </head>
 <body>
+  <%= yield :navbar %>
   
-  <%= content_for?(:header) ? yield(:header) : '' %>
-  
+  <% unless notice_message.blank? %>
   <div class="container">
-    <%= notice_message if action_name != 'home' %>
+    <%= notice_message %>
   </div>
+  <% end %>
   
   <%= yield %>
   

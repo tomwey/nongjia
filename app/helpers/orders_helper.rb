@@ -28,7 +28,7 @@ module OrdersHelper
         end
       end
     else
-      content_tag :table do
+      content_tag :table, class: 'order-shipment-table' do
         content_tag :tr do
           "<td width='80%'>
             请选择地址

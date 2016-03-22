@@ -1,9 +1,7 @@
-<% content_for :header do %>
+<%= render_navbar_for('产品详情', 
+  { icon: 'fa fa-angle-left', link: "#{wechat_shop_root_path}" }) %>
 
 <div class="header-body">
-  
-  <%= back_button %>
-  
   <div id="carousel-images" class="carousel slide" data-ride="carousel">
     
     <!-- Indicators -->
@@ -26,8 +24,6 @@
 
   </div>
 </div>
-
-<% end %>
 
 <div class="container">
   <div class="product" style="margin-top: 10px; padding-bottom: 40px;">

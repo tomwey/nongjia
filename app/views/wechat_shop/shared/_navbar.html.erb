@@ -1,0 +1,23 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="row">
+      <div class="col-xs-2">
+        <% if left_item[:link].present? %>
+        <a href="<%= left_item[:link] %>" class="navbar-item">
+          <i class="<%= left_item[:icon] %>"></i>
+        </a>
+        <% end %>
+      </div>
+      <div class="col-xs-8 navbar-title-view">
+        <% if title.present? %>
+        <h2><%= title %></h2>
+        <% end %>
+      </div>
+      <div class="col-xs-2">
+        <% if right_item[:link].present? %>
+        <a href="<%= right_item[:link] %>" class="navbar-item <%= right_item[:class] %>">
+          <i class="<%= right_item[:icon] %>"></i>
+        </a>
+        <% end %>
+      </div>
+    </div>
+</nav>

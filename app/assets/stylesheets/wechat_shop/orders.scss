@@ -1,16 +1,14 @@
 .new-order{
-  background-color: $w_borderColor;
-//  margin-top: -30px;
-  height: 100%;
+  
   .input-item {
     text-decoration: none;
     display: block;
+    width: 100%;
     color: $w_black;
-    background-color: white;
-    margin-bottom: 10px;
     padding: 15px;
     clear: both;
     font-size: 1em;
+    border-bottom: 1px solid $w_borderColor;
     
     .order-shipment-table {
       width: 100%;
@@ -21,12 +19,20 @@
         vertical-align: middle;
       }
     }
+    
+    .shipment-intro {
+      margin-bottom: 5px;
+    }
+    .note-field {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #eee;
+    }
   }
   
   .fee-info-table {
     width: 100%;
     td {
-//      padding: 2px 0;
       vertical-align: middle;
     }
     .td-label {
@@ -42,20 +48,24 @@
     }
   }
   
-  .product-info {
-    clear: both;
-    height: 90px;
+  .product-info-table {
+    width: 100%;
     .product-image {
-      display: block;
-      
-      float: left;
-      width: 60px;
-      height: 60px;
+      width: 20%;
+      img {
+        width: 60px;
+        height: 60px;
+      }
     }
+    
     .product-caption {
-      margin-left: 70px;
+      vertical-align: top;
+      padding-left: 10px;
+      padding-right: 10px;
+      width: 80%;
     }
   }
+  
 }
 
 .order-toolbar {

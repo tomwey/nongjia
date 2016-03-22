@@ -1,4 +1,11 @@
+<%= render_navbar_for('收货地址', 
+{ icon: 'fa fa-angle-left', link: 'javascript:history.go(-1)' },
+{ icon: 'fa fa-plus', class: 'navbar-item-size', link: '#'}) %>
+
 <div class="shipments">
+  <% if @shipments.empty? %>
+  <%= render_empty_result('没有收货地址!') %>
+  <% else %>
   <% @shipments.each do |shipment| %>
   <div class="shipment-item" data-id='<%= shipment.id %>' onclick="updateShipment(this)">
     <div class="container">
@@ -18,14 +25,8 @@
     </div>
   </div>
   <% end %>
+  <% end %>
   
-  <div class="container">
-    <div class="new-shipment">
-      <a href="#" class="new-button"><i class="fa fa-plus"></i> 新增地址</a>
-      <a href="javascript:history.go(-1)" class="new-button back-button">返回</a>
-    </div>
-  </div>
-
 </div>
 
 <% content_for :scripts do %>

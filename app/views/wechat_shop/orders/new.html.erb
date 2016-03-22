@@ -1,20 +1,29 @@
-<div class="new-order">
+<%= render_navbar_for(@page_title, 
+  { icon: 'fa fa-angle-left', link: "#{wechat_shop_product_path(@order.product)}" }) %>
+
+<div class="new-order">  
   <%= form_for [:wechat_shop, @order] do |f| %>
     <a class="input-item shipment-info" href="<%= wechat_shop_shipments_path %>">
       <%= render_shipment_info %>
     </a>
     
     <div class="input-item product-info">
-      <%= image_tag @order.product.images.first.url(:small), class: 'product-image' %>
-      <div class="product-caption">
-        <p><%= @order.product.title %></p>
-        <p><span class="green">¥<%= @order.product.price %></span> × <%= @order.quantity %></p>
-      </div>   
+      <table class="product-info-table">
+        <tr>
+          <td class="product-image">
+            <%= image_tag @order.product.images.first.url(:small), class: 'product-image' %>
+          </td>
+          <td class="product-caption">
+            <p class="product-title"><%= @order.product.title %></p>
+            <p><span class="green">¥<%= @order.product.price %></span> × <%= @order.quantity %></p>
+          </td>
+        </tr>
+      </table>
     </div>
     
     <div class="input-item">
-      <p>配送说明：下单后1-3天发货</p>
-      <%= f.text_field :note, placeholder: '订单备注', class: 'form-control' %>
+      <p class="shipment-intro">配送说明：下单后1-3天发货</p>
+      <%= f.text_field :note, placeholder: '订单备注', class: 'note-field' %>
     </div>
     
     <a class="input-item" href="#">

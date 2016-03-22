@@ -1,6 +1,9 @@
 module WechatsHelper
-  def render_empty_result
-    content_tag :div, '喔，没有数据!!!', class: 'empty-result-box'
+  def render_navbar_for(title, left_item = {}, right_item = {})
+    render '/wechat_shop/shared/navbar', left_item: left_item, title: title, right_item: right_item
+  end
+  def render_empty_result(msg = '喔，没有数据!!!')
+    content_tag :div, msg, class: 'empty-result-box'
   end
   
   def back_button
