@@ -1,3 +1,4 @@
+require 'rest-client'
 class WechatShop::UsersController < WechatShop::ApplicationController
   before_filter :require_user
   before_filter :check_user
@@ -20,7 +21,33 @@ class WechatShop::UsersController < WechatShop::ApplicationController
   
   def settings
     @user = current_user
+    if @user.nickname.blank? or @user.avatar.blank?
+      # 获取用户个人信息，注意由于access_token有效期为2小时，
+      # 所以下面的操作有可能会失效
+      auth = @user.wechat_auth
+      resp = RestClient.get "https://api.weixin.qq.com/sns/userinfo", 
+                     { :params => { 
+                                    :access_token => auth.access_token,
+                                    :openid       => auth.open_id,
+                                    :lang         => 'zh_CN'
+                                  } 
+                     }
+                   
+      result = JSON.parse(resp)
+      if result['openid'].present?
+        # 正确取到用户数据
+        @user.nickname = result['nickname']
+        @user.remote_avatar_url = result['headimgurl'] 
+        @user.save!
+      end
+    end
+    
     @current = 'user_settings'
   end
+  
+  private
+    def fetch_user_info(user)
+      
+    end
   
 end

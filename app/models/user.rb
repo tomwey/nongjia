@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
     self.save!
   end
   
-  def self.from_wechat_uth(result)
+  def self.from_wechat_auth(result)
     auth = WechatAuth.find_by(open_id: result['openid'])
     if auth.blank?
       user = User.new
@@ -51,14 +51,26 @@ class User < ActiveRecord::Base
       user = auth.user;
     end
     
+    # 获取用户信息
+    if user.nickname.blank? or user.avatar.blank?
+      resp = RestClient.get "https://api.weixin.qq.com/sns/userinfo", 
+                     { :params => { 
+                                    :access_token => auth.access_token,
+                                    :openid       => auth.open_id,
+                                    :lang         => 'zh_CN'
+                                  } 
+                     }
+      result = JSON.parse(resp)
+      if result['openid'].present?
+        # 正确取到用户数据
+        @user.nickname = result['nickname']
+        @user.remote_avatar_url = result['headimgurl'] 
+        @user.save!
+      end
+    end
+    
     user
-    # {
-    #    "access_token":"ACCESS_TOKEN",
-    #    "expires_in":7200,
-    #    "refresh_token":"REFRESH_TOKEN",
-    #    "openid":"OPENID",
-    #    "scope":"SCOPE",
-    # }
+    
   end
   
 end
