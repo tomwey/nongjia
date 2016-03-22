@@ -18,11 +18,11 @@ module SessionsHelper
   end
   
   def current_user
-    puts '123-------'
-    # 测试用途
-    @current_user ||= User.find_by(id: 1)
-    return @current_user
-    # 测试
+    
+    if Rails.env.development?
+      @current_user ||= User.find_by(id: 1)
+      return @current_user
+    end
     
     if session[:user_id]
       @current_user ||= User.find_by(id: session[:user_id])
