@@ -1,0 +1,19 @@
+<div id="carousel-images" class="carousel slide" data-ride="carousel">    
+  <!-- Indicators -->
+  <% if product.images.size > 1 %>
+  <ol class="carousel-indicators">
+    <% product.images.each_with_index do |image_url, index| %>
+        <li data-target="#carousel-images" data-slide-to="<%= index %>" class="<%= index == 0 ? "active" : "" %>"></li>
+    <% end %>
+  </ol>
+  <% end %>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    <% product.images.each_with_index do |image_url, index| %>
+      <div class="item <%= index == 0 ? "active" : "" %>">
+        <%= image_tag image_url, style: "width: 100%; height: 206px;" %>
+      </div>
+    <% end %>
+  </div>
+</div>

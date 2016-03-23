@@ -1,51 +1,22 @@
 <%= render_navbar_for('产品详情', 
   { icon: 'fa fa-angle-left', link: "#{wechat_shop_root_path}" }) %>
 
-<div class="header-body">
-  <div id="carousel-images" class="carousel slide" data-ride="carousel">
-    
-    <!-- Indicators -->
-    <% if @product.images.size > 1 %>
-    <ol class="carousel-indicators">
-      <% @product.images.each_with_index do |image_url, index| %>
-          <li data-target="#carousel-images" data-slide-to="<%= index %>" class="<%= index == 0 ? "active" : "" %>"></li>
-      <% end %>
-    </ol>
-    <% end %>
+<%= render '/wechat_shop/products/slides', product: @product %>
 
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner" role="listbox">
-      <% @product.images.each_with_index do |image_url, index| %>
-        <div class="item <%= index == 0 ? "active" : "" %>">
-          <%= image_tag image_url, style: "width: 100%; height: 206px;" %>
-        </div>
-      <% end %>
-    </div>
-
-  </div>
-</div>
-
-<div class="container">
-  <div class="product" style="margin-top: 10px; padding-bottom: 40px;">
-    <div class="base-info">
-      <h2 class="title"><%= @product.title %></h2>
-      <p class="green price">¥ <%= @product.price %></p>
-      <p>有货，下单后1-3天内发顺丰</p>
-    </div>
+<div class="product">
+  <%= render '/wechat_shop/products/product_base_info', product: @product %>
   
-    <div class="detail-info">
-      <h2 class="title">产品详情</h2>
-      <% @product.detail_images.each do |img| %>
-      <%= image_tag img, style: 'width: 100%'  %>
-      <% end %>
-    </div>
-  </div>
+  <div class="vertical-divider"></div>
+  
+  <%= render '/wechat_shop/products/product_detail_info', product: @product %>
 </div>
 
 <% content_for :toolbar do %>
 <nav class="navbar navbar-fixed-bottom wechat-shop-toolbar">
-  <div class="toolbar-item price">
-    ¥ <%= @product.price %>
+  <div class="toolbar-item">
+    <div class="price">
+      ¥ <%= @product.price %>
+    </div>
   </div>
   <div class="toolbar-item">
     <div class="input-digit-control">
@@ -54,8 +25,10 @@
       <a class="adds-on plus" href="javascript:;" onclick="changeDigit(true)">＋</a>
     </div>
   </div>
-  <div class="toolbar-item buy">
-    <a href="javascript:;" onclick="checkout()">立即购买</a>
+  <div class="toolbar-item pull-right">
+    <div class="buy">
+      <a href="javascript:;" onclick="checkout()">立即购买</a>
+    </div>
   </div>
 </nav>
 <% end %>
@@ -72,10 +45,14 @@ function changeDigit(flag) {
   if (flag) {
     if ( digit < max ) {
       digit ++;
+    } else {
+      alert('不能超过' + max);
     }
   } else {
     if ( digit > min ) {
       digit --;
+    } else {
+      alert('至少为' + min);
     }
   }
   
