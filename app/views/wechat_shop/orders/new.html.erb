@@ -30,7 +30,7 @@
       <div class="pull-right right-arrow">
         <i class="fa fa-angle-right" style="font-size: 24px"></i>
       </div>
-      <span>优惠券</span>
+      <span style="font-size: 1.1em;">优惠券</span>
     </a>
     
     <div class="input-item fee-info">
@@ -60,12 +60,16 @@
 </div>
 
 <% content_for :toolbar do %>
-<nav class="navbar navbar-fixed-bottom order-toolbar">
-  <div class="toolbar-item total-fee">
-    应付金额: ¥ <%= @order.total_fee - @order.discount_fee %>
+<nav class="navbar navbar-fixed-bottom wechat-shop-toolbar">
+  <div class="toolbar-item">
+    <div class="total-fee">
+      应付: ¥ <%= @order.total_fee - @order.discount_fee %>
+    </div>
   </div>
-  <div class="toolbar-item pay">
-    <a href="javascript:;" onclick="payment()">立即支付</a>
+  <div class="toolbar-item pull-right">
+    <div class="pay">
+      <a href="javascript:;" onclick="payment()">立即支付</a>
+    </div>
   </div>
 </nav>
 <% end %>
