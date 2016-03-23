@@ -15,7 +15,7 @@
 <nav class="navbar navbar-fixed-bottom wechat-shop-toolbar">
   <div class="toolbar-item">
     <div class="price">
-      ¥ <%= @product.price %>
+      ¥ <span id="total-fee" data-price='<%= @product.price %>'><%= @product.price %></span>
     </div>
   </div>
   <div class="toolbar-item">
@@ -47,16 +47,21 @@ function changeDigit(flag) {
       digit ++;
     } else {
       alert('不能超过' + max);
+      return;
     }
   } else {
     if ( digit > min ) {
       digit --;
     } else {
       alert('至少为' + min);
+      return;
     }
   }
   
   $digitControl.text(digit);
+  
+  var price = parseInt($('#total-fee').data('price'));
+  $('#total-fee').text((price * digit));
 }
 
 function checkout() {

@@ -7,7 +7,6 @@ class WechatShop::ShipmentsController < WechatShop::ApplicationController
   
   def index
     @shipments = current_user.shipments.order('id DESC')
-    @from = params[:from]
   end
   
   def new
