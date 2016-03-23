@@ -72,7 +72,11 @@ gem 'rack-utf8_sanitizer'
 gem 'grape-swagger'
 gem 'grape-swagger-rails'
 
+# 状态机
 gem 'state_machine'
+
+# Rich text editor
+gem 'active_admin_editor'
 
 # rest请求
 gem 'rest-client'

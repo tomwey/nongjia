@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   # 微信商城
   namespace :wechat_shop, path: 'wx-shop' do
     root 'home#index'
+    resources :pages, path: :wiki, only: [:show]
     resources :products, only: [:show]
     resources :orders do
       collection do

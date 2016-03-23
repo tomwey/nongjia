@@ -9,6 +9,7 @@
       banner: "广告"
       order: "订单"
       shipment: '收货信息'
+      page: '文档'
     attributes:
       user:
         mobile: "手机"
