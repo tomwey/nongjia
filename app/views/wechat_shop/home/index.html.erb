@@ -1,9 +1,10 @@
-<%= render_navbar_for('农家风味') %>
-<div class="container">
+<div class="container home-container">
   <div class="box home-help-link-container">
-    
     <a class="home-help-link">农家：让城里人直接购买乡下的土货
-    <span class="right-arrow pull-right"><i class="fa fa-angle-right" style="font-size: 24px"></i></span></a>
+      <span class="right-arrow pull-right">
+        <i class="fa fa-angle-right" style="font-size: 20px"></i>
+      </span>
+    </a>
   </div>
 
   <div class="home-products">
@@ -12,7 +13,7 @@
       <a class="product-link" href="<%= wechat_shop_product_path(product) %>">
         <%= image_tag product.images.first.url(:small) %>
         <div class="product-info">
-          <h2 class="title"><%= truncate(product.title, length: 15) %></h2>
+          <div class="block-ellipsis"><%= product.title %></div>
           <p class="price">¥ <%= product.price %></p>
         </div>
       </a>

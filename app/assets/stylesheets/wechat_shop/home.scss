@@ -1,7 +1,14 @@
 // 首页
-.home-help-link-container {
-  margin-top: 30px;
+.home-container {
+  margin-top: -50px;
+  margin-bottom: 80px;
+  .home-help-link-container {
+    margin-top: 20px;
+  }
 }
+//.home-help-link-container {
+//  margin-top: 30px;
+//}
 
 .box .home-help-link {
   display: block;
@@ -9,14 +16,13 @@
   padding: 2px 0;
   text-align: center;
   color: $w_green;
-  font-size: 1.2em;
+  font-size: 1.1em;
   text-decoration: none;
 }
 
 .home-products {
   margin-top: 20px;
-  padding-bottom: 50px;
-  margin-bottom: 50px;
+  padding-bottom: 20px;
   clear: both;
   .product {
     float: left;
@@ -41,11 +47,24 @@
     
     .product-info {
       padding: 10px;
-      h2 {
-        font-size: 1.2em;
-        font-weight: normal;
+      
+      .block-ellipsis {
+        display: block;
+        display: -webkit-box;
+        max-width: 100%;
+        height: 2.5em;
+        margin: 0 auto;
+        font-size: 1em;
+        line-height: 1.3em;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-wrap: break-word;
       }
+      
       p {
+        margin-top: 5px;
         font-size: 1.2em;
         color: $w_green;
       }
