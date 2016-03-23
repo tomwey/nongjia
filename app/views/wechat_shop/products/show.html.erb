@@ -35,6 +35,20 @@
 
 <% content_for :scripts do %>
 <script>
+
+// 添加手势查看
+$(".carousel").swipe({
+
+  swipe: function(event, direction, distance, duration, fingerCount, fingerData) {
+
+    if (direction == 'left') $(this).carousel('next');
+    if (direction == 'right') $(this).carousel('prev');
+
+  },
+  allowPageScroll:"vertical"
+
+});
+
 function changeDigit(flag) {
   // alert(flag);
   var $digitControl = $('#digit-control');
