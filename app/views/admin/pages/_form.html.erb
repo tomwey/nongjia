@@ -1,6 +1,6 @@
-<%= form_for [:admin, @page], html:  do |f| %>
+<%= form_for [:admin, @page] do |f| %>
    <%= f.text_field :title %>
    <%= f.text_field :slug %>
    <%= f.trix_editor :body %>
    <%= f.submit '提交' %>
- <% end %>
+<% end %>

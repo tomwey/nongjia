@@ -77,6 +77,7 @@ gem 'state_machine'
 
 # Rich text editor
 # gem 'active_admin_editor'
+gem 'trix'
 
 # rest请求
 gem 'rest-client'

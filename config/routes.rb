@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  get 'attachments/create'
+
   ######################### 微信公众平台开发 ###########################
   post '/wechat' => 'weixin/home#welcome', defaults: { format: 'xml' }
   get "/wechat" => 'weixin/home#show'
@@ -8,7 +10,7 @@ Rails.application.routes.draw do
   # 微信商城
   namespace :wechat_shop, path: 'wx-shop' do
     root 'home#index'
-    resources :pages, path: :wiki, only: [:show]
+    resources :pages, path: :p, only: [:show]
     resources :products, only: [:show]
     resources :orders do
       collection do
@@ -32,6 +34,7 @@ Rails.application.routes.draw do
   end
   
   ############################### end ################################
+  
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   

@@ -295,6 +295,8 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
+    trix (0.9.5)
+      rails
     turbolinks (2.5.3)
       coffee-rails
     tzinfo (1.2.2)
@@ -364,6 +366,7 @@ DEPENDENCIES
   spring
   sprockets
   state_machine
+  trix
   turbolinks
   uglifier
   unicorn
