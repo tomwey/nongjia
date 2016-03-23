@@ -76,7 +76,7 @@ gem 'grape-swagger-rails'
 gem 'state_machine'
 
 # Rich text editor
-gem 'active_admin_editor'
+# gem 'active_admin_editor'
 
 # rest请求
 gem 'rest-client'
