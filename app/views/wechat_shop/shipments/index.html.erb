@@ -1,38 +1,21 @@
-<%= render_navbar_for('收货地址', 
-{ icon: 'fa fa-angle-left', link: 'javascript:history.go(-1)' },
-{ icon: 'fa fa-plus', class: 'navbar-item-size', link: '#'}) %>
+<%= render_navbar_for('收货地址管理', 
+{ icon: 'fa fa-angle-left', link: "javascript:history.go(-1)" },
+{ icon: 'fa fa-plus', class: 'navbar-item-size', label: '+', link: "#{new_wechat_shop_shipment_path}"}) %>
 
 <div class="shipments">
   <% if @shipments.empty? %>
-  <%= render_empty_result('没有收货地址!') %>
+    <%= render_empty_result('没有收货地址!') %>
   <% else %>
-  <% @shipments.each do |shipment| %>
-  <div class="shipment-item" data-id='<%= shipment.id %>' onclick="updateShipment(this)">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-9">
-          <div class="base-info">
-            <h2><%= shipment.name %><span class="mobile"><%= shipment.mobile %></span></h2>
-            <p class="address"><%= shipment.address %></p>
-          </div>
-        </div>
-        <div class="col-xs-3">
-          <div class="actions">
-            <a href="#"><i class="fa fa-trash"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    <table class="shipments-table">
+      <%= render @shipments %>
+    </table>
   <% end %>
-  <% end %>
-  
 </div>
 
 <% content_for :scripts do %>
 <script>
 function updateShipment(ele) {
-  var id = $(ele).data('id');
+  var id = $(ele).parent().data('id');
   $.ajax({
     type: "PATCH",
     url: "<%= update_current_shipment_wechat_shop_user_path %>",
@@ -46,7 +29,9 @@ function updateShipment(ele) {
       alert('设置地址失败');
     }
   });
+  return false;
 }
+
 </script>
 <% end %>
   

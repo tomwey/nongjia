@@ -1,0 +1,18 @@
+<tr data-id="<%= shipment.id %>">
+  <td class="cell-icon">
+    <% if current_user.current_shipment_id == shipment.id %>
+    <i class="fa fa-check"></i>
+    <% else %>
+    &nbsp;
+    <% end %>
+  </td>
+  <td class="cell-left" onclick="updateShipment(this)">
+    <div>
+      <p><span class="name"><%= shipment.name %></span><span class="mobile"><%= shipment.mobile %></span></p>
+      <p class="address"><%= shipment.address %></p>
+    </div>
+  </td>
+  <td class="cell-right">
+    <a class="trash" href="<%= wechat_shop_shipment_path(shipment) %>" data-method="delete"><i class="fa fa-trash"></i></a>
+  </td>
+</tr>

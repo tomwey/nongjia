@@ -1,0 +1,24 @@
+<%= render_navbar_for('新增收货地址', 
+{ icon: 'fa fa-angle-left', link: "#{wechat_shop_shipments_path}" }) %>
+
+<div class="vertical-divider"></div>
+<div class="container-form">
+  <%= form_for [:wechat_shop, @shipment] do |f| %>
+  
+  <%= render "/wechat_shop/shared/error_messages", target: @shipment %>
+  
+  <div class="input-control first">
+    <%= f.text_field :name, placeholder: '姓名', class: 'form-control' %>
+  </div>
+  <div class="input-control">
+    <%= f.text_field :mobile, placeholder: '手机', class: 'form-control' %>
+  </div>
+  <div class="input-control">
+    <%= f.text_field :address, placeholder: '收货地址', class: 'form-control' %>
+  </div>
+  <div class="input-control input-button">
+    <%= f.submit '保存', class: 'button' %>
+  </div>
+  
+  <% end %>
+</div>

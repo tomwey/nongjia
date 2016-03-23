@@ -52,6 +52,8 @@
   
   .product-info-table {
     width: 100%;
+    table-layout:fixed;
+    
     .product-image {
       width: 20%;
       img {
@@ -64,7 +66,8 @@
       vertical-align: top;
       padding-left: 10px;
       padding-right: 10px;
-      width: 80%;
+//      width: 80%;
+      word-wrap: break-word;
     }
   }
   

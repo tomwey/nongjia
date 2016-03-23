@@ -3,7 +3,7 @@
 
 <div class="new-order">  
   <%= form_for [:wechat_shop, @order] do |f| %>
-    <a class="input-item shipment-info" href="<%= wechat_shop_shipments_path %>">
+    <a class="input-item shipment-info" href="<%= wechat_shop_shipments_path() %>">
       <%= render_shipment_info %>
     </a>
     

@@ -8,6 +8,7 @@
       admin_user: "管理员"
       banner: "广告"
       order: "订单"
+      shipment: '收货信息'
     attributes:
       user:
         mobile: "手机"
@@ -16,6 +17,11 @@
         signature: "个性签名"
         private_token: "Token"
         verified: "账户可用"
+      shipment:
+        name: "姓名"
+        mobile: "手机"
+        address: "收货地址"
+        
       admin_user:
         email: "邮箱"
         password: "密码"
