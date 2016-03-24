@@ -11,10 +11,26 @@ class User < ActiveRecord::Base
   #                    uniqueness: true
   
   mount_uploader :avatar, AvatarUploader
+  
   # 生成private_token
   before_create :generate_private_token
   def generate_private_token
     self.private_token = SecureRandom.uuid.gsub('-', '') if self.private_token.blank?
+  end
+  
+  # 生成唯一的优惠推荐码
+  before_create :generate_nb_code
+  def generate_nb_code
+    # 生成6位随机码, 系统的推荐码是5位数
+    begin
+      self.nb_code = SecureRandom.hex(3) #if self.nb_code.blank?
+    end while self.class.exists?(:nb_code => nb_code)
+  end
+  
+  # 初次注册生成一个优惠券
+  after_create :generate_coupon
+  def generate_coupon
+    # TODO
   end
   
   def avatar_url(size)
