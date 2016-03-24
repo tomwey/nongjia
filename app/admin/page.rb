@@ -6,6 +6,20 @@ menu priority: 6, label: "文档"
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
 permit_params :list, :of, [:title, :slug, :body], :on, :model
+
+filter :title
+filter :slug
+filter :created_at
+
+index do
+  selectable_column
+  column('#',:id) { |page| link_to page.id, admin_page_path(page) }
+  column(:title, sortable: false) { |page| link_to page.title, admin_page_path(page) }
+  column(:slug, sortable: false) { |page| link_to wechat_shop_page_path(page.slug), wechat_shop_page_path(page.slug)  }
+  
+  actions
+end
+
 #
 # or
 #

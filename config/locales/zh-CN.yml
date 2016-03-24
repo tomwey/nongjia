@@ -22,7 +22,11 @@
         name: "姓名"
         mobile: "手机"
         address: "收货地址"
-        
+      page:
+        title: '标题'
+        slug: '链接'
+        body: '内容'
+        created_at: '创建时间'
       admin_user:
         email: "邮箱"
         password: "密码"

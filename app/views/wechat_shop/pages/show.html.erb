@@ -1,3 +1,6 @@
+<%= render_navbar_for(@page.title, 
+  { icon: 'fa fa-angle-left', link: "javascript:history.go(-1)" }) %>
+
 <div class="pages">
   <%= raw @page.body %>
 </div>
