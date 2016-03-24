@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  mount RedactorRails::Engine => '/redactor_rails'
   get 'attachments/create'
 
   ######################### 微信公众平台开发 ###########################

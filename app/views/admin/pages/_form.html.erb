@@ -11,13 +11,13 @@
   
   <div style="width: 80%; margin-bottom: 20px;">
     <%= f.label :body, '*内容' %>
-    <%= f.trix_editor :body %>
+    <%= text_area_tag :body,  "", name: 'page[body]', :class => "redactor", :rows => 40, :cols => 120 %>
   </div>
   
   <%= f.submit '提交' %>
 <% end %>
 
-<script>
+<!--script>
 $(document).ready(
 function() {
   var createStorageKey, host, uploadAttachment;
@@ -70,4 +70,4 @@ function() {
   };
 
 });
-</script>
+</script-->

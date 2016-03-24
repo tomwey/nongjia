@@ -13,7 +13,8 @@ module API
       
       mount API::V1::WechatAuthAPI
       
-      mount API::V1::AttachmentsAPI
+      # 配合trix文本编辑器
+      # mount API::V1::AttachmentsAPI
       
       # 开发文档配置
       add_swagger_documentation(

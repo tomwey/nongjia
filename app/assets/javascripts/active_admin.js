@@ -1,3 +1,4 @@
 //= require active_admin/base
-//= require trix
+//= require redactor-rails
+//= require redactor-rails/langs/zh_cn
 //= require_self
