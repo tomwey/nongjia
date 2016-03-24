@@ -2,6 +2,10 @@
 
 `address order vendor coupon`
 
+coupon
+
+name expired_on coupon_type note value max_value
+
 两种体现形式，操作对象可以是系统也可以是个人
 
 优惠券
