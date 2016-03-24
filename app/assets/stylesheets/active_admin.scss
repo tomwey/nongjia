@@ -7,10 +7,14 @@
 // For example, to change the sidebar width:
 // $sidebar-width: 242px;
 
+/*
+ *= require redactor-rails
+ */
+
 // Active Admin's got SASS!
 @import "active_admin/mixins";
 @import "active_admin/base";
-@import "redactor-rails.css";
+//@import "redactor-rails.css";
 
 //@import "active_admin/editor/wysiwyg";
 
