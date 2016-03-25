@@ -15,17 +15,27 @@
 ########################################################################################
 
 class Coupon < ActiveRecord::Base
-  belongs_to :user
+  # belongs_to :user
   
   # 定义优惠券类型
   DISCOUNT = 1 # 打折类型
   CASH     = 2 # 抵扣现金类型
   
-  validates :title, :value, :max_value, :expired_on, :coupon_type, :user_id, presence: true
+  validates :title, :value, :max_value, :expired_on, :coupon_type, presence: true
   
   scope :no_active, -> { where(actived_at: nil) }
   scope :recent, -> { order('id DESC') }
   scope :unexpired, -> { where('expired_on > ?', Time.now - 1.days) }
+  
+  def self.for_owners(user_ids)
+    # 查询属于指定用户的或者属于所有用户的优惠券
+    if user_ids.is_a?(Array)
+      id_values = user_ids.join(',')
+    else
+      id_values = user_ids
+    end
+    where("owners = '{}' or owners @> ?", "{#{id_values}}")
+  end
   
   def expired?
     Time.now > self.expired_on.end_of_day
