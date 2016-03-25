@@ -11,6 +11,10 @@
   }
 }
 
+.user-info {
+  margin-bottom: 50px;
+}
+
 .user-info-table {
   width: 100%;
   tr {
@@ -36,7 +40,7 @@
   }
   
   .blank-row {
-    height: 20px !important;
+    height: 10px !important;
     background-color: #eaeaea;
   }
   

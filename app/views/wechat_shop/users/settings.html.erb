@@ -5,23 +5,36 @@
 
 <div class="user-info">
   <table class="user-info-table">
-    <tr onclick="gotoLink('<%= wechat_shop_orders_path %>')">
-      <td class="cell-left">我的订单</td>
-      <td class="cell-right"><i class='fa fa-angle-right' style='font-size: 24px'></i></td>
-    </tr>
+    
     <tr onclick="gotoLink('<%= wechat_shop_shipments_path(from: settings_wechat_shop_user_path) %>')">
-      <td class="cell-left">收货地址</td>
+      <td class="cell-left">兑换优惠码</td>
       <td class="cell-right"><i class='fa fa-angle-right' style='font-size: 24px'></i></td>
     </tr>
-    <tr class="blank-row">
-        <td colspan="2"></td>
+    <tr onclick="gotoLink('<%= wechat_shop_coupons_path(from: settings_wechat_shop_user_path) %>')">
+      <td class="cell-left">推荐顾客得优惠</td>
+      <td class="cell-right"><i class='fa fa-angle-right' style='font-size: 24px'></i></td>
     </tr>
     <tr onclick="gotoLink('<%= wechat_shop_coupons_path(from: settings_wechat_shop_user_path) %>')">
       <td class="cell-left">我的优惠券</td>
       <td class="cell-right"><i class='fa fa-angle-right' style='font-size: 24px'></i></td>
     </tr>
+    <tr class="blank-row">
+        <td colspan="2"></td>
+    </tr>
+    
+    <tr onclick="gotoLink('<%= wechat_shop_shipments_path(from: settings_wechat_shop_user_path) %>')">
+      <td class="cell-left">收货地址管理</td>
+      <td class="cell-right"><i class='fa fa-angle-right' style='font-size: 24px'></i></td>
+    </tr>
+    <tr class="blank-row">
+        <td colspan="2"></td>
+    </tr>
     <tr onclick="gotoLink('<%= wechat_shop_page_path('service') %>')">
       <td class="cell-left">售后服务</td>
+      <td class="cell-right"><i class='fa fa-angle-right' style='font-size: 24px'></i></td>
+    </tr>
+    <tr onclick="gotoLink('<%= wechat_shop_coupons_path(from: settings_wechat_shop_user_path) %>')">
+      <td class="cell-left">帮助</td>
       <td class="cell-right"><i class='fa fa-angle-right' style='font-size: 24px'></i></td>
     </tr>
     
