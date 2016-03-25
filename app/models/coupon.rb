@@ -11,31 +11,23 @@
 #                               如果coupon_type为打折类型，那么该字段的值为我们指定
 # expired_on 有效期，不能为空，服务器通过检测当前使用时间是否小于有效期当天23:59:59来判断是否有效；
 #                           如果想要保证当前优惠券不过期，可以设置一个很大的日期，例如：3999-12-31
-# actived_at 激活优惠券的时间，可以为空，如果为空表示未使用过，否则表示已经使用了该优惠券，自动失效
 ########################################################################################
 
 class Coupon < ActiveRecord::Base
-  # belongs_to :user
+  
+  has_many :discountings
+  has_many :users, through: :discountings
   
   # 定义优惠券类型
   DISCOUNT = 1 # 打折类型
   CASH     = 2 # 抵扣现金类型
   
+  TYPE_COLLECTIONS = [['打折', DISCOUNT], ['抵扣现金', CASH]]
+  
   validates :title, :value, :max_value, :expired_on, :coupon_type, presence: true
   
-  scope :no_active, -> { where(actived_at: nil) }
   scope :recent, -> { order('id DESC') }
   scope :unexpired, -> { where('expired_on > ?', Time.now - 1.days) }
-  
-  def self.for_owners(user_ids)
-    # 查询属于指定用户的或者属于所有用户的优惠券
-    if user_ids.is_a?(Array)
-      id_values = user_ids.join(',')
-    else
-      id_values = user_ids
-    end
-    where("owners = '{}' or owners @> ?", "{#{id_values}}")
-  end
   
   def expired?
     Time.now > self.expired_on.end_of_day
@@ -48,8 +40,16 @@ class Coupon < ActiveRecord::Base
   def current_value_info
     case(coupon_type)
     when Coupon::DISCOUNT then "#{value / 10.0}折"
-    when Coupon::CASH     then "¥{value}"
+    when Coupon::CASH     then "¥#{value}"
     else ''
+    end
+  end
+  
+  def coupon_type_info
+    case(coupon_type)
+    when Coupon::DISCOUNT then "打折"
+    when Coupon::CASH     then "抵扣现金"
+    else '未知'
     end
   end
   
@@ -70,14 +70,4 @@ class Coupon < ActiveRecord::Base
   end
   
 end
-
-# t.string :title,      null: false # 优惠券标题描述
-# t.string :body                    # 优惠券详情描述
-# t.string :note                    # 优惠券使用说明
-# t.integer :value,     null: false # 优惠券的优惠额度，与coupon_type相关
-# t.integer :max_value, null: false # 最大优惠额度，与coupon_type相关
-# t.date :expired_on,   null: false # 有效期
-# t.datetime :actived_at            # 优惠券使用时间
-# t.integer :coupon_type, default: Coupon::DISCOUNT # 默认是打折类型
-# t.references :user, index: true, foreign_key: true
 

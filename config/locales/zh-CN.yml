@@ -10,6 +10,7 @@
       order: "订单"
       shipment: '收货信息'
       page: '文档'
+      coupon: '优惠券'
     attributes:
       user:
         mobile: "手机"
@@ -27,6 +28,17 @@
         slug: '链接'
         body: '内容'
         created_at: '创建时间'
+      coupon:
+        title: '标题'
+        body: '内容'
+        note: '使用说明'
+        value: '优惠额度'
+        max_value: '最大优惠额度'
+        expired_on: '有效期'
+        actived_at: '优惠券使用时间'
+        coupon_type: '优惠券类型'
+        created_at: '优惠券创建时间'
+        owners: '所有者'
       admin_user:
         email: "邮箱"
         password: "密码"

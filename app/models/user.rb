@@ -4,6 +4,13 @@ class User < ActiveRecord::Base
   has_many :orders, inverse_of: :user
   has_many :shipments, dependent: :destroy, inverse_of: :user
   
+  has_many :discountings
+  has_many :coupons, through: :discountings
+  
+  # 获取未用过的优惠券
+  has_many :unused_discountings, -> { where(discounted_at: nil) }, class_name: 'Discounting'
+  has_many :unused_coupons, through: :available_discountings, class_name: 'Coupon', source: :coupon
+  
   has_one  :wechat_auth
   # validates :mobile, presence: true
   # validates :mobile, format: { with: /\A1[3|4|5|7|8][0-9]\d{4,8}\z/, message: "请输入11位正确的手机号" },
