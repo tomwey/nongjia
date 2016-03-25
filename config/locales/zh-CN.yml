@@ -11,6 +11,7 @@
       shipment: '收货信息'
       page: '文档'
       coupon: '优惠券'
+      discounting: '优惠记录'
     attributes:
       user:
         mobile: "手机"
@@ -39,6 +40,11 @@
         coupon_type: '优惠券类型'
         created_at: '优惠券创建时间'
         owners: '所有者'
+      discounting:
+        discounted_at: '优惠券激活时间'
+        created_at: '创建时间'
+        coupon_id: '优惠券'
+        user_id: '用户'
       admin_user:
         email: "邮箱"
         password: "密码"

@@ -52,7 +52,7 @@ index do
   actions defaults: false do |product|
     item "编辑", edit_admin_product_path(product)
     if product.on_sale
-      item "下架", sale_admin_product_path(product), method: :put
+      item "下架", unsale_admin_product_path(product), method: :put
     else
       item "上架", sale_admin_product_path(product), method: :put
     end

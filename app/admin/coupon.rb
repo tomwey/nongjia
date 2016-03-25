@@ -52,9 +52,23 @@ index do
     end
   end
   actions defaults: false do |coupon|
-    item "编辑", edit_admin_coupon_path(coupon)
+    if coupon.discountings.empty?
+      item "所有用户 • ", all_admin_coupon_path(coupon), method: :post
+      item "随机用户 • ", random_admin_coupon_path(coupon), method: :post
+    end
+    item "编辑 • ", edit_admin_coupon_path(coupon)
     item "删除", admin_coupon_path(coupon), method: :delete, data: { confirm: '你确定吗？' }
   end
+end
+
+member_action :random, method: :post do
+  resource.send_random!
+  redirect_to collection_path, notice: "优惠券分发成功"
+end
+
+member_action :all, method: :post do
+  resource.send_all!
+  redirect_to collection_path, notice: "优惠券分发成功"
 end
 
 form do |f|
@@ -71,6 +85,5 @@ form do |f|
   
   f.actions
 end
-
 
 end

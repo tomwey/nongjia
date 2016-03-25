@@ -53,6 +53,23 @@ class Coupon < ActiveRecord::Base
     end
   end
   
+  def send_all!
+    valid_users = User.where(verified: true)
+    if valid_users.any?
+      self.users << valid_users
+      self.save!
+    end
+  end
+  
+  def send_random!
+    rand_num = User.count / 3
+    valid_users = User.where(verified: true).limit(rand_num).order("RANDOM()") # RANDOM()是postgresql的函数
+    if valid_users.any?
+      self.users << valid_users
+      self.save!
+    end
+  end
+  
   # 计算优惠的价格
   def discount_value_for(origin_value)
     return 0 if self.expired?
