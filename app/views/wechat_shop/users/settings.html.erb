@@ -9,7 +9,7 @@
       <td class="cell-left">我的订单</td>
       <td class="cell-right"><i class='fa fa-angle-right' style='font-size: 24px'></i></td>
     </tr>
-    <tr onclick="gotoLink('<%= wechat_shop_shipments_path %>')">
+    <tr onclick="gotoLink('<%= wechat_shop_shipments_path(from: settings_wechat_shop_user_path) %>')">
       <td class="cell-left">收货地址</td>
       <td class="cell-right"><i class='fa fa-angle-right' style='font-size: 24px'></i></td>
     </tr>

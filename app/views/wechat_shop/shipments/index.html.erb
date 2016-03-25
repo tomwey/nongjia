@@ -1,5 +1,5 @@
 <%= render_navbar_for('收货地址管理', 
-{ icon: 'fa fa-angle-left', link: "javascript:history.go(-1);" },
+{ icon: 'fa fa-angle-left', link: "#{@from}" },
 { icon: 'fa fa-plus', class: 'navbar-item-size', label: '+', link: "#{new_wechat_shop_shipment_path}"}) %>
 
 <div class="shipments">
@@ -24,7 +24,7 @@ function updateShipment(ele) {
     }
   }).done(function(result) {
     if (result === '0') {
-      window.location.href = '<%= new_wechat_shop_order_path %>'
+      window.location.href = '<%= @from %>'
     } else {
       alert('设置地址失败');
     }

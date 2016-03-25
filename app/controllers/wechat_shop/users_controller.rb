@@ -20,6 +20,9 @@ class WechatShop::UsersController < WechatShop::ApplicationController
   end
   
   def settings
+    
+    session[:from_for_shipments] = nil
+    
     @user = current_user
     if @user.nickname.blank? or @user.avatar.blank?
       # 获取用户个人信息，注意由于access_token有效期为2小时，

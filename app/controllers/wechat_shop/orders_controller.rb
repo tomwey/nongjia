@@ -23,6 +23,9 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
   
   def new
     # 放到session里面
+    
+    session[:from_for_shipments] = nil
+    
     save_pid_and_quantity_to_session(params[:pid], params[:q])
     
     product = Product.find_by(id: user_product_id)
@@ -75,11 +78,11 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
   end
   
   def user_product_id
-    session[user_session_key].split('-').first
+    session[user_session_key].split('-').first if session[user_session_key].present?
   end
   
   def user_order_quantity
-    session[user_session_key].split('-').last
+    session[user_session_key].split('-').last if session[user_session_key].present?
   end
     
 end

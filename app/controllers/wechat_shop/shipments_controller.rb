@@ -7,6 +7,10 @@ class WechatShop::ShipmentsController < WechatShop::ApplicationController
   
   def index
     @shipments = current_user.shipments.order('id DESC')
+    if params[:from]
+      session[:from_for_shipments] = params[:from]
+    end
+    @from = params[:from] || session[:from_for_shipments]
   end
   
   def new
