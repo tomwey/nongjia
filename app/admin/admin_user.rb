@@ -23,7 +23,7 @@ ActiveAdmin.register AdminUser do
     column :sign_in_count
     column :created_at
     # actions defaults: false do |user|
-    #   # item '修改密码', edit_admin_
+    #   item '修改密码', edit_admin_user_path
     # end
   end
   
@@ -39,14 +39,14 @@ ActiveAdmin.register AdminUser do
       row :created_at
     end
   end
-
+  
   form do |f|
-    f.inputs "修改密码" do
-      f.input :current_password
+    f.inputs "Admin Details" do
+      f.input :email
       f.input :password
       f.input :password_confirmation
     end
     f.actions
   end
-
+  
 end
