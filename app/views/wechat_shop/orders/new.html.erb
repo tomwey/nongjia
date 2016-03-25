@@ -26,9 +26,15 @@
       <%= f.text_field :note, placeholder: '订单备注', class: 'note-field' %>
     </div>
     
-    <a class="input-item" href="#">
+    <a class="input-item" href="<%= wechat_shop_coupons_path(from: new_wechat_shop_order_path) %>">
       <div class="pull-right right-arrow">
-        <i class="fa fa-angle-right" style="font-size: 24px"></i>
+        <span style="padding-right: 5px; color: red; font-size: 1em;">
+          <% if @coupon.present? %>
+          <%= @coupon.title %>
+          <% else %>
+          <%= current_user.unused_coupons.unexpired.count %>个可用
+          <% end %>
+        </span><i class="fa fa-angle-right" style="font-size: 24px"></i>
       </div>
       <span style="font-size: 1.1em;">优惠券</span>
     </a>
@@ -42,7 +48,7 @@
         </tr>
         <tr>
           <td class="td-label">运费</td>
-          <td class="td-value">¥ 0.00</td>
+          <td class="td-value">¥ 0</td>
         </tr>
         <tr>
           <td class="td-label">优惠</td>

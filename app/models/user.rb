@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   
   # 获取未用过的优惠券
   has_many :unused_discountings, -> { where(discounted_at: nil) }, class_name: 'Discounting'
-  has_many :unused_coupons, through: :available_discountings, class_name: 'Coupon', source: :coupon
+  has_many :unused_coupons, through: :unused_discountings, class_name: 'Coupon', source: :coupon
   
   has_one  :wechat_auth
   # validates :mobile, presence: true

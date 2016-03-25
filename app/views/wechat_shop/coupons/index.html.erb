@@ -1,0 +1,37 @@
+<%= render_navbar_for('我的优惠券', 
+{ icon: 'fa fa-angle-left', link: "#{@from}" }) %>
+
+<div class="coupons">
+  
+  <% if @coupons.empty? %>
+    <%= render_empty_result('没有可用优惠券!') %>
+  <% else %>
+  <div class="container">
+    <%= render @coupons %>
+  </div>
+  <% end %>
+  
+</div>
+
+<% content_for :scripts do %>
+<script>
+function applyCouponIfNeeded(ele) {
+  
+  var from = '<%= @from %>';
+  if ( from.indexOf('/user/settings') != -1 ) {
+    // 如果是设置界面跳转过来的，不作任何处理
+    return false;
+  }
+  
+  // 从下单页面跳转过来的
+  var id = $(ele).data('id');
+  
+  // 点击后直接跳转到下单页面，并且将当前优惠券传过去
+  window.location.href = '<%= new_wechat_shop_order_path %>' + '?coupon_id=' + id;
+  
+  return false;
+}
+
+</script>
+<% end %>
+  

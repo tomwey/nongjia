@@ -1,0 +1,21 @@
+<div class="panel panel-default" onclick="applyCouponIfNeeded(this)" data-id="<%= coupon.id %>">
+  <div class="panel-body">
+    <div class="coupon-caption">
+      <span class="pull-right info">
+        <%= coupon.current_value_info %>
+      </span>
+      <span class="title"><%= coupon.title %></span>
+    </div>
+    <% if coupon.body.present? %>
+    <span><%= coupon.body %></span>
+    <% end %>
+  </div>
+  <div class="panel-footer">
+    <span class="pull-right">
+      <%= coupon.expired_on.strftime('%Y年%-m月%-d日 到期') %>
+    </span>
+    <% if coupon.note.present? %>
+    <span><%= coupon.note %></span>
+    <% end %>
+  </div>
+</div>

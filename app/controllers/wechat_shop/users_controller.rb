@@ -22,6 +22,7 @@ class WechatShop::UsersController < WechatShop::ApplicationController
   def settings
     
     session[:from_for_shipments] = nil
+    session[:from_for_coupons] = nil
     
     @user = current_user
     if @user.nickname.blank? or @user.avatar.blank?

@@ -33,10 +33,6 @@ class Coupon < ActiveRecord::Base
     Time.now > self.expired_on.end_of_day
   end
   
-  def actived?
-    self.actived_at.present?
-  end
-  
   def current_value_info
     case(coupon_type)
     when Coupon::DISCOUNT then "#{value / 10.0}折"
@@ -73,7 +69,6 @@ class Coupon < ActiveRecord::Base
   # 计算优惠的价格
   def discount_value_for(origin_value)
     return 0 if self.expired?
-    return 0 if self.actived?
     
     origin_value = origin_value.to_i
     

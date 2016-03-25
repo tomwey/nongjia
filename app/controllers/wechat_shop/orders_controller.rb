@@ -25,6 +25,7 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
     # 放到session里面
     
     session[:from_for_shipments] = nil
+    session[:from_for_coupons] = nil
     
     save_pid_and_quantity_to_session(params[:pid], params[:q])
     
@@ -41,6 +42,14 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
     @order.total_fee = product.price * @order.quantity
     @order.discount_fee = 0
     
+    if params[:coupon_id].present?
+      @coupon = current_user.unused_coupons.unexpired.find_by(id: params[:coupon_id])
+      if @coupon.present?
+        @order.discount_fee = @coupon.discount_value_for(@order.total_fee)
+        session[:current_coupon_id] = params[:coupon_id]
+      end
+    end
+    
     @page_title = '确认订单'
     
   end
@@ -54,6 +63,15 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
     if @order.save
       session.delete(user_session_key)
       # flash[:success] = '下单成功'
+      
+      # 激活优惠券
+      if session[:current_coupon_id].present?
+        discounting = Discounting.where(user_id: current_user.id, coupon_id: session[:current_coupon_id]).first
+        if discounting.update_attribute(:discounted_at, Time.now)
+          session[:current_coupon_id] = nil
+        end
+      end
+      
       redirect_to wechat_shop_orders_path
     else
       render :new
