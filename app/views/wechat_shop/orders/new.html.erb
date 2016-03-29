@@ -32,7 +32,7 @@
           <% if @coupon.present? %>
           <%= @coupon.title %>
           <% else %>
-          <%= current_user.unused_coupons.unexpired.count %>个可用
+          <%= current_user.valid_coupons.count %>个可用
           <% end %>
         </span><i class="fa fa-angle-right" style="font-size: 24px"></i>
       </div>

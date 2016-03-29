@@ -3,7 +3,7 @@ ActiveAdmin.register Discounting do
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
-permit_params :user_id, :coupon_id
+permit_params :user_id, :coupon_id, :expired_on
 #
 # or
 #
@@ -17,6 +17,7 @@ permit_params :user_id, :coupon_id
 
 filter :coupon, as: :check_boxes, label: '优惠券'
 filter :user, label: '优惠券所属用户', collection: proc { User.all.map { |u| [u.nickname, u.id] } }
+filter :expired_on
 filter :discounted_at
 filter :created_at
 
@@ -28,6 +29,15 @@ index do
   end
   column '所属优惠券', sortable: false do |discounting|
     discounting.coupon.title
+  end
+  column '有效期' do |discounting|
+    if discounting.expired_on.blank?
+      ''
+    elsif discounting.expired?
+      discounting.expired_on.strftime('%Y年%-m月%-d日 到期')
+    else
+      '已过期'
+    end
   end
   column '激活时间' do |discounting|
     discounting.discounted_at#.strftime('%%%%%%')
@@ -43,7 +53,7 @@ end
 form do |f|
   f.semantic_errors
   f.inputs do
-    f.input :coupon_id, as: :select, collection: Coupon.unexpired.map { |c| [c.title, c.id] }
+    f.input :coupon_id, as: :select, collection: Coupon.recent.map { |c| [c.title, c.id] }
     f.input :user_id, label: '所属用户', as: :select, collection: User.where(verified: true).map { |u| [u.nickname, u.id] }
   end
   f.actions

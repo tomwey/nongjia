@@ -9,8 +9,7 @@
 # max_value 最大优惠额度，不能为空，表示该优惠券的最大优惠额度，
 #                               如果coupon_type为抵扣现金类型，那么该字段的值为value字段的值，
 #                               如果coupon_type为打折类型，那么该字段的值为我们指定
-# expired_on 有效期，不能为空，服务器通过检测当前使用时间是否小于有效期当天23:59:59来判断是否有效；
-#                           如果想要保证当前优惠券不过期，可以设置一个很大的日期，例如：3999-12-31
+# expired_days 有效天数，不能为空，从用户获取该优惠券的时间加上该字段所表示的过期天数，就是该优惠券的有效期
 ########################################################################################
 
 class Coupon < ActiveRecord::Base
@@ -24,14 +23,9 @@ class Coupon < ActiveRecord::Base
   
   TYPE_COLLECTIONS = [['打折', DISCOUNT], ['抵扣现金', CASH]]
   
-  validates :title, :value, :max_value, :expired_on, :coupon_type, presence: true
+  validates :title, :value, :max_value, :expired_days, :coupon_type, presence: true
   
   scope :recent, -> { order('id DESC') }
-  scope :unexpired, -> { where('expired_on > ?', Time.now - 1.days) }
-  
-  def expired?
-    Time.now > self.expired_on.end_of_day
-  end
   
   def current_value_info
     case(coupon_type)
@@ -59,7 +53,7 @@ class Coupon < ActiveRecord::Base
   
   def send_random!
     rand_num = User.count / 3
-    valid_users = User.where(verified: true).limit(rand_num).order("RANDOM()") # RANDOM()是postgresql的函数
+    valid_users = User.where(verified: true).limit(rand_num).order("RANDOM()") # RANDOM()是postgresql的函数 RAND()是mysql的函数
     if valid_users.any?
       self.users << valid_users
       self.save!
@@ -68,7 +62,6 @@ class Coupon < ActiveRecord::Base
   
   # 计算优惠的价格
   def discount_value_for(origin_value)
-    return 0 if self.expired?
     
     origin_value = origin_value.to_i
     

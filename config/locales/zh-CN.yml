@@ -12,6 +12,7 @@
       page: '文档'
       coupon: '优惠券'
       discounting: '优惠记录'
+      discount_event: '优惠活动'
     attributes:
       user:
         mobile: "手机"
@@ -35,16 +36,23 @@
         note: '使用说明'
         value: '优惠额度'
         max_value: '最大优惠额度'
-        expired_on: '有效期'
-        actived_at: '优惠券使用时间'
         coupon_type: '优惠券类型'
         created_at: '优惠券创建时间'
-        owners: '所有者'
+        expired_days: '有效期'
       discounting:
         discounted_at: '优惠券激活时间'
         created_at: '创建时间'
         coupon_id: '优惠券'
         user_id: '用户'
+        expired_on: '有效期'
+      discount_event:
+        code: '活动码'
+        title: '活动简介'
+        body: '活动详情'
+        expired_on: '活动截止日期'
+        score: '活动权重'
+        coupon_ids: '优惠券'
+        owners: '所有者'
       admin_user:
         email: "邮箱"
         password: "密码"

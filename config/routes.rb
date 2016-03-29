@@ -20,7 +20,8 @@ Rails.application.routes.draw do
       end
     end
     resources :shipments
-    resources :coupons
+    # resources :coupons
+    resources :discountings, path: :coupons, as: :coupons, only: [:index]
     resource  :user do
       patch 'update_current_shipment' => 'users#update_current_shipment'
       collection do

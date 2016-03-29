@@ -43,10 +43,11 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
     @order.discount_fee = 0
     
     if params[:coupon_id].present?
-      @coupon = current_user.unused_coupons.unexpired.find_by(id: params[:coupon_id])
-      if @coupon.present?
-        @order.discount_fee = @coupon.discount_value_for(@order.total_fee)
-        session[:current_coupon_id] = params[:coupon_id]
+      @discounting = current_user.valid_discountings.find_by(id: params[:coupon_id])
+      if @discounting.present?
+        @coupon = @discounting.coupon
+        @order.discount_fee = @discounting.discount_value_for(@order.total_fee)
+        session[:current_discounting_id] = params[:coupon_id]
       end
     end
     
@@ -65,10 +66,10 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
       # flash[:success] = '下单成功'
       
       # 激活优惠券
-      if session[:current_coupon_id].present?
-        discounting = Discounting.where(user_id: current_user.id, coupon_id: session[:current_coupon_id]).first
-        if discounting.update_attribute(:discounted_at, Time.now)
-          session[:current_coupon_id] = nil
+      if session[:current_discounting_id].present?
+        discounting = current_user.valid_discountings.find_by(id: session[:current_discounting_id])
+        if discounting && discounting.update_attribute(:discounted_at, Time.now)
+          session[:current_discounting_id] = nil
         end
       end
       
