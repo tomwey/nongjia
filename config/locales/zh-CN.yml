@@ -53,6 +53,7 @@
         score: '活动权重'
         coupon_ids: '优惠券'
         owners: '所有者'
+        created_at: '创建时间'
       admin_user:
         email: "邮箱"
         password: "密码"
@@ -88,7 +89,12 @@
         user_id: '用户'
         product_id: '产品'
         order_no: '订单号'
-        
+        note: '订单备注'
+        state: '订单状态'
+        quantity: '购买数量'
+        total_fee: '订单总价'
+        discount_fee: '订单优惠'
+        created_at: '下单时间'
       banner:
         image: "广告图片"
         title: "标题"

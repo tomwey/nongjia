@@ -40,6 +40,11 @@ class User < ActiveRecord::Base
     # TODO
   end
   
+  # 获取用户的收货信息
+  def shipment_info
+    Shipment.find_by(id: self.current_shipment_id)
+  end
+  
   def avatar_url(size)
     if avatar.blank?
       "avatar/#{size}.png"

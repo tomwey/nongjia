@@ -1,0 +1,15 @@
+<%= render_navbar_for('推荐顾客得优惠', 
+{ icon: 'fa fa-angle-left', link: "#{wechat_shop_user_settings_path}" }) %>
+
+<div class="events">
+  
+  <% if @event.blank? %>
+    <%= render_empty_result('没有优惠活动!') %>
+  <% else %>
+  <div class="container">
+    
+  </div>
+  <% end %>
+  
+</div>
+  

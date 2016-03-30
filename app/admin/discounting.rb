@@ -34,9 +34,9 @@ index do
     if discounting.expired_on.blank?
       ''
     elsif discounting.expired?
-      discounting.expired_on.strftime('%Y年%-m月%-d日 到期')
-    else
       '已过期'
+    else
+      discounting.expired_on.strftime('%Y年%-m月%-d日 到期')
     end
   end
   column '激活时间' do |discounting|

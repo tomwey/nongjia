@@ -22,12 +22,17 @@ Rails.application.routes.draw do
     resources :shipments
     # resources :coupons
     resources :discountings, path: :coupons, as: :coupons, only: [:index]
+    # resource :discount_event, path: :event, as: :event, only: [:index] do
+    #   post :active, on: :member
+    # end
+    
     resource  :user do
       patch 'update_current_shipment' => 'users#update_current_shipment'
       collection do
         get :orders
       end
       get :settings, on: :member
+      get :events, on: :member
     end
     
     get    'login'    => 'sessions#new',       as: :login

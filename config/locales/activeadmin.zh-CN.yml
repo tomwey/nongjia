@@ -7,3 +7,6 @@
         unblock: "启用"
         sale: "上架"
         unsale: "下架"
+        cancel: '订单取消'
+        ship: '订单配送'
+        complete: '订单完成'
