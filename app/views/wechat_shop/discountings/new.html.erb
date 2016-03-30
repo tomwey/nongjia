@@ -1,0 +1,9 @@
+<%= render_navbar_for('兑换优惠码', 
+{ icon: 'fa fa-angle-left', link: "#{settings_wechat_shop_user_path}" }) %>
+
+<div class="container form-container">
+  <%= form_tag wechat_shop_coupons_path, method: 'POST' do %>
+    <%= text_field_tag :code, nil, placeholder: '输入优惠码' %>
+    <%= submit_tag '应用', class: 'submit-button' %>
+  <% end %>
+</div>

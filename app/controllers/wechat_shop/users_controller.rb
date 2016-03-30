@@ -19,6 +19,12 @@ class WechatShop::UsersController < WechatShop::ApplicationController
     end
   end
   
+  def events
+    @page_title = "推荐顾客得优惠"
+    
+    @event = DiscountEvent.where('owners @> ? and expired_on > ?', "{#{current_user.id}}", Time.now - 1.days).order('score desc').first
+  end
+  
   def settings
     
     session[:from_for_shipments] = nil

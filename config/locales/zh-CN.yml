@@ -51,7 +51,7 @@
         body: '活动详情'
         expired_on: '活动截止日期'
         score: '活动权重'
-        coupon_ids: '优惠券'
+        coupon_id: '优惠券'
         owners: '所有者'
         created_at: '创建时间'
       admin_user:

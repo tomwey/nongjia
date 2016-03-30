@@ -1,0 +1,25 @@
+<%= render_navbar_for('推荐顾客得优惠', 
+{ icon: 'fa fa-angle-left', link: "#{settings_wechat_shop_user_path}" }) %>
+
+<div class="events">
+  
+  <% if @event.blank? %>
+    <%= render_empty_result('没有优惠活动!') %>
+  <% else %>
+  <div class="container">
+    <%= image_tag 'wechat_shop/dark_envelope.png', size: '128x128' %>
+    <p class="center">分享您的推荐码</p>
+    <p class="center nb-code"><%= current_user.nb_code %></p>
+    <p class="title"><%= @event.title %></p>
+  </div>
+  
+  <div class="invite-btn-container">
+    <div class="container">
+      <a href="javascript:;" class="invite-btn">邀请朋友</a>
+    </div>
+  </div>
+  <% end %>
+  
+</div>
+
+  

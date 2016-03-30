@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     end
     resources :shipments
     # resources :coupons
-    resources :discountings, path: :coupons, as: :coupons, only: [:index]
+    resources :discountings, path: :coupons, as: :coupons, only: [:index, :new, :create]
     # resource :discount_event, path: :event, as: :event, only: [:index] do
     #   post :active, on: :member
     # end
@@ -32,7 +32,7 @@ Rails.application.routes.draw do
         get :orders
       end
       get :settings, on: :member
-      get :events, on: :member
+      get :events,   on: :member
     end
     
     get    'login'    => 'sessions#new',       as: :login
