@@ -142,86 +142,88 @@
 }
 
 .orders {
-  margin-bottom: 51px;
-}
-
-.order {
-  position: relative;
+  margin-bottom: 53px;
+  width: 100%;
+  padding: 0 10px;
+  .order {
+    position: relative;
   
-  .nb-state-container {
-    width: 80px;
-    height: 80px;
+    .nb-state-container {
+      width: 80px;
+      height: 80px;
     
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
+      border-radius: 50%;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      -ms-border-radius: 50%;
+      -o-border-radius: 50%;
     
-    border: 1px dashed #ccc;
+      border: 1px dashed #ccc;
     
-    position: absolute;
-    top: 5%;
-    right: 5%;
-    z-index: 888;
+      position: absolute;
+      top: 5%;
+      right: 5%;
+      z-index: 888;
    
-    text-align: center;
-    font-size: 1.2em;
-    font-weight: bold;
-    line-height: 80px;
+      text-align: center;
+      font-size: 1.2em;
+      font-weight: bold;
+      line-height: 80px;
     
-    &.rotate {
-      /* Safari */
-      -webkit-transform: rotate(-45deg);
+      &.rotate {
+        /* Safari */
+        -webkit-transform: rotate(-45deg);
 
-      /* Firefox */
-      -moz-transform: rotate(-45deg);
+        /* Firefox */
+        -moz-transform: rotate(-45deg);
 
-      /* IE */
-      -ms-transform: rotate(-45deg);
+        /* IE */
+        -ms-transform: rotate(-45deg);
 
-      /* Opera */
-      -o-transform: rotate(-45deg);
+        /* Opera */
+        -o-transform: rotate(-45deg);
 
-      /* Internet Explorer */
-      filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+        /* Internet Explorer */
+        filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 
-    }
+      }
     
-    border: 1px dashed #aaa;
-    color: #aaa;
-    
-    &.canceled-state {
       border: 1px dashed #aaa;
       color: #aaa;
-    }
     
-    &.completed-state {
-      border: 1px dashed red;
-      color: red;
-    }
+      &.canceled-state {
+        border: 1px dashed #aaa;
+        color: #aaa;
+      }
     
-  }
-  
-  .state {
-    padding: 5px;
-    font-size: 0.9em;
-  }
-  
-  .panel-title {
-    font-size: 1em;
-    font-weight: normal;
-    color: $w_black;
-  }
-  .base-info {
-    margin-left: 70px;
-    .product-title {
-      font-size: 1em;
-      margin-bottom: 5px;
+      &.completed-state {
+        border: 1px dashed red;
+        color: red;
+      }
+    
     }
-    .quantity {
+  
+    .state {
+      padding: 5px;
       font-size: 0.9em;
-      color: #aaa;
+    }
+  
+    .panel-title {
+      font-size: 1em;
+      font-weight: normal;
+      color: $w_black;
+    }
+    .base-info {
+      margin-left: 70px;
+      .product-title {
+        font-size: 1em;
+        margin-bottom: 5px;
+      }
+      .quantity {
+        font-size: 0.9em;
+        color: #aaa;
+      }
     }
   }
+  
 }

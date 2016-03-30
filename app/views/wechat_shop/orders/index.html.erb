@@ -3,6 +3,7 @@
   <%= link_to '待付款', no_pay_wechat_shop_orders_path, class: "segment-item #{@current == 'orders_no_pay' ? "active" : ""}" %>
   <%= link_to '待收货', shipping_wechat_shop_orders_path, class: "segment-item #{@current == 'orders_shipping' ? "active" : ""}" %>
 </div>
+
 <% if @orders.empty? %>
 <%= render_empty_result %>
 <% else %>
@@ -10,6 +11,7 @@
     <%= render @orders %>
   </div>
 <% end %>
+
 <% content_for :tabbar do %>
   <%= render '/wechat_shop/shared/tabbar' %>
 <% end %>
