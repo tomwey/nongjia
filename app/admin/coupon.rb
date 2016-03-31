@@ -81,6 +81,7 @@ form do |f|
     f.input :max_value, placeholder: '该值与优惠券类型有关，如果为抵扣现金类型，那么值等于优惠额度，例如：优惠额度为5，那么此处填5；如果为打折类型，那么值为输入的具体金额'
     f.input :expired_days, placeholder: '用户获取该优惠券的过期时间间隔，以天为单位的整数，例如：60，表示两个月'
     f.input :coupon_type, as: :select, collection: Coupon::COUPON_TYPES
+    f.input :use_type, as: :select, collection: Coupon::USE_TYPES
     f.input :note,      placeholder: '优惠券使用限制说明，例如：仅限成都使用，最大优惠8元'
     f.input :body,      placeholder: '可选，对优惠券的简介', label: '简介'
   end

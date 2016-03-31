@@ -6,16 +6,13 @@
       </span>
       <span class="title"><%= discounting.coupon.title %></span>
     </div>
-    <% if discounting.coupon.body.present? %>
-    <span><%= discounting.coupon.body %></span>
-    <% end %>
-  </div>
-  <div class="panel-footer">
-    <span class="pull-right">
-      <%= discounting.expired_on.strftime('%Y年%-m月%-d日 到期') %>
-    </span>
     <% if discounting.coupon.note.present? %>
     <span><%= discounting.coupon.note %></span>
     <% end %>
+  </div>
+  <div class="panel-footer" style="text-align:right;">
+    <span class="">
+      <%= discounting.expired_on.strftime('%Y年%-m月%-d日 到期') %>
+    </span>
   </div>
 </div>

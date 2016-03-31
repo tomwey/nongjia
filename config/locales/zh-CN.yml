@@ -39,6 +39,7 @@
         value: '优惠额度'
         max_value: '最大优惠额度'
         coupon_type: '优惠券类型'
+        use_type: '发放方式'
         created_at: '优惠券创建时间'
         expired_days: '有效期'
       discounting:

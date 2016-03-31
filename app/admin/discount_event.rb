@@ -34,7 +34,7 @@ form do |f|
     f.input :body
     f.input :expired_on
     f.input :score
-    f.input :coupon_ids, as: :check_boxes, label: "所属优惠券", collection: Coupon.all.map { |c| [c.title, c.id] }
+    f.input :coupon_ids, as: :check_boxes, label: "所属优惠券", collection: Coupon.where(use_type: Coupon::USE_TYPE_EVENT).map { |c| [c.title, c.id] }
   end
   f.actions
 end

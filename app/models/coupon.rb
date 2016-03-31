@@ -28,7 +28,7 @@ class Coupon < ActiveRecord::Base
   COUPON_TYPES = [['打折', DISCOUNT], ['抵扣现金', CASH]]
   USE_TYPES    = [['系统直接发放', USE_TYPE_SYS], ['参加活动发放', USE_TYPE_EVENT]]
   
-  validates :title, :value, :max_value, :expired_days, :coupon_type, presence: true
+  validates :title, :value, :max_value, :expired_days, :coupon_type, :use_type, presence: true
   
   scope :recent, -> { order('id DESC') }
   
@@ -58,7 +58,8 @@ class Coupon < ActiveRecord::Base
   
   def send_all!
     if use_type == Coupon::USE_TYPE_SYS
-      valid_users = User.where(verified: true)
+      user_ids = self.users.pluck(:id)
+      valid_users = User.where(verified: true).where.not(id: user_ids)
       if valid_users.any?
         self.users << valid_users
         self.save!
@@ -69,7 +70,8 @@ class Coupon < ActiveRecord::Base
   def send_random!
     if use_type == Coupon::USE_TYPE_SYS
       rand_num = User.count / 3
-      valid_users = User.where(verified: true).limit(rand_num).order("RANDOM()") # RANDOM()是postgresql的函数 RAND()是mysql的函数
+      user_ids = self.users.pluck(:id)
+      valid_users = User.where(verified: true).where.not(id: user_ids).limit(rand_num).order("RANDOM()") # RANDOM()是postgresql的函数 RAND()是mysql的函数
       if valid_users.any?
         self.users << valid_users
         self.save!

@@ -16,20 +16,26 @@ class WechatShop::DiscountingsController < WechatShop::ApplicationController
   def create
     # puts params
     code = params[:code]
-    if current_user.nb_code == code
-      # 不能自己兑换自己的优惠码
-      flash[:error] = '您不能兑换自己的优惠码'
+    code = code.downcase if code.present?
+    event = DiscountEvent.find_by(code: code)
+    if event.blank? or event.coupon_ids.size != 1
+      flash[:error] = '无效的优惠码'
       redirect_to new_wechat_shop_coupon_path
       return
     end
     
-    event = DiscountEvent.find_by(code: code)
-    if event.present?
-      
+    coupon = Coupon.find_by(id: event.coupon_ids.first)
+    if coupon.present?
+      discounting = Discounting.find_by(user_id: current_user.id, coupon_id: coupon.id)
+      if discounting.blank?
+        Discounting.create!(user_id: current_user.id, coupon_id: coupon.id, expired_on: Time.now + coupon.expired_days.days)
+      end
+      redirect_to wechat_shop_coupons_path(from: settings_wechat_shop_user_path)
+    else
+      flash[:error] = '无效的优惠码'
+      redirect_to new_wechat_shop_coupon_path
     end
     
-    flash[:error] = '无效的优惠码'
-    redirect_to new_wechat_shop_coupon_path
   end
   
 end
