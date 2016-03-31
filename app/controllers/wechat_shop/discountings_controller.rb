@@ -29,6 +29,8 @@ class WechatShop::DiscountingsController < WechatShop::ApplicationController
       discounting = Discounting.find_by(user_id: current_user.id, coupon_id: coupon.id)
       if discounting.blank?
         Discounting.create!(user_id: current_user.id, coupon_id: coupon.id, expired_on: Time.now + coupon.expired_days.days)
+      else
+        flash[:error] = '此优惠码已经存入您账户'
       end
       redirect_to wechat_shop_coupons_path(from: settings_wechat_shop_user_path)
     else
