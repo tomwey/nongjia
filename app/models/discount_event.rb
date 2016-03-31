@@ -1,28 +1,29 @@
 class DiscountEvent < ActiveRecord::Base
   
-  attr_accessor :owners_raw
-  
-  validates :title, :body, :coupon_id, presence: true
+  validates :title, :body, presence: true
   validates_uniqueness_of :code
   
-  belongs_to :coupon
+  validate :coupon_empty_check
+  def coupon_empty_check
+    if self.coupon_ids.empty? or self.coupon_ids.compact.reject(&:blank?).empty?
+      errors.add(:base, '至少需要关联一张优惠券')
+      return false
+    end
+  end
   
-  # 生成唯一的优惠推荐码
   before_create :generate_code
   def generate_code
-    # 生成6位随机码, 系统的推荐码是5位数
-    begin
-      self.code = rand(36**5).to_s(36) #SecureRandom.hex(3) #if self.nb_code.blank?
-    end while self.class.exists?(:code => code)
+    if self.code.blank?
+      # 如果没有输入优惠码，就随机生成一个5位数的优惠码
+      begin
+        self.code = rand(36**5).to_s(36) #SecureRandom.hex(3) #if self.nb_code.blank?
+      end while self.class.exists?(:code => code)
+    end
   end
   
-  def owners_raw
-    self.owners.join('\n') if self.owners.present?
-  end
-  
-  def owners_raw=(values)
-    self.owners = []
-    self.owners = values.split('\n')
+  before_save :remove_blank_value_for_coupon_ids
+  def remove_blank_value_for_coupon_ids
+    self.coupon_ids = self.coupon_ids.compact.reject(&:blank?)
   end
   
 end
@@ -32,5 +33,4 @@ end
 # t.text    :body,           null: false # 活动详情
 # t.date    :expired_on                  # 如果该值为空，表示活动永久有效
 # t.integer :score, default: 0           # 活动权重
-# t.integer :coupon_id   # 与活动相关的优惠券，不能为空值
-# t.integer :owners,     array: true, default: [] # 活动所有者，如果是系统搞营销，那么该字段为空值
+# t.integer :coupon_ids, array: true, default: []  # 与活动相关的优惠券，不能为空值

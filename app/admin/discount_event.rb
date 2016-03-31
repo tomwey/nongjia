@@ -3,14 +3,13 @@ ActiveAdmin.register DiscountEvent do
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
-permit_params :title, :body, :expired_on, :score, :owners_raw, :coupon_id
+permit_params :title, :body, :expired_on, :score, :code, { coupon_ids: [] }
 
 filter :code
 filter :title
 filter :body
 filter :expired_on
 filter :score
-filter :coupon_id, label: '所属优惠券', collection: proc { Coupon.all.map { |c| [c.title, c.id] } }
 filter :created_at
 
 index do
@@ -21,9 +20,8 @@ index do
   column :expired_on
   column :score
   column '所属优惠券', sortable: false do |e|
-    e.coupon.try(:title)
+    raw(Coupon.where(id: e.coupon_ids).map(&:title).join('<br>'))
   end
-  column :owners, sortable: false
   column :created_at
   actions
 end
@@ -31,12 +29,12 @@ end
 form do |f|
   f.semantic_errors
   f.inputs do
+    f.input :code, label: '优惠码', placeholder: '活动优惠码，可以是中文，也可以是字母或数字，如果不输入，系统随机生成5位优惠码'
     f.input :title
     f.input :body
     f.input :expired_on
     f.input :score
-    f.input :coupon_id, as: :select, label: "所属优惠券", collection: Coupon.all.map { |c| [c.title, c.id] }
-    f.input :owners_raw, as: :text, label: "活动所属用户", placeholder: '活动所属用户ID集合，ID之间用换行符分隔，如果该活动属于所有用，那么该字段留空'
+    f.input :coupon_ids, as: :check_boxes, label: "所属优惠券", collection: Coupon.all.map { |c| [c.title, c.id] }
   end
   f.actions
 end

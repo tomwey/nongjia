@@ -21,7 +21,12 @@ class Coupon < ActiveRecord::Base
   DISCOUNT = 1 # 打折类型
   CASH     = 2 # 抵扣现金类型
   
-  TYPE_COLLECTIONS = [['打折', DISCOUNT], ['抵扣现金', CASH]]
+  # 定义优惠券发放方式
+  USE_TYPE_SYS   = 1 # 系统直接发放
+  USE_TYPE_EVENT = 2 # 通过活动获取
+  
+  COUPON_TYPES = [['打折', DISCOUNT], ['抵扣现金', CASH]]
+  USE_TYPES    = [['系统直接发放', USE_TYPE_SYS], ['参加活动发放', USE_TYPE_EVENT]]
   
   validates :title, :value, :max_value, :expired_days, :coupon_type, presence: true
   
@@ -43,20 +48,32 @@ class Coupon < ActiveRecord::Base
     end
   end
   
+  def use_type_info
+    case(use_type)
+    when Coupon::USE_TYPE_SYS   then "系统直接发放"
+    when Coupon::USE_TYPE_EVENT then "参加活动发放"
+    else '未知'
+    end
+  end
+  
   def send_all!
-    valid_users = User.where(verified: true)
-    if valid_users.any?
-      self.users << valid_users
-      self.save!
+    if use_type == Coupon::USE_TYPE_SYS
+      valid_users = User.where(verified: true)
+      if valid_users.any?
+        self.users << valid_users
+        self.save!
+      end
     end
   end
   
   def send_random!
-    rand_num = User.count / 3
-    valid_users = User.where(verified: true).limit(rand_num).order("RANDOM()") # RANDOM()是postgresql的函数 RAND()是mysql的函数
-    if valid_users.any?
-      self.users << valid_users
-      self.save!
+    if use_type == Coupon::USE_TYPE_SYS
+      rand_num = User.count / 3
+      valid_users = User.where(verified: true).limit(rand_num).order("RANDOM()") # RANDOM()是postgresql的函数 RAND()是mysql的函数
+      if valid_users.any?
+        self.users << valid_users
+        self.save!
+      end
     end
   end
   

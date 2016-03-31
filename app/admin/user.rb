@@ -3,9 +3,9 @@ ActiveAdmin.register User do
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
-permit_params :list, :of, [:nickname, :avatar, :mobile], :on, :model
+permit_params :list, :of, [:nickname, :avatar, :mobile, :score, :balance], :on, :model
 
-actions :index, :show
+actions :index, :show, :edit, :update
 
 menu priority: 2, label: "用户"
 
@@ -23,13 +23,15 @@ menu priority: 2, label: "用户"
 # end
 filter :nickname
 filter :mobile
+filter :score
+filter :balance
 
 scope :all, default: true do |users|
   users.where(visible: true)
 end
 
 scope '正常用户', :verified do |users|
-  users.where(verified: true)
+  users.where(visible: true).where(verified: true)
 end
 
 index do
@@ -46,6 +48,10 @@ index do
   column "账号可用" do |user|
     user.verified ? "可用" : "禁用"
   end
+  column :score
+  column :balance do |user|
+    "¥ #{user.balance}"
+  end
   column "三方认证" do |user|
     user.authorizations.map(&:provider).join(',')
   end
@@ -55,6 +61,7 @@ index do
     else
       item "启用", unblock_admin_user_path(user), method: :put
     end
+    item "编辑", edit_admin_user_path(user)
   end
   
 end
@@ -112,9 +119,11 @@ end
 form html: { multipart: true } do |f|
   f.semantic_errors
   
-  f.inputs do
-    f.input :nickname
-    f.input :avatar, as: :file
+  f.inputs "用户信息" do
+    # f.input :nickname
+    # f.input :avatar, as: :file
+    f.input :score
+    f.input :balance
   end
   
   actions
