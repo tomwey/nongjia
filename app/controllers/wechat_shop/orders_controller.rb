@@ -61,6 +61,7 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
     @order.product_id = user_product_id
     @order.quantity   = user_order_quantity
     
+    @success = false
     if @order.save
       session.delete(user_session_key)
       # flash[:success] = '下单成功'
@@ -73,9 +74,13 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
         end
       end
       
-      redirect_to wechat_shop_orders_path
+      @success = true
+      
+      
+      
+      # redirect_to wechat_shop_orders_path
     else
-      render :new
+      # render :new
     end
   end
   
