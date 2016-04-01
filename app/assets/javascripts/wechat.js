@@ -5,3 +5,4 @@
 //= require jquery.touchSwipe.min
 //= require_self
 
+

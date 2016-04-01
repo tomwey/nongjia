@@ -13,20 +13,7 @@ class Weixin::ApplicationController < ActionController::Base
   # 获取微信的access token
   helper_method :fetch_wechat_access_token
   def fetch_wechat_access_token
-    @access_token = Rails.cache.read("wechat.access_token")
-    if @access_token.blank?
-      resp = RestClient.get 'https://api.weixin.qq.com/cgi-bin/token', 
-                     { :params => { :grant_type => "client_credential",
-                                    :appid      => Setting.wx_app_id,
-                                    :secret     => Setting.wx_app_secret 
-                                  } 
-                     }
-                     
-      result = JSON.parse(resp)
-      @access_token = result['access_token']
-      Rails.cache.write("wechat.access_token", @access_token, expires_in: 110.minutes)
-    end
-    @access_token
+    WX::Base.fetch_access_token
   end
   
   # 创建微信菜单
@@ -80,13 +67,7 @@ class Weixin::ApplicationController < ActionController::Base
   
   private 
     def check_weixin_legality
-      if params[:timestamp].nil? or params[:nonce].nil? or params[:signature].nil?
-        render text: "Forbidden", status: 403
-        return
-      end
-      
-      array = [Setting.weixin_token, params[:timestamp], params[:nonce]].sort
-      render(text: "Forbidden", status: 403) if params[:signature] != Digest::SHA1.hexdigest(array.join) 
+      render(text: "Forbidden", status: 403) unless WX::Base.check_weixin_legality(params[:timestamp], params[:nonce], params[:signature])
     end
     
     def check_weixin_user
