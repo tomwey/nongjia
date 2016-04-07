@@ -36,7 +36,7 @@ ActiveAdmin.register_page "Dashboard" do
       
       column do
         panel "热门产品" do
-          table_for Product.order('orders_count desc, id desc').limit(10) do
+          table_for Product.order('orders_count desc, visit desc').limit(10) do
             column('产品Icon') { |product| image_tag product.images.first.url(:small), size: '60x60' }
             column('产品标题') { |product| product.title }
             column('订单数') { |product| product.orders_count }
