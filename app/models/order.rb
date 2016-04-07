@@ -26,6 +26,17 @@ class Order < ActiveRecord::Base
     CancelOrderJob.set(wait: 30.minutes).perform_later(self.id)
   end
   
+  def state_info
+    case self.state.to_sym
+    when :pending then '待付款'
+    when :paid then '待配送'
+    when :shipping then '配送中'
+    when :canceled then '已取消'
+    when :completed then '已完成'
+    else ''
+    end
+  end
+  
   def send_msg(msg)
     Message.create!(content: msg, to_user_type: Message::TO_USER_TYPE_WX, user_id: self.user_id)
   end

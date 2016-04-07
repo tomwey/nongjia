@@ -52,6 +52,9 @@ index do
   column :balance do |user|
     "¥ #{user.balance}"
   end
+  column 'openid' do |user|
+    user.wechat_auth.try(:open_id)
+  end
   column "三方认证" do |user|
     user.authorizations.map(&:provider).join(',')
   end
