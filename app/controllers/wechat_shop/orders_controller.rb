@@ -76,11 +76,9 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
       
       @success = true
       
-      
-      
-      # redirect_to wechat_shop_orders_path
+      redirect_to wechat_shop_orders_path
     else
-      # render :new
+      render :new
     end
   end
   

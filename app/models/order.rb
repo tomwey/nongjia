@@ -22,7 +22,12 @@ class Order < ActiveRecord::Base
   # 提示下单成功
   after_create :notify_user
   def notify_user
-    
+    Message.create!(content: '成功下单，快去支付吧！如果超过30分钟未支付，系统会自动取消订单哦！', to_user_type: Message::TO_USER_TYPE_WX, user_id: user.id)
+    CancelOrderJob.set(wait: 30.minutes).perform_later(self.id)
+  end
+  
+  def send_msg(msg)
+    Message.create!(content: msg, to_user_type: Message::TO_USER_TYPE_WX, user_id: self.user_id)
   end
   
   state_machine initial: :pending do # 默认状态，待付款
@@ -33,7 +38,8 @@ class Order < ActiveRecord::Base
     
     # 支付
     after_transition :pending => :paid do |order, transition|
-      Message.create!(content: '您已成功支付订单，我们会尽快发货，谢谢！', to_user_type: Message::TO_USER_TYPE_WX, user_id: user.id)
+      order.send_msg('您已成功支付订单，我们会尽快发货，谢谢！')
+      # Message.create!(content: '您已成功支付订单，我们会尽快发货，谢谢！', to_user_type: Message::TO_USER_TYPE_WX, user_id: self.user_id)
     end
     event :pay do
       transition :pending => :paid
@@ -41,7 +47,8 @@ class Order < ActiveRecord::Base
     
     # 配送
     after_transition :paid => :shipping do |order, transition|
-      Message.create!(content: '订单配送中，请耐心等待', to_user_type: Message::TO_USER_TYPE_WX, user_id: user.id)
+      order.send_msg('订单配送中，请耐心等待')
+      # Message.create!(content: '订单配送中，请耐心等待', to_user_type: Message::TO_USER_TYPE_WX, user_id: self.user_id)
     end
     event :ship do
       transition :paid => :shipping
@@ -50,7 +57,8 @@ class Order < ActiveRecord::Base
     # 取消订单
     # 只能系统管理员取消订单
     after_transition [:pending, :paid] => :canceled do |order, transition|
-      Message.create!(content: '系统取消了您的订单', to_user_type: Message::TO_USER_TYPE_WX, user_id: user.id)
+      order.send_msg('系统取消了您的订单')
+      # Message.create!(content: '系统取消了您的订单', to_user_type: Message::TO_USER_TYPE_WX, user_id: self.user_id)
     end
     event :cancel do
       transition [:pending, :paid] => :canceled
@@ -58,7 +66,8 @@ class Order < ActiveRecord::Base
     
     # 确认完成订单，系统管理员确认
     after_transition :shipping => :completed do |order, transition|
-      Message.create!(content: '已经完成了本次订单，谢谢惠顾！', to_user_type: Message::TO_USER_TYPE_WX, user_id: user.id)
+      order.send_msg('已经完成了本次订单，谢谢惠顾！')
+      # Message.create!(content: '已经完成了本次订单，谢谢惠顾！', to_user_type: Message::TO_USER_TYPE_WX, user_id: self.user_id)
     end
     event :complete do
       transition :shipping => :completed
