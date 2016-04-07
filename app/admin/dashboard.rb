@@ -7,15 +7,6 @@ ActiveAdmin.register_page "Dashboard" do
     columns do
       
       column do
-        panel "最新用户" do
-          table_for User.order('id desc').limit(10) do
-            column('头像') { |user| image_tag(user.avatar_url(:large), size: '60x60') }
-            column('账户') { |user| user.nickname || user.wechat_auth.try(:open_id) }
-          end
-        end
-      end # end user
-      
-      column do
         panel "最新订单" do
           table_for Order.order('id desc').limit(10) do
             column('产品Icon') { |order| image_tag order.product.images.first.url(:small), size: '60x60' }
@@ -28,7 +19,30 @@ ActiveAdmin.register_page "Dashboard" do
             column('订单状态') { |order| order.state_info }
           end
         end
+      end # end order
+      
+    end
+    
+    columns do
+      
+      column do
+        panel "最新用户" do
+          table_for User.order('id desc').limit(10) do
+            column('头像') { |user| image_tag(user.avatar_url(:large), size: '60x60') }
+            column('账户') { |user| user.nickname || user.wechat_auth.try(:open_id) }
+          end
+        end
       end # end user
+      
+      column do
+        panel "热门产品" do
+          table_for Product.order('orders_count, id desc').limit(10) do
+            column('产品Icon') { |product| image_tag product.images.first.url(:small), size: '60x60' }
+            column('产品标题') { |product| product.title }
+            column('订单数') { |product| product.orders_count }
+          end
+        end # end product
+      end
       
     end
     # Here is an example of a simple dashboard with columns and panels.
