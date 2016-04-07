@@ -39,6 +39,9 @@ gem 'redis-namespace'
 # 将一些数据存放入 Redis
 gem 'redis-objects'
 
+# 使用redis做服务器缓存
+gem 'redis-rails'
+
 # 后台管理系统
 gem 'activeadmin', github: 'activeadmin'
 

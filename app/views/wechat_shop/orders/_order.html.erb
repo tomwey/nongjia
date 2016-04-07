@@ -1,3 +1,4 @@
+<% cache ['order', order, order.state] do %>
 <div class="order">
   <% if %W(canceled completed).include?(order.state.to_s) %>
   <div class="nb-state-container rotate <%= order.state.to_s %>-state">
@@ -26,3 +27,4 @@
     </div>
   </div>
 </div>
+<% end %>

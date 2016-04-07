@@ -1,5 +1,6 @@
 <%= render_navbar_for(@page_title, 
-  { icon: 'fa fa-angle-left', link: "#{wechat_shop_product_path(@order.product)}" }) %>
+  { icon: 'fa fa-angle-left', link: "#{wechat_shop_product_path(@order.product)}" },
+  { icon: 'fa fa-home', link: "#{wechat_shop_root_path}"}) %>
 
 <div class="new-order">  
   <%= form_for [:wechat_shop, @order] do |f| %>

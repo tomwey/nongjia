@@ -7,18 +7,24 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
     @orders = current_user.orders.order('id DESC')
     @current = 'orders_index'
     @page_title = '我的订单'
+    
+    fresh_when(etag: [@orders, @current])
   end
   
   def no_pay
     @orders = current_user.orders.no_pay.order('id DESC')
     @current = 'orders_no_pay'
     render :index
+    
+    # fresh_when(etag: [@orders, @current])
   end
   
   def shipping
     @orders = current_user.orders.shipping.order('id DESC')
     @current = 'orders_shipping'
     render :index
+    
+    # fresh_when(etag: [@orders, @current])
   end
   
   def new

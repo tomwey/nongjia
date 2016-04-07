@@ -6,18 +6,22 @@
       </span>
     </a>
   </div>
-
+  
   <div class="home-products">
-    <% @products.each_with_index do |product, index| %>
-    <div class="product <%= index % 2 == 1 ? "product-pull-right" : "" %>">
-      <a class="product-link" href="<%= wechat_shop_product_path(product) %>">
-        <%= image_tag product.images.first.url(:small) %>
-        <div class="product-info">
-          <div class="block-ellipsis"><%= product.title %></div>
-          <p class="price">¥ <%= product.price %></p>
-        </div>
-      </a>
-    </div>
+    <% cache ['home-products', @products.to_a] do %>
+      <% @products.each_with_index do |product, index| %>
+      <% cache ['home-product', product, index % 2 == 1] do %>
+      <div class="product <%= index % 2 == 1 ? "product-pull-right" : "" %>">
+        <a class="product-link" href="<%= wechat_shop_product_path(product) %>">
+          <%= image_tag product.images.first.url(:small) %>
+          <div class="product-info">
+            <div class="block-ellipsis"><%= product.title %></div>
+            <p class="price">¥ <%= product.price %></p>
+          </div>
+        </a>
+      </div>
+      <% end %>
+      <% end %>
     <% end %>
   </div>
 </div>

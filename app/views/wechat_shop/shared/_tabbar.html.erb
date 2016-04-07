@@ -1,3 +1,4 @@
+<% cache ['tabbar', @current] do %>
 <nav class="navbar navbar-default navbar-fixed-bottom">
   <ul class="wechat-shop-tabbar">
     <li class="<%= @current == 'home_index' ? "active" : "" %>"><%= link_to '首页', wechat_shop_root_path %></li>
@@ -5,3 +6,4 @@
     <li class="<%= @current == 'user_settings' ? "active" : "" %>"><%= link_to '个人中心', settings_wechat_shop_user_path %></li>
   </ul>
 </nav>
+<% end %>
