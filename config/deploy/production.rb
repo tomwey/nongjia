@@ -32,6 +32,8 @@ set :rails_env, :production
 
 set :unicorn_worker_count, 4
 
+set :sidekiq_concurrency, 20
+
 set :enable_ssl, false
 
 

@@ -27,6 +27,18 @@ gem 'spring',        group: :development
 # 微信网页UI
 # gem 'weui-rails'
 
+# 队列处理消息发送
+gem 'sidekiq'
+gem 'sinatra', :require => nil
+
+# redis
+gem 'redis'
+gem 'hiredis'
+# redis 命名空间
+gem 'redis-namespace'
+# 将一些数据存放入 Redis
+gem 'redis-objects'
+
 # 后台管理系统
 gem 'activeadmin', github: 'activeadmin'
 

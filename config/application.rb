@@ -64,6 +64,9 @@ module CentralServices
     # 防止大量IP访问
     config.middleware.use Rack::Attack
     
+    # 设置Active job adapter
+    config.active_job.queue_adapter = :sidekiq
+    
   end
 end
 

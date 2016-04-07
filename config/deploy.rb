@@ -7,6 +7,9 @@ set :deploy_user, "deployer"
 set :scm, :git
 set :repo_url, "git@github.com:tomwey/#{fetch(:application)}.git"
 
+# set :sidekiq_config, -> { File.join(shared_path, 'config', 'sidekiq.yml') }
+# set :pty, false
+
 set :rbenv_type, :user
 set :rbenv_ruby, '2.0.0-p353'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
@@ -14,7 +17,7 @@ set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 
 set :keep_releases, 5
 
-set :linked_files, %w{config/database.yml config/config.yml} # config/redis.yml
+set :linked_files, %w{config/database.yml config/config.yml config/redis.yml} # config/redis.yml
 
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/uploads public/system}
 
@@ -29,12 +32,15 @@ set(:config_files, %w(
   log_rotation
   unicorn.rb
   unicorn_init.sh
+  sidekiq.yml
+  sidekiq_init.sh
 ))
 
 # which config files should by made executable after copying
 # by deploy:setup_config
 set(:executable_config_files, %w(
   unicorn_init.sh
+  sidekiq_init.sh
 ))
 
 # files which need to be symlinked to other parts of the
@@ -50,8 +56,12 @@ set(:symlinks, [
     link: "/etc/init.d/unicorn_{{full_app_name}}"
   },
   {
+    source: "sidekiq_init.sh",
+    link: "/etc/init.d/sidekiq_{{full_app_name}}"
+  },
+  {
     source: "log_rotation",
-   link: "/etc/logrotate.d/{{full_app_name}}"
+    link: "/etc/logrotate.d/{{full_app_name}}"
   },
   # {
   #   source: "monit",

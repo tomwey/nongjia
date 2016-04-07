@@ -24,6 +24,7 @@ public/assets/
 config/database.yml
 config/config.yml
 config/redis.yml
+config/sidekiq.yml
 config/mailman.yml
 config/mailer_daemon.yml
 config/newrelic.yml
