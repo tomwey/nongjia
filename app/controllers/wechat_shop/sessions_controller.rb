@@ -44,6 +44,7 @@ class WechatShop::SessionsController < WechatShop::ApplicationController
     user = User.from_wechat_auth(result)
     if user
       log_in user
+      remember(user)
       session['wechat.code'] = nil
       redirect_back_or(wechat_shop_root_path)
     else
