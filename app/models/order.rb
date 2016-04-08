@@ -37,9 +37,9 @@ class Order < ActiveRecord::Base
     end
   end
   
-  def send_msg(msg)
-    Message.create!(content: msg, to_user_type: Message::TO_USER_TYPE_WX, user_id: self.user_id)
-  end
+  # def send_msg(msg)
+  #   Message.create!(content: msg, to_user_type: Message::TO_USER_TYPE_WX, user_id: self.user_id)
+  # end
   
   state_machine initial: :pending do # 默认状态，待付款
     state :paid      # 已付款，待配送
