@@ -13,6 +13,7 @@
       coupon: '优惠券'
       discounting: '优惠记录'
       discount_event: '优惠活动'
+      site_config: '站点配置'
     attributes:
       user:
         mobile: "手机"
@@ -56,6 +57,10 @@
         score: '活动权重'
         coupon_ids: '优惠券'
         created_at: '创建时间'
+      site_config:
+        key: '配置项'
+        value: '配置值'
+        note: '描述'
       admin_user:
         email: "邮箱"
         password: "密码"

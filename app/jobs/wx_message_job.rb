@@ -1,10 +1,17 @@
 class WXMessageJob < ActiveJob::Base
   queue_as :messages
   
-  def perform(msg, user_id)
-    @user = User.find_by(id: user_id)
-    if @user && @user.verified
-      WX::Message.send(msg, @user.wechat_auth.open_id) if @user.wechat_auth.present?
+  def perform(user_id, tpl, url = '', data = {})
+    
+    user = User.find_by(id: user_id)
+    return if user.blank? or !user.verified
+    
+    if user.wechat_auth
+      to = user.wechat_auth.try(:open_id)
+    else
+      to = ''
     end
+    WX::Message.send(to, tpl, url, data)
+    
   end
 end
