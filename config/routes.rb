@@ -32,6 +32,7 @@ Rails.application.routes.draw do
       end
       get :settings, on: :member
       get :events,   on: :member
+      get :invite,   on: :member
     end
     
     get    'login'    => 'sessions#new',       as: :login

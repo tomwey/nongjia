@@ -58,6 +58,10 @@ class WechatShop::UsersController < WechatShop::ApplicationController
     @current = 'user_settings'
   end
   
+  def invite
+    
+  end
+  
   private
     def fetch_user_info(user)
       
