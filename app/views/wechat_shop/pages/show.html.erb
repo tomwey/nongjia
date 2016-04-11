@@ -3,4 +3,12 @@
 
 <div class="pages">
   <%= raw @page.body %>
+  
+  <% if @ticket.present? %>
+  <div class="qrcode">
+    <h2>长按或扫描下方的二维码，关注我们！</h2>
+    <img src="https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=<%= @ticket %>" class="qrcode-image">
+  </div>
+  <% end %>
+  
 </div>

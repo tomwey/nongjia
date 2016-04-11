@@ -22,7 +22,7 @@
 <script>
 
 var imgUrl = "<%= @invite.share_icon_url %>";
-var lineLink = "<%= @invite.link %>";
+var lineLink = "<%= @invite.link %>" + '?code=<%= current_user.nb_code %>';
 var descContent = "<%= @invite.body %>";
 var shareTitle = '<%= @invite.title %>';
   
