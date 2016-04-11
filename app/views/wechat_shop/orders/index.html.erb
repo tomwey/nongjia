@@ -19,3 +19,23 @@
 <% content_for :tabbar do %>
   <%= render '/wechat_shop/shared/tabbar' %>
 <% end %>
+
+<% content_for :scripts do %>
+<script>
+function showOrder(ele) {
+  var $ele = $(ele);
+  window.location.href = '<%= wechat_shop_root_path %>/orders/' + $ele.data('order-no');
+  return false;
+}
+
+function payment(event,ele) {
+  if (event.stopPropagation) {
+    event.stopPropagation();
+  } else {
+    event.cancelBubble = true;
+  }
+  alert(123);
+  return false;
+}
+</script>
+<% end %>

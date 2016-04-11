@@ -147,6 +147,9 @@
   padding: 0 10px;
   .order {
     position: relative;
+    display: block;
+    width: auto;
+    text-decoration: none;
   
     .nb-state-container {
       width: 80px;
@@ -218,6 +221,7 @@
       .product-title {
         font-size: 1em;
         margin-bottom: 5px;
+        word-wrap: break-word;
       }
       .quantity {
         font-size: 0.9em;
@@ -226,4 +230,66 @@
     }
   }
   
+}
+
+.order-detail {
+  background-color: #eaeaea;
+  .base-info {
+    p {
+      padding: 2px 0;
+      font-size: 1em;
+    }
+  }
+  
+  .order-detail-item {
+    margin-bottom: 15px;
+    background-color: white;
+    padding: 10px 15px;
+  }
+  
+  .products-table {
+    width: 100%;
+    table-layout:fixed;
+    
+    .item-row {
+      border-bottom: 1px solid $w_borderColor;
+    }
+    
+    td {
+      vertical-align: middle;
+      word-wrap: break-word;
+      padding: 10px 0;
+      font-size: 1.1em;
+    }
+    
+    .product-icon {
+      width: 25%;
+//      background-color: red;
+    }
+    .product-title {
+      width: 55%;
+      vertical-align: top;
+//      padding-left: 10px;
+    }
+    
+    .other-info {
+      vertical-align: top;
+      width: 20%;
+      text-align: right;
+    }
+    
+  }
+  
+  .shipment-info {
+    h2 {
+      font-size: 1.2em;
+    }
+    p {
+      font-size: 1em;
+      padding: 2px 0;
+    }
+    .mobile {
+      padding-left: 10px;
+    }
+  }
 }

@@ -37,6 +37,10 @@ class Order < ActiveRecord::Base
     end
   end
   
+  def shipment_info
+    user.shipment_info
+  end
+  
   # def send_msg(msg)
   #   Message.create!(content: msg, to_user_type: Message::TO_USER_TYPE_WX, user_id: self.user_id)
   # end

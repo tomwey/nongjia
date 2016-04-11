@@ -27,6 +27,15 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
     # fresh_when(etag: [@orders, @current])
   end
   
+  def show
+    @order = current_user.orders.find_by(order_no: params[:id])
+    if @order.blank?
+      flash[:error] = '没有该订单'
+      @current = 'orders_index'
+      redirect_to wechat_shop_orders_path
+    end
+  end
+  
   def new
     # 放到session里面
     

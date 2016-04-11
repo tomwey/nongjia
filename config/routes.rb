@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     root 'home#index'
     resources :pages, path: :p, only: [:show]
     resources :products, only: [:show]
-    resources :orders do
+    resources :orders, only: [:index, :show, :new, :create] do
       collection do
         get :no_pay
         get :shipping
