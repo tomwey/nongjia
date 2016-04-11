@@ -37,7 +37,7 @@ module WX
     def self.fetch_qrcode_ticket(code)
       post_url = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=#{WX::Base.fetch_access_token}"
       post_data = {
-        action_name: "QR_LIMIT_SCENE",
+        action_name: "QR_LIMIT_STR_SCENE",
         action_info: {
           scene: {
             scene_str: code
