@@ -59,7 +59,7 @@ class WechatShop::UsersController < WechatShop::ApplicationController
   end
   
   def invite
-    @invite = Invite.where('score >= ?', current_user.score).order('score desc').first
+    @invite = Invite.current_invite_for(current_user)
   end
   
   private

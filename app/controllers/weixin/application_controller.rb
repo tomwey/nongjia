@@ -71,8 +71,10 @@ class Weixin::ApplicationController < ActionController::Base
     end
     
     def check_weixin_user
-      @weixin_user = WechatUser.from_wechat(weixin_xml)
-      render("weixin/403", formats: :xml) unless @weixin_user.is_valid?
+      # @weixin_user = WechatUser.from_wechat(weixin_xml)
+      wechat_auth = WechatAuth.find_by(open_id: weixin_xml.from_user)
+      
+      render("weixin/403", formats: :xml) if wechat_auth.blank? or wechat_auth.user.blank? or !wechat_auth.user.is_valid?
     end
     
 end

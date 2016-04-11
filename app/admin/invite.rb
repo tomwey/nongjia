@@ -27,10 +27,10 @@ index do
   end
   
   column :inviter_benefits do |invite|
-    "#{invite.inviter_benefits}元现金券"
+    Coupon.find_by(id: invite.inviter_benefits).try(:title)
   end
   column :invitee_benefits do |invite|
-    "#{invite.invitee_benefits}元现金券"
+    Coupon.find_by(id: invite.invitee_benefits).try(:title)
   end
   column :score
   column :created_at
@@ -44,8 +44,8 @@ form do |f|
     f.input :body, placeholder: '活动详情，会在用户推荐页面展示'
     f.input :link, placeholder: '活动链接地址，该地址是微信分享后，可以点击的地址'
     f.input :icon, placeholder: '活动图标，微信分享的小图标'
-    f.input :inviter_benefits, placeholder: '邀请人得到的现金券面额，整数以元为单位'
-    f.input :invitee_benefits, placeholder: '被邀请人得到的现金券面额，整数以元为单位'
+    f.input :inviter_benefits, as: :select, collection: Coupon.where('coupon_type = ? and use_type = ?', Coupon::CASH, Coupon::USE_TYPE_EVENT).recent.map { |c| [c.title, c.id] }
+    f.input :invitee_benefits, as: :select, collection: Coupon.where('coupon_type = ? and use_type = ?', Coupon::CASH, Coupon::USE_TYPE_EVENT).recent.map { |c| [c.title, c.id] }
     f.input :score, placehodler: '该邀请的权重，与用户的score字段对应，以后有可能根据不同的score获得不同的邀请活动'
   end
   f.actions
