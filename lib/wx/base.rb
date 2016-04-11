@@ -34,6 +34,20 @@ module WX
       @jsapi_ticket
     end
     
+    def self.fetch_qrcode_ticket
+      post_url = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=#{WX::Base.fetch_access_token}"
+      post_data = {
+        action_name: "QR_LIMIT_SCENE",
+        action_info: {
+          scene: {
+            scene_str: '1111'
+          }
+        }
+      }.to_json
+      resp = RestClient.post post_url, post_data, :content_type => :json, :accept => :json
+      puts resp
+    end
+    
     # 检测请求是否来自微信服务器
     def self.check_weixin_legality(timestamp, nonce, signature)
       if timestamp.blank? or nonce.blank? or signature.blank?

@@ -48,3 +48,51 @@
     padding-left: 10px;
   }
 }
+
+.share-invite-icon {
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.share-invite-body {
+  padding: 0 20px;
+  font-size: 1.2em;
+}
+
+.share-buttons {
+  width: 100%;
+  padding: 0 20px;
+  clear: both;
+  
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  
+  .share-button {
+    display: block;
+    float: left;
+    width: 48%;
+    height: 50px;
+    line-height: 50px;
+    margin-bottom: 15px;
+    text-align: center;
+    background-color: $w_green;
+    color: white;
+    text-decoration: none;
+    
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+    -moz-border-radius: 6px;
+    
+    font-size: 16px;
+  }
+  
+  .share-timeline {
+    float: right;
+    background-color: rgb(236,164,73);//rgb(235,95,72);
+  }
+}
