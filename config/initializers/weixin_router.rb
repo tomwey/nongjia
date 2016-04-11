@@ -32,6 +32,8 @@ module Weixin
   module ActionController
     # 辅助方法，用于简化操作, 将xml数据封装成对象
     def weixin_xml
+      puts '----------------------------'
+      puts params[:xml]
       @weixin_xml ||= WeixinXml.new(params[:xml])
       @weixin_xml
     end

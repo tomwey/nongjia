@@ -23,14 +23,14 @@ class Weixin::ApplicationController < ActionController::Base
       button: [
         { type: 'view',
           name: '商城',
-          url: 'http://nj.afterwind.cn/wx-shop'
+          url: 'https://nj.afterwind.cn/wx-shop'
         },
         {
           name: '福利',
           sub_button: [
             { type: 'view',
               name: '拔鸡毛',
-              url: 'http://nj.afterwind.cn/wx-shop'
+              url: 'https://nj.afterwind.cn/wx-shop'
             }
           ]
         },
@@ -40,22 +40,22 @@ class Weixin::ApplicationController < ActionController::Base
             {
               type: 'view',
               name: '我的订单',
-              url: 'http://nj.afterwind.cn/wx-shop/orders'
+              url: 'https://nj.afterwind.cn/wx-shop/orders'
             },
             {
               type: 'view',
               name: '个人中心',
-              url: 'http://nj.afterwind.cn/wx-shop/user/settings'
+              url: 'https://nj.afterwind.cn/wx-shop/user/settings'
             },
             {
               type: 'view',
               name: '优惠券',
-              url: 'http://nj.afterwind.cn/wx-shop/coupons'
+              url: 'https://nj.afterwind.cn/wx-shop/coupons'
             },
             {
               type: 'view',
               name: '帮助',
-              url: 'http://nj.afterwind.cn/wx-shop/p/help'
+              url: 'https://nj.afterwind.cn/wx-shop/p/help'
             }
           ]
         }
