@@ -7,6 +7,14 @@ class Invite < ActiveRecord::Base
     where('score >= ?', user.score).order('score desc').first
   end
   
+  def inviter_coupon_value
+    Coupon.find_by(id: inviter_benefits).try(:value)
+  end
+  
+  def invitee_coupon_value
+    Coupon.find_by(id: invitee_benefits).try(:value)
+  end
+  
   def share_icon_url
     if icon.blank?
       ActionController::Base.helpers.asset_path('wechat_shop/default_invite_share_icon.png')

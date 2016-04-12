@@ -10,13 +10,16 @@
   <div class="share-invite-body">
     <%= @invite.body %>
   </div>
-    
+  
+  <div class="share-tip">
+    <h2 class="green">点击右上角分享得<%= @invite.inviter_coupon_value %>元奖励</h2>
+  </div>
 </div>
 
-<div class="share-buttons">
+<!-- <div class="share-buttons">
   <a href="javascript:;" class="share-friend share-button" onclick="shareFriend();">分享给朋友</a>
   <a href="javascript:;" class="share-timeline share-button" onclick="shareTimeline();">分享到朋友圈</a>
-</div>
+</div> -->
 
 <% content_for :scripts do %>
 <script>
@@ -26,35 +29,35 @@ var lineLink = "<%= @invite.link %>" + '?code=<%= current_user.nb_code %>';
 var descContent = "<%= @invite.body %>";
 var shareTitle = '<%= @invite.title %>';
   
-function shareFriend() {
-  WeixinJSBridge.invoke('sendAppMessage',{
-    "img_url": imgUrl,
-    "img_width": "200",
-    "img_height": "200",
-    "link": lineLink,
-    "desc": descContent,
-    "title": shareTitle
-  }, 
-  function(res) {
-    console.log(res);
-  });
-}
-
-function shareTimeline() {
-  WeixinJSBridge.invoke('shareTimeline',{
-    "img_url": imgUrl,
-    "img_width": "200",
-    "img_height": "200",
-    "link": lineLink,
-    "desc": descContent,
-    "title": shareTitle
-   }, function(res) {
-     console.log(res);
-   });
-}
+// function shareFriend() {
+//   WeixinJSBridge.invoke('sendAppMessage',{
+//     "img_url": imgUrl,
+//     "img_width": "200",
+//     "img_height": "200",
+//     "link": lineLink,
+//     "desc": descContent,
+//     "title": shareTitle
+//   },
+//   function(res) {
+//     console.log(res);
+//   });
+// }
+//
+// function shareTimeline() {
+//   WeixinJSBridge.invoke('shareTimeline',{
+//     "img_url": imgUrl,
+//     "img_width": "200",
+//     "img_height": "200",
+//     "link": lineLink,
+//     "desc": descContent,
+//     "title": shareTitle
+//    }, function(res) {
+//      console.log(res);
+//    });
+// }
 
 wx.ready(function() {
-  console.log('配置成功');
+  // console.log('配置成功');
   
   wx.onMenuShareAppMessage({
       title: shareTitle, // 分享标题
