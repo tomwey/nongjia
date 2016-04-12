@@ -39,32 +39,34 @@ module Weixin
       if hash[:Event] == 'subscribe' or hash[:Event] == 'SCAN'
         # 表示是关注或者扫描二维码
         code = hash[:EventKey].split('_').last
-        # puts code
-        user = User.find_by(nb_code: code)
-        if user && user.wechat_auth.open_id != hash[:FromUserName]
-          wx_auth = WechatAuth.find_by(open_id: hash[:FromUserName])
-          if wx_auth.blank?
-            # 注册当前新用户
-            new_user = User.new
-            auth = WechatAuth.new(open_id: hash[:FromUserName],
-                                  access_token: SecureRandom.uuid) # 此处系统生成一个不正确的access token，以防插入空值
-            new_user.wechat_auth = auth
-            if new_user.save
-              invite = Invite.current_invite_for(user)
+        unless code.blank?
+          # puts code
+          user = User.find_by(nb_code: code)
+          if user && user.wechat_auth.open_id != hash[:FromUserName]
+            wx_auth = WechatAuth.find_by(open_id: hash[:FromUserName])
+            if wx_auth.blank?
+              # 注册当前新用户
+              new_user = User.new
+              auth = WechatAuth.new(open_id: hash[:FromUserName],
+                                    access_token: SecureRandom.uuid) # 此处系统生成一个不正确的access token，以防插入空值
+              new_user.wechat_auth = auth
+              if new_user.save
+                invite = Invite.current_invite_for(user)
               
-              Invite.transaction do
-                # 送被邀请人一张现金券
-                Discounting.create!(user_id: new_user.id, coupon_id: invite.invitee_benefits)
+                Invite.transaction do
+                  # 送被邀请人一张现金券
+                  Discounting.create!(user_id: new_user.id, coupon_id: invite.invitee_benefits)
                 
-                # 送邀请人一张现金券
-                Discounting.create!(user_id: user.id, coupon_id: invite.inviter_benefits)
-              end
+                  # 送邀请人一张现金券
+                  Discounting.create!(user_id: user.id, coupon_id: invite.inviter_benefits)
+                end
               
-            end
+              end # end save new user
             
-          end # end create auth
-        end # end inner if
-      end # end outer if
+            end # end create auth if
+          end # end share if
+        end # end code blank check
+      end # end if event 
       
       @weixin_xml ||= WeixinXml.new(params[:xml])
       @weixin_xml
