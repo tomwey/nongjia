@@ -9,7 +9,12 @@ module UsersHelper
       default_url = "avatar/#{size}.png"
       img = image_tag(default_url, alt: "用户头像", class: "img-circle")
     else
-      img = image_tag(user.avatar.url(size), alt: "用户头像", class: "img-circle")
+      if user.wechat_auth and user.wechat_auth.avatar_url.present?
+        img = image_tag(user.wechat_auth.avatar_url, size: "#{width}x#{width}", alt: "用户头像", class: "img-circle")
+      else
+        img = image_tag(user.avatar.url(size), alt: "用户头像", class: "img-circle")
+      end
+      
     end
     
     if link

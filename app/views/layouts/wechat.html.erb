@@ -22,25 +22,8 @@
   <%= content_for?(:toolbar) ? yield(:toolbar) : '' %>
   <%= content_for?(:tabbar) ? yield(:tabbar) : '' %>
   
-  <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-  <script>
-  <%
-    @sign_package = WX::Sign.sign_package(request.original_url)
-   %>
-    wx.config({
-      debug: <%= @sign_package[:debug] %>,
-      appId: '<%= @sign_package[:appId] %>',
-      timestamp: <%= @sign_package[:timestamp] %>,
-      nonceStr: '<%= @sign_package[:nonceStr] %>',
-      signature: '<%= @sign_package[:signature] %>',
-      jsApiList: ['chooseWXPay','onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareQZone','openLocation','getLocation']
-      
-    });
-    // wx.ready(function() {
-//       console.log('配置成功成功');
-//     });
-  </script>
   <%= javascript_include_tag 'wechat', 'data-turbolinks-track' => true %>
+  
   <%= yield :scripts %>
 </body>
 </html>

@@ -74,9 +74,9 @@ class User < ActiveRecord::Base
       user.save!
     else
       auth.access_token = result['access_token']
-      auth.refresh_token = result['refresh_token'];
+      auth.refresh_token = result['refresh_token']
       auth.save!
-      user = auth.user;
+      user = auth.user
     end
     
     # 获取用户信息
@@ -94,6 +94,13 @@ class User < ActiveRecord::Base
         user.nickname = result['nickname']
         user.remote_avatar_url = result['headimgurl'] 
         user.save!
+        
+        # 保存微信头像
+        if auth.avatar_url.blank?
+          auth.avatar_url = result['headimgurl']
+          auth.save!
+        end
+        
       end
     end
     
