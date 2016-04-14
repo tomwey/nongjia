@@ -91,9 +91,9 @@ class User < ActiveRecord::Base
       result = JSON.parse(resp)
       if result['openid'].present?
         # 正确取到用户数据
-        @user.nickname = result['nickname']
-        @user.remote_avatar_url = result['headimgurl'] 
-        @user.save!
+        user.nickname = result['nickname']
+        user.remote_avatar_url = result['headimgurl'] 
+        user.save!
       end
     end
     
