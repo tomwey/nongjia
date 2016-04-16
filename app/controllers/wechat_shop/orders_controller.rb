@@ -77,10 +77,11 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
     @order.quantity   = user_order_quantity
     
     @success = false
+    
     if @order.save
       session.delete(user_session_key)
       # flash[:success] = '下单成功'
-      
+    
       # 激活优惠券
       if session[:current_discounting_id].present?
         discounting = current_user.valid_discountings.find_by(id: session[:current_discounting_id])
@@ -88,16 +89,16 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
           session[:current_discounting_id] = nil
         end
       end
-      
+    
       @success = true
-      
+    
       @result = WX::Pay.unified_order(@order, request.remote_ip)
       # redirect_to wechat_shop_orders_path
     else
       # render :new
       @success = false
-      
     end
+    
   end
   
   def notify

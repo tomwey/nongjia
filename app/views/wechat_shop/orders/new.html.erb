@@ -3,11 +3,12 @@
   { icon: 'fa fa-home', link: "#{wechat_shop_root_path}"}) %>
 
 <div class="new-order">  
-  <%= form_for [:wechat_shop, @order] do |f| %>
+  <%= form_for [:wechat_shop, @order], remote: true do |f| %>
+  
     <a class="input-item shipment-info" href="<%= wechat_shop_shipments_path(from: new_wechat_shop_order_path) %>">
       <%= render_shipment_info %>
     </a>
-    
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
     <div class="input-item product-info">
       <table class="product-info-table">
         <tr>
