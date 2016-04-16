@@ -1,7 +1,8 @@
 class WechatShop::OrdersController < WechatShop::ApplicationController
 
-  before_filter :require_user, except: [:notify]
-  before_filter :check_user,   except: [:notify]
+  before_filter :require_user, except: :wx_pay_notify
+  skip_before_filter :verify_authenticity_token, :only => [:wx_pay_notify]
+  before_filter :check_user,   except: :wx_pay_notify
   
   def index
     @orders = current_user.orders.order('id DESC')
@@ -116,7 +117,7 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
     
   end
   
-  def notify
+  def wx_pay_notify
     puts params
   end
   
