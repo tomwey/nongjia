@@ -50,9 +50,6 @@ module WX
       
       sign = sign_params(params)
       params[:paySign] = sign
-      
-      puts params
-      
       params
     end
     

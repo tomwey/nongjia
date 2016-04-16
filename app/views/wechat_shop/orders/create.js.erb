@@ -9,7 +9,10 @@
         signType: '<%= @jsapi_params[:signType] %>',
         paySign: '<%= @jsapi_params[:paySign] %>',
         success: function (res) {
-          alert(res);
+          alert('success');
+        },
+        cancel: function (res) {
+          alert('cancel');
         }
       });
     <% else %>
