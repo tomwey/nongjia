@@ -91,10 +91,17 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
       
       @success = true
       
-      redirect_to wechat_shop_orders_path
+      @result = WX::Pay.unified_order(@order, request.remote_ip)
+      # redirect_to wechat_shop_orders_path
     else
-      render :new
+      # render :new
+      @success = false
+      
     end
+  end
+  
+  def notify
+    puts params
   end
   
   private

@@ -38,6 +38,7 @@ Rails.application.routes.draw do
     get    'login'    => 'sessions#new',       as: :login
     get    'redirect' => 'sessions#save_user', as: :redirect_uri
     delete 'logout'   => 'sessions#destroy',   as: :logout
+    post   'notify'   => 'orders#notify',      as: :notify
   end
   
   ############################### end ################################
