@@ -15,7 +15,7 @@ module WX
         spbill_create_ip: ip,
         notify_url: Setting.wx_pay_notify_url,
         trade_type: 'JSAPI',
-        openid: order.user.wechat_auth.open_id,
+        openid: order.user.wechat_auth.try(:open_id) || '',
         attach: '支付订单'
       }
       
@@ -50,7 +50,7 @@ module WX
       sign = sign_params(params)
       params[:paySign] = sign
       
-      # puts params
+      puts params
       
       params
     end

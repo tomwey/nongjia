@@ -101,8 +101,6 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
         @success = true
       
         @result = WX::Pay.unified_order(@order, request.remote_ip)
-        # redirect_to wechat_shop_orders_path
-        # {"return_code"=>"SUCCESS", "return_msg"=>"OK", "appid"=>"wx2893ce894bd65da5", "mch_id"=>"1324084101", "device_info"=>"WEB", "nonce_str"=>"iP2OvJS5g1ONtRsy", "sign"=>"430D769E319384CBCC03D447A59D0029", "result_code"=>"SUCCESS", "prepay_id"=>"wx2016041614522300452df1f00922082092", "trade_type"=>"JSAPI"}
         if @result and @result['return_code'] == 'SUCCESS' and @result['return_msg'] == 'OK' and @result['result_code'] == 'SUCCESS'
           @unified_order_success = true
           @jsapi_params = WX::Pay.generate_jsapi_params(@result['prepay_id'])

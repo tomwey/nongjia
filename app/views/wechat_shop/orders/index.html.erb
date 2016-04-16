@@ -21,6 +21,25 @@
 <% end %>
 
 <% content_for :scripts do %>
+
+<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+<%
+@sign_package = WX::Sign.sign_package(request.original_url)
+@pay_params = WX::Pay.generate_jsapi_params('wx201604162008434cb1b4357a0145578425')
+%>
+wx.config({
+  debug: <%= @sign_package[:debug] %>,
+  appId: '<%= @sign_package[:appId] %>',
+  timestamp: <%= @sign_package[:timestamp] %>,
+  nonceStr: '<%= @sign_package[:nonceStr] %>',
+  signature: '<%= @sign_package[:signature] %>',
+  jsApiList: ['chooseWXPay','onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareQZone','openLocation','getLocation']
+  
+});
+
+</script>
+
 <script>
 function showOrder(ele) {
   var $ele = $(ele);
@@ -34,7 +53,20 @@ function payment(event,ele) {
   } else {
     event.cancelBubble = true;
   }
-  alert(123);
+  // alert(123);
+  
+  wx.chooseWXPay({
+      timestamp: <%= @pay_params[:timeStamp] %>,
+      nonceStr: '<%= @pay_params[:nonceStr] %>',
+      package: '<%= @pay_params[:package] %>',
+      signType: 'MD5',
+      paySign: '<%= @pay_params[:paySign] %>',
+      success: function (res) {
+          // 支付成功后的回调函数
+          console.log(res);
+      }
+  });
+  
   return false;
 }
 </script>
