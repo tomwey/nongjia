@@ -1,7 +1,7 @@
 class WechatShop::OrdersController < WechatShop::ApplicationController
 
-  before_filter :require_user
-  before_filter :check_user
+  before_filter :require_user, except: [:notify]
+  before_filter :check_user,   except: [:notify]
   
   def index
     @orders = current_user.orders.order('id DESC')
