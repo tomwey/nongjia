@@ -1,5 +1,6 @@
 <% if @allow_commit %>
   <% if @success %>
+  alert('<%= @unified_order_success %>);
     <% if @unified_order_success %>
       alert('123');
       wx.chooseWXPay({
