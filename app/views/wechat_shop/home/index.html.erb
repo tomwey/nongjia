@@ -8,9 +8,9 @@
   </div>
   
   <div class="home-products">
-    <% cache ['home-products', @products.to_a] do %>
+    <% cache ['home-products', @products.to_a, 'v1'] do %>
       <% @products.each_with_index do |product, index| %>
-      <% cache ['home-product', product, index % 2 == 1] do %>
+      <% cache ['home-product', product, index % 2 == 1, 'v1'] do %>
       <div class="product <%= index % 2 == 1 ? "product-pull-right" : "" %>">
         <a class="product-link" href="<%= wechat_shop_product_path(product) %>">
           <%= image_tag product.images.first.url(:small) %>
