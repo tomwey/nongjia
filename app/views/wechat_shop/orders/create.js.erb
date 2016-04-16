@@ -9,10 +9,10 @@
         signType: '<%= @jsapi_params[:signType] %>',
         paySign: '<%= @jsapi_params[:paySign] %>',
         success: function (res) {
-          alert('success');
+          window.location.href = '<%= wechat_shop_orders_path %>';
         },
         cancel: function (res) {
-          alert('cancel');
+          window.location.href = '<%= wechat_shop_orders_path %>';
         }
       });
     <% else %>

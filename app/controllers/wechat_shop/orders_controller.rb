@@ -118,7 +118,16 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
   end
   
   def wx_pay_notify
-    puts params
+    result = params['xml']
+    if result and result['return_code'] == 'SUCCESS' and WX::Pay.notify_verify?(result)
+      # 支付成功，更改订单状态
+      order = Order.find_by(order_no: result['out_trade_no'])
+      order.pay unless order.blank?
+      
+    else
+      # 支付失败
+    end
+    # TODO: 返回结果给微信服务器
   end
   
   private

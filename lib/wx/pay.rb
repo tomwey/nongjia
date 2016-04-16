@@ -39,6 +39,17 @@ module WX
       Digest::MD5.hexdigest(string).upcase
     end
     
+    def self.notify_verify?(params)
+      
+      return false if params['appid'] != Setting.wx_app_id
+      return false if params['mch_id'] != Setting.wx_mch_id
+      
+      sign = params['sign']
+      params.delete('sign')
+      return sign_params(params) == sign      
+      
+    end
+    
     def self.generate_jsapi_params(prepay_id)
       params = {
         appId: Setting.wx_app_id,
