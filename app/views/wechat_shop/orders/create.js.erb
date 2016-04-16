@@ -1,8 +1,7 @@
 <% if @allow_commit %>
   <% if @success %>
-  alert('<%= @unified_order_success %>');
+    
     <% if @unified_order_success %>
-      alert('123');
       wx.chooseWXPay({
         timestamp: <%= @jsapi_params[:timeStamp] %>,
         nonceStr: '<%= @jsapi_params[:nonceStr] %>',
@@ -10,12 +9,10 @@
         signType: '<%= @jsapi_params[:signType] %>',
         paySign: '<%= @jsapi_params[:paySign] %>',
         success: function (res) {
-          // 支付成功后的回调函数
-          console.log(res);
+          alert(res);
         }
       });
     <% else %>
-      alert('234');
       window.location.href = '<%= wechat_shop_orders_path %>';
     <% end %>
   <% else %>
