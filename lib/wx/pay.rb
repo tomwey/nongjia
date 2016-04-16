@@ -10,7 +10,7 @@ module WX
         device_info: 'WEB',
         nonce_str: SecureRandom.hex(16),
         body: order.product.title,
-        out_trade_no: '16041649626406780',
+        out_trade_no: order.order_no,
         total_fee: '1', #(order.total_fee - order.discount_fee) * 100,
         spbill_create_ip: ip,
         notify_url: Setting.wx_pay_notify_url,
