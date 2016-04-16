@@ -25,6 +25,7 @@ module WX
       xml = params.to_xml(root: 'xml', skip_instruct: true, dasherize: false)
       # puts xml
       result = RestClient.post 'https://api.mch.weixin.qq.com/pay/unifiedorder', xml, { :content_type => :xml }
+      puts result
       pay_result = Hash.from_xml(result)[:xml]
       return pay_result
     end
