@@ -84,8 +84,6 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
       @order.product_id = user_product_id
       @order.quantity   = user_order_quantity
     
-    
-      @unified_order_success = false
       if @order.save
         session.delete(user_session_key)
         # flash[:success] = '下单成功'
@@ -99,11 +97,15 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
         end
     
         @success = true
-      
+        
+        @unified_order_success = false
+        
         @result = WX::Pay.unified_order(@order, request.remote_ip)
         if @result and @result['return_code'] == 'SUCCESS' and @result['return_msg'] == 'OK' and @result['result_code'] == 'SUCCESS'
-          @unified_order_success = true
           @jsapi_params = WX::Pay.generate_jsapi_params(@result['prepay_id'])
+          @unified_order_success = true
+        else
+          @unified_order_success = false
         end
         
       else
