@@ -1,1 +1,43 @@
-alert(<%= @result %>);
+<% if @allow_commit %>
+  <% if @success %>
+    <% if @unified_order_success %>
+    function onBridgeReady(){
+      WeixinJSBridge.invoke(
+        'getBrandWCPayRequest', {
+               "appId": "<%= @jsapi_params[:appId] %>",    
+               "timeStamp": "<%= @jsapi_params[:timeStamp] %>",     
+               "nonceStr": "<%= @jsapi_params[:nonceStr] %>",     
+               "package": "<%= @jsapi_params[:package] %>",     
+               "signType": "<%= @jsapi_params[:signType] %>",  
+               "paySign": "<%= @jsapi_params[:paySign] %>"
+        },
+        function(res){     
+          if(res.err_msg == "get_brand_wcpay_request：ok" ) {
+            console.log('支付成功');
+          } else {
+            console.log('支付失败');
+          }
+          
+          window.location.href = '<%= wechat_shop_orders_path %>';
+        }
+      ); 
+    }
+    if (typeof WeixinJSBridge == "undefined"){
+       if( document.addEventListener ){
+           document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+       }else if (document.attachEvent){
+           document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+           document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+       }
+    } else{
+       onBridgeReady();
+    }
+    <% else %>
+      window.location.href = '<%= wechat_shop_orders_path %>';
+    <% end %>
+  <% else %>
+  App.alert('提交订单失败', '.new-order');
+  <% end %>
+<% else %>
+App.alert('地址不能为空', '.new-order');
+<% end %>

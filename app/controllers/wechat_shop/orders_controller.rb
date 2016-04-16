@@ -72,31 +72,46 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
   
   def create
     
-    @order = current_user.orders.new(order_params)
-    @order.product_id = user_product_id
-    @order.quantity   = user_order_quantity
+    @allow_commit = true
+    if current_user.current_shipment_id.blank?
+      @allow_commit = false
+    end
     
-    @success = false
-    
-    if @order.save
-      session.delete(user_session_key)
-      # flash[:success] = '下单成功'
-    
-      # 激活优惠券
-      if session[:current_discounting_id].present?
-        discounting = current_user.valid_discountings.find_by(id: session[:current_discounting_id])
-        if discounting && discounting.update_attribute(:discounted_at, Time.now)
-          session[:current_discounting_id] = nil
-        end
-      end
-    
-      @success = true
-    
-      @result = WX::Pay.unified_order(@order, request.remote_ip)
-      # redirect_to wechat_shop_orders_path
-    else
-      # render :new
+    if @allow_commit
       @success = false
+    
+      @order = current_user.orders.new(order_params)
+      @order.product_id = user_product_id
+      @order.quantity   = user_order_quantity
+    
+    
+      @unified_order_success = false
+      if @order.save
+        session.delete(user_session_key)
+        # flash[:success] = '下单成功'
+    
+        # 激活优惠券
+        if session[:current_discounting_id].present?
+          discounting = current_user.valid_discountings.find_by(id: session[:current_discounting_id])
+          if discounting && discounting.update_attribute(:discounted_at, Time.now)
+            session[:current_discounting_id] = nil
+          end
+        end
+    
+        @success = true
+      
+        @result = WX::Pay.unified_order(@order, request.remote_ip)
+        # redirect_to wechat_shop_orders_path
+        # {"return_code"=>"SUCCESS", "return_msg"=>"OK", "appid"=>"wx2893ce894bd65da5", "mch_id"=>"1324084101", "device_info"=>"WEB", "nonce_str"=>"iP2OvJS5g1ONtRsy", "sign"=>"430D769E319384CBCC03D447A59D0029", "result_code"=>"SUCCESS", "prepay_id"=>"wx2016041614522300452df1f00922082092", "trade_type"=>"JSAPI"}
+        if @result['return_code'] == 'SUCCESS' and @result['return_msg'] == 'OK' and @result['result_code'] == 'SUCCESS'
+          @unified_order_success = true
+          @jsapi_params = WX::Pay.generate_jsapi_params(@result['prepay_id'])
+        end
+        
+      else
+        # render :new
+        @success = false
+      end
     end
     
   end
