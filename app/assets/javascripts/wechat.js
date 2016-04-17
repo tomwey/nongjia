@@ -22,7 +22,7 @@ window.App = {
     var orderNo = $ele.data('order-no');
     
     $.ajax({
-      url: '<%= wechat_shop_root_path %>/orders/payment',
+      url: '/wx-shop/orders/payment',
       type: 'POST',
       data: {
         order_no: orderNo

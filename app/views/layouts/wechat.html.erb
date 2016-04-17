@@ -6,7 +6,7 @@
   <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no,width=device-width,height=device-height">
   <title><%= render_page_title %></title>
   <%= stylesheet_link_tag 'wechat', media: 'all' %>
-  
+  <%= csrf_meta_tags %>
 </head>
 <body>
   <%= yield :navbar %>
