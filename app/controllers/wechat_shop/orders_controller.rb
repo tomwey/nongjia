@@ -35,6 +35,29 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
       @current = 'orders_index'
       redirect_to wechat_shop_orders_path
     end
+    
+    # 订单没有支付有几种情况：
+    # 1.调起微信统一下单失败
+    # 2.调起微信统一下单成功，但是用户支付失败
+    if @order.can_pay? 
+      if $redis.get(@order.order_no).present?
+        @jsapi_params = WX::Pay.generate_jsapi_params($redis.get(@order.order_no))
+      else
+        # 调起微信支付
+        @result = WX::Pay.unified_order(@order, request.remote_ip)
+        if @result and @result['return_code'] == 'SUCCESS' and @result['return_msg'] == 'OK' and @result['result_code'] == 'SUCCESS'
+          $redis.set(@order.order_no, @result['prepay_id'])
+        
+          @jsapi_params = WX::Pay.generate_jsapi_params(@result['prepay_id'])
+        else
+          # 微信统一下单失败
+          # 关闭当前订单
+          WX::Pay.close_order(@order)
+        end # end call wx pay
+      end
+      
+    end # end pay
+    
   end
   
   def new
@@ -96,16 +119,21 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
             session[:current_discounting_id] = nil
           end
         end
-    
+        
         @success = true
         
+        # 调起微信支付
         @unified_order_success = false
-        
         @result = WX::Pay.unified_order(@order, request.remote_ip)
         if @result and @result['return_code'] == 'SUCCESS' and @result['return_msg'] == 'OK' and @result['result_code'] == 'SUCCESS'
+          $redis.set(@order.order_no, @result['prepay_id'])
+          
           @jsapi_params = WX::Pay.generate_jsapi_params(@result['prepay_id'])
           @unified_order_success = true
         else
+          # 微信统一下单失败
+          # 关闭当前订单
+          WX::Pay.close_order(@order)
           @unified_order_success = false
         end
         
@@ -127,8 +155,12 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
     if result and result['return_code'] == 'SUCCESS' and WX::Pay.notify_verify?(result)
       # 支付成功，更改订单状态
       order = Order.find_by(order_no: result['out_trade_no'])
-      order.pay unless order.blank?
+      if order.present? and order.can_pay?
+        $redis.del(order.order_no)
+        order.pay
+      end
       @output[:return_code] = 'SUCCESS'
+      
     else
       # 支付失败
       @output[:return_code] = 'FAIL'

@@ -241,6 +241,29 @@
     }
   }
   
+  .pay-tip-block {
+    h2 {
+      padding-top: 5px;
+      font-size: 1.2em;
+      font-weight: normal;
+    }
+    
+    .pay-button {
+      display: block;
+      width: 100%;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      margin: 0 auto;
+      margin-top: 10px;
+      margin-bottom: 5px;
+      background-color: $w_green;
+      color: white;
+      text-decoration: none;
+      font-size: 1.1em;
+    }
+  }
+  
   .order-detail-item {
     margin-bottom: 15px;
     background-color: white;

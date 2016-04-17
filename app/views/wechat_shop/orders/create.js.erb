@@ -9,17 +9,17 @@
         signType: '<%= @jsapi_params[:signType] %>',
         paySign: '<%= @jsapi_params[:paySign] %>',
         success: function (res) {
-          window.location.href = '<%= wechat_shop_orders_path %>';
+          window.location.href = '<%= wechat_shop_order_path(@order.order_no) %>';
         },
         cancel: function (res) {
-          window.location.href = '<%= wechat_shop_orders_path %>';
+          window.location.href = '<%= wechat_shop_order_path(@order.order_no) %>';
         }
       });
     <% else %>
-      window.location.href = '<%= wechat_shop_orders_path %>';
+      window.location.href = '<%= wechat_shop_order_path(@order.order_no) %>';
     <% end %>
   <% else %>
-    App.alert('提交订单失败', '.new-order');
+    App.alert('支付订单失败', '.new-order');
   <% end %>
 <% else %>
   App.alert('地址不能为空', '.new-order');
