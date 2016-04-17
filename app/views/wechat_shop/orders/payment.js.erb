@@ -23,8 +23,11 @@
         window.location.href = '<%= wechat_shop_order_path(@order.order_no) %>';
       },
       cancel: function (res) {
-        alert('123');
-        window.location.href = '<%= wechat_shop_order_path(@order.order_no) %>';
+        $btn1.text('去支付');
+        $btn1.data('loading', '0');
+    
+        $btn2.text('去支付');
+        $btn2.data('loading', '0');
       }
     });
   <% end %>

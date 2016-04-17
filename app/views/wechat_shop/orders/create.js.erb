@@ -17,7 +17,9 @@ var $btn = $('#order-payment-btn');
           window.location.href = '<%= wechat_shop_order_path(@order.order_no) %>';
         },
         cancel: function (res) {
-          window.location.href = '<%= wechat_shop_order_path(@order.order_no) %>';
+          $btn.text('立即支付');
+          $btn.data('loading', '0');
+          $btn.data('order-no', '<%= @order.order_no %>');
         }
       });
     <% end %>
