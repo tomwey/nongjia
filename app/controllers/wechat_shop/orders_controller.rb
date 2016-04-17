@@ -33,30 +33,8 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
     if @order.blank?
       flash[:error] = '没有该订单'
       @current = 'orders_index'
-      redirect_to wechat_shop_orders_path
+      redirect_to orders_wechat_shop_user_path #orders_wechat_shop_user_path
     end
-    
-    # 订单没有支付有几种情况：
-    # 1.调起微信统一下单失败
-    # 2.调起微信统一下单成功，但是用户支付失败
-    if @order.can_pay? 
-      if $redis.get(@order.order_no).present?
-        @jsapi_params = WX::Pay.generate_jsapi_params($redis.get(@order.order_no))
-      else
-        # 调起微信支付
-        @result = WX::Pay.unified_order(@order, request.remote_ip)
-        if @result and @result['return_code'] == 'SUCCESS' and @result['return_msg'] == 'OK' and @result['result_code'] == 'SUCCESS'
-          $redis.set(@order.order_no, @result['prepay_id'])
-        
-          @jsapi_params = WX::Pay.generate_jsapi_params(@result['prepay_id'])
-        else
-          # 微信统一下单失败
-          # 关闭当前订单
-          WX::Pay.close_order(@order)
-        end # end call wx pay
-      end
-      
-    end # end pay
     
   end
   
@@ -143,6 +121,31 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
       end
     end
     
+  end
+  
+  def payment
+    @order = Order.find_by(order_no: params[:order_no])
+    if @order.present? and @order.can_pay?
+      
+      prepay_id = $redis.get(@order.order_no)
+      if prepay_id.present?
+        @jsapi_params = WX::Pay.generate_jsapi_params(prepay_id)
+      else
+        @result = WX::Pay.unified_order(@order, request.remote_ip)
+        if @result and @result['return_code'] == 'SUCCESS' and @result['return_msg'] == 'OK' and @result['result_code'] == 'SUCCESS'
+          $redis.set(@order.order_no, @result['prepay_id'])
+          
+          @jsapi_params = WX::Pay.generate_jsapi_params(@result['prepay_id'])
+        else
+          # 微信统一下单失败
+          # 关闭当前订单
+          WX::Pay.close_order(@order)
+          @jsapi_params = nil
+        end
+        
+      end
+      
+    end
   end
   
   def wx_pay_notify

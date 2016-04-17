@@ -19,6 +19,26 @@ class WechatShop::UsersController < WechatShop::ApplicationController
     end
   end
   
+  def orders
+    @orders = current_user.orders.order('id DESC')
+    @current = 'orders_index'
+    @page_title = '我的订单'
+    
+    fresh_when(etag: [@orders, @current])
+  end
+  
+  def no_pay_orders
+    @orders = current_user.orders.no_pay.order('id DESC')
+    @current = 'orders_no_pay'
+    render :orders
+  end
+  
+  def shipping_orders
+    @orders = current_user.orders.shipping.order('id DESC')
+    @current = 'orders_shipping'
+    render :orders
+  end
+  
   def events
     @page_title = "推荐顾客得优惠"
     

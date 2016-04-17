@@ -2,7 +2,7 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
   <ul class="wechat-shop-tabbar">
     <li class="<%= @current == 'home_index' ? "active" : "" %>"><%= link_to '首页', wechat_shop_root_path %></li>
-    <li class="<%= %W(orders_index orders_no_pay orders_shipping).include?(@current) ? "active" : "" %>"><%= link_to '我的订单', wechat_shop_orders_path %></li>
+    <li class="<%= %W(orders_index orders_no_pay orders_shipping).include?(@current) ? "active" : "" %>"><%= link_to '我的订单', orders_wechat_shop_user_path %></li>
     <li class="<%= @current == 'user_settings' ? "active" : "" %>"><%= link_to '个人中心', settings_wechat_shop_user_path %></li>
   </ul>
 </nav>

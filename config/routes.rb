@@ -16,8 +16,10 @@ Rails.application.routes.draw do
       collection do
         get :no_pay
         get :shipping
+        post :payment
       end
     end
+    
     resources :shipments
     # resources :coupons
     resources :discountings, path: :coupons, as: :coupons, only: [:index, :new, :create]
@@ -29,6 +31,8 @@ Rails.application.routes.draw do
       patch 'update_current_shipment' => 'users#update_current_shipment'
       collection do
         get :orders
+        get :no_pay_orders
+        get :shipping_orders
       end
       get :settings, on: :member
       get :events,   on: :member

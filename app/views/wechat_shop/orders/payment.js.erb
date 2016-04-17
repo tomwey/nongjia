@@ -1,0 +1,23 @@
+<% if @order.blank? %>
+  alert('该订单不存在');
+<% else %>
+
+  <% if @jsapi_params.blank? %>
+    alert('发起微信支付失败，请稍后重试！');
+  <% else %>
+    wx.chooseWXPay({
+      timestamp: <%= @jsapi_params[:timeStamp] %>,
+      nonceStr: '<%= @jsapi_params[:nonceStr] %>',
+      package: '<%= @jsapi_params[:package] %>',
+      signType: '<%= @jsapi_params[:signType] %>',
+      paySign: '<%= @jsapi_params[:paySign] %>',
+      success: function (res) {
+        window.location.href = '<%= wechat_shop_order_path(@order.order_no) %>';
+      },
+      cancel: function (res) {
+        window.location.href = '<%= wechat_shop_order_path(@order.order_no) %>';
+      }
+    });
+  <% end %>
+
+<% end %>
