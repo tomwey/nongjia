@@ -5,6 +5,7 @@ module WX
     def self.unified_order(order, ip)
       return false if order.blank?
       
+      total_fee = SiteConfig.wx_pay_debug == 'true' ? '1' : "#{(order.total_fee - order.discount_fee) * 100}"
       params = {
         appid: Setting.wx_app_id,
         mch_id: Setting.wx_mch_id,
@@ -12,7 +13,7 @@ module WX
         nonce_str: SecureRandom.hex(16),
         body: order.product.title,
         out_trade_no: order.order_no,
-        total_fee: '1', #(order.total_fee - order.discount_fee) * 100,
+        total_fee: total_fee,
         spbill_create_ip: ip,
         notify_url: Setting.wx_pay_notify_url,
         trade_type: 'JSAPI',

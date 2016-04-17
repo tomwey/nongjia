@@ -10,6 +10,9 @@ window.App = {
     $(to).before("<div class='alert alert-danger' id='alert-comp'><a class='close' href='#' data-dismiss='alert'>×</a>" + msg + "</div>");
   },
   
+  wx_config: function(config) {
+    wx.config(JSON.parse(config));
+  },
   payment2: function(orderNo) {
     $.ajax({
       url: '/wx-shop/orders/payment',

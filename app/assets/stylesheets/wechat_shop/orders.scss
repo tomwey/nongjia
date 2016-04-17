@@ -195,8 +195,8 @@
       color: #aaa;
     
       &.canceled-state {
-        border: 1px dashed #aaa;
-        color: #aaa;
+        border: 1px dashed red;
+        color: red;
       }
     
       &.completed-state {

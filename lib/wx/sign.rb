@@ -12,7 +12,7 @@ module WX
       random_str = SecureRandom.hex(4)
       signature  = WX::Sign.sign(url, random_str, timestamp)
       {
-          debug: debug,
+          debug: SiteConfig.wx_config_debug == 'true',
           appId: Setting.wx_app_id,
           timestamp: timestamp,
           nonceStr: random_str,
@@ -21,8 +21,5 @@ module WX
       }
     end
     
-    def self.pay_sign()
-      
-    end
   end
 end
