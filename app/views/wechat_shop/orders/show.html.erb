@@ -5,7 +5,7 @@
   <%- if @order.can_pay? %>
   <div class="order-detail-item pay-tip-block">
     <h2>请尽快完成支付，否则 <%= time_ago_in_words(@order.created_at + 30.minutes) %>后系统自动取消您的订单</h2>
-    <a href="javascript:;" onclick="App.payment(event, this);" class="pay-button" data-order-no="<%= @order.order_no %>" data-remote="true">去支付</a>
+    <a href="javascript:;" onclick="App.payment(event, this);" class="pay-button" data-order-no="<%= @order.order_no %>" data-remote="true" id="order-detail-pay-button">去支付</a>
   </div>
   <%- end %>
   <div class="order-detail-item base-info">

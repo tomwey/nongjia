@@ -1,8 +1,16 @@
 <% if @order.blank? %>
   alert('该订单不存在');
 <% else %>
-
+  var $btn1 = $("#order-detail-pay-button");
+  var $btn2 = $("#pay-button-<%= @order.order_no %>");
+  
   <% if @jsapi_params.blank? %>
+    $btn1.text('去支付');
+    $btn1.data('loading', '0');
+    
+    $btn2.text('去支付');
+    $btn2.data('loading', '0');
+    
     alert('发起微信支付失败，请稍后重试！');
   <% else %>
     wx.chooseWXPay({

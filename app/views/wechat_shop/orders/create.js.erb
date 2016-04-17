@@ -1,7 +1,12 @@
-<% if @allow_commit %>
+var $btn = $('#order-payment-btn');
+<% if @has_shipment %>
   <% if @success %>
-    
-    <% if @unified_order_success %>
+    <% if @jsapi_params.blank? %>
+      $btn.text('立即支付');
+      $btn.data('loading', '0');
+      $btn.data('order-no', '<%= @order.order_no %>');
+      alert('发起微信支付失败，请重试！');
+    <% else %>
       wx.chooseWXPay({
         timestamp: <%= @jsapi_params[:timeStamp] %>,
         nonceStr: '<%= @jsapi_params[:nonceStr] %>',
@@ -15,12 +20,14 @@
           window.location.href = '<%= wechat_shop_order_path(@order.order_no) %>';
         }
       });
-    <% else %>
-      window.location.href = '<%= wechat_shop_order_path(@order.order_no) %>';
     <% end %>
-  <% else %>
-    App.alert('支付订单失败', '.new-order');
+  <% else %>    
+    alert('创建订单失败!');
+    window.location.href = '<%= new_wechat_shop_order_path %>';
   <% end %>
+
 <% else %>
-  App.alert('地址不能为空', '.new-order');
+  $btn.text('立即支付');
+  $btn.data('loading', '0');
+  alert('必须选择收货人地址');
 <% end %>

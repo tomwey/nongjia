@@ -75,7 +75,7 @@
   </div>
   <div class="toolbar-item pull-right">
     <div class="pay">
-      <a href="javascript:;" onclick="payment()" data-disable-with="正在支付...">立即支付</a>
+      <a href="javascript:;" onclick="App.payment(event, this);" id="order-payment-btn" data-loading="0" data-remote="true" data-order-no="">立即支付</a>
     </div>
   </div>
 </nav>
@@ -99,9 +99,4 @@ wx.config({
 
 </script>
 
-<script>
-function payment() {
-  $('.new-order form').submit();
-}
-</script>
 <% end %>
