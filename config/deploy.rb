@@ -7,8 +7,8 @@ set :deploy_user, "deployer"
 set :scm, :git
 set :repo_url, "git@github.com:tomwey/#{fetch(:application)}.git"
 
-# set :sidekiq_config, -> { File.join(shared_path, 'config', 'sidekiq.yml') }
-# set :pty, false
+set :sidekiq_config, -> { File.join(shared_path, 'config', 'sidekiq.yml') }
+set :pty,  false
 
 set :rbenv_type, :user
 set :rbenv_ruby, '2.0.0-p353'

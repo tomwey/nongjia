@@ -117,6 +117,8 @@ group :development do
   # if you are using RBENV
   gem 'capistrano-rbenv', "~> 2.0" 
   
+  gem 'capistrano-sidekiq'
+  
   # puma server
   # gem 'capistrano3-puma', require: false
   
