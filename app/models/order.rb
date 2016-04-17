@@ -45,6 +45,10 @@ class Order < ActiveRecord::Base
   #   Message.create!(content: msg, to_user_type: Message::TO_USER_TYPE_WX, user_id: self.user_id)
   # end
   
+  def send_pay_msg
+    PushMessageJob.perform_later(self.user.id, SiteConfig.order_paid_msg_tpl, '', { first: '我们已收到您的货款，开始打包商品，请耐心等待:)', remark: '如有问题请直接在微信留言，我们会第一时间为您服务！', values: ["#{self.total_fee - self.discount_fee}元", "#{self.product.title}"] })
+  end
+  
   state_machine initial: :pending do # 默认状态，待付款
     state :paid      # 已付款，待配送
     state :shipping  # 配送中
@@ -53,7 +57,7 @@ class Order < ActiveRecord::Base
     
     # 支付
     after_transition :pending => :paid do |order, transition|
-      PushMessageJob.perform_later(order.user.id, SiteConfig.order_paid_msg_tpl, '', { first: '我们已收到您的货款，开始打包商品，请耐心等待:)', remark: '如有问题请直接在微信留言，我们会第一时间为您服务！', values: ["#{order.total_fee - order.discount_fee}元", "#{order.product.title}"] })
+      order.send_pay_msg
     end
     event :pay do
       transition :pending => :paid
