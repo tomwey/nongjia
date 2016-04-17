@@ -1,4 +1,4 @@
-class WXMessageJob < ActiveJob::Base
+class PushMessageJob < ActiveJob::Base
   queue_as :messages
   
   def perform(user_id, tpl, url = '', data = {})
