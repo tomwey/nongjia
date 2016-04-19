@@ -200,8 +200,8 @@
       }
     
       &.completed-state {
-        border: 1px dashed red;
-        color: red;
+        border: 1px dashed $w_green;
+        color: $w_green;
       }
     
     }

@@ -53,9 +53,13 @@ class Order < ActiveRecord::Base
     values << { keyword2: self.product.title }
     values << { keyword3: self.user.shipment_info.try(:address)}
     values << { keyword4: self.order_no }
-    url = Rails.application.routes.url_helpers.wechat_shop_order_path(self.order_no)
-    puts url
-    PushMessageJob.perform_later(self.user.id, SiteConfig.order_paid_msg_tpl, url, { first: '您的订单支付成功，我们会尽快为您发货。', remark: '如有问题请直接在微信留言，我们会第一时间为您服务！', values: values })
+    
+    PushMessageJob.perform_later(self.user.id, SiteConfig.order_paid_msg_tpl, order_detail_url, { first: '您的订单支付成功，我们会尽快为您发货。', remark: '如有问题请直接在微信留言，我们会第一时间为您服务！', values: values })
+  end
+  
+  def order_detail_url
+    return '' if self.order_no
+    Setting.upload_url + Rails.application.routes.url_helpers.wechat_shop_order_path(self.order_no)
   end
   
   def send_order_state_msg(first, state, remark = '')
@@ -63,9 +67,7 @@ class Order < ActiveRecord::Base
     values << { OrderSn: self.order_no }
     values << { OrderStatus: state }
     
-    url = Rails.application.routes.url_helpers.wechat_shop_order_path(self.order_no)
-    puts url
-    PushMessageJob.perform_later(self.user.id, SiteConfig.order_state_msg_tpl, url, { first: first, remark: remark, values: values })
+    PushMessageJob.perform_later(self.user.id, SiteConfig.order_state_msg_tpl, order_detail_url, { first: first, remark: remark, values: values })
   end
   
   state_machine initial: :pending do # 默认状态，待付款
