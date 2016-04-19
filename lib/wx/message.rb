@@ -27,7 +27,7 @@ module WX
       }
       
       values.each do |item|
-        value.each do |key, value|
+        item.each do |key, value|
           data[key.to_sym] = {
             value: value,
             color: '#173177'
