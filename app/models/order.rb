@@ -53,7 +53,8 @@ class Order < ActiveRecord::Base
     values << { keyword2: self.product.title }
     values << { keyword3: self.user.shipment_info.try(:address)}
     values << { keyword4: self.order_no }
-    url = Rails.application.routes.url_helpers.wechat_shop_order_url(self.order_no)
+    url = Rails.application.routes.url_helpers.wechat_shop_order_path(self.order_no)
+    puts url
     PushMessageJob.perform_later(self.user.id, SiteConfig.order_paid_msg_tpl, url, { first: '您的订单支付成功，我们会尽快为您发货。', remark: '如有问题请直接在微信留言，我们会第一时间为您服务！', values: values })
   end
   
@@ -62,8 +63,8 @@ class Order < ActiveRecord::Base
     values << { OrderSn: self.order_no }
     values << { OrderStatus: state }
     
-    url = Rails.application.routes.url_helpers.wechat_shop_order_url(self.order_no)
-    
+    url = Rails.application.routes.url_helpers.wechat_shop_order_path(self.order_no)
+    puts url
     PushMessageJob.perform_later(self.user.id, SiteConfig.order_state_msg_tpl, url, { first: first, remark: remark, values: values })
   end
   
