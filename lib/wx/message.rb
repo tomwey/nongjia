@@ -26,11 +26,13 @@ module WX
         color: '#173177'
       }
       
-      values.each do |key, value|
-        data[key.to_sym] = {
-          value: value,
-          color: '#173177'
-        }
+      values.each do |item|
+        value.each do |key, value|
+          data[key.to_sym] = {
+            value: value,
+            color: '#173177'
+          }
+        end
       end
       
       data[:remark] = {
