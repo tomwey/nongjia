@@ -150,7 +150,14 @@
     display: block;
     width: auto;
     text-decoration: none;
-  
+    
+    .pay-button {
+      color: $w_green;
+      padding: 5px; 
+      padding-right:0; 
+      text-decoration: none;
+    }
+    
     .nb-state-container {
       width: 80px;
       height: 80px;
