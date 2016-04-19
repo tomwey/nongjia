@@ -78,6 +78,7 @@ end
 batch_action :cancel do |ids|
   batch_action_collection.find(ids).each do |order|
     order.cancel
+    order.send_order_state_msg('系统人工取消了您的订单', '已取消')
   end
   redirect_to collection_path, alert: "已经取消"
 end
@@ -100,6 +101,7 @@ end
 
 member_action :cancel, method: :put do
   resource.cancel
+  resource.send_order_state_msg('系统人工取消了您的订单', '已取消')
   redirect_to admin_orders_path, notice: "已取消"
 end
 

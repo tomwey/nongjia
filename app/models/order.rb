@@ -49,7 +49,7 @@ class Order < ActiveRecord::Base
     values = []
     
     fee = [0, (self.total_fee - self.discount_fee)].max
-    values << { keyword1: fee  }
+    values << { keyword1: "#{fee}元"  }
     values << { keyword2: self.product.title }
     values << { keyword3: self.user.shipment_info.try(:address)}
     values << { keyword4: self.order_no }
@@ -95,7 +95,7 @@ class Order < ActiveRecord::Base
     # 取消订单
     # 只能系统管理员取消订单
     after_transition [:pending, :paid] => :canceled do |order, transition|
-      order.send_order_state_msg('系统人工取消了您的订单', '已取消')
+      # order.send_order_state_msg('系统取消了您的订单', '已取消')
     end
     event :cancel do
       transition [:pending, :paid] => :canceled
