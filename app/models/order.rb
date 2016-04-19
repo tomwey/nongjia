@@ -46,7 +46,25 @@ class Order < ActiveRecord::Base
   # end
   
   def send_pay_msg
-    PushMessageJob.perform_later(self.user.id, SiteConfig.order_paid_msg_tpl, '', { first: '我们已收到您的货款，开始打包商品，请耐心等待:)', remark: '如有问题请直接在微信留言，我们会第一时间为您服务！', values: ["#{self.total_fee - self.discount_fee}元", "#{self.product.title}"] })
+    values = []
+    
+    fee = [0, (self.total_fee - self.discount_fee)].max
+    values << { keyword1: fee  }
+    values << { keyword2: self.product.title }
+    values << { keyword3: self.user.shipment_info.try(:address)}
+    values << { keyword4: self.order_no }
+    url = Rails.application.routes.url_helpers.wechat_shop_order_path(self.order_no)
+    PushMessageJob.perform_later(self.user.id, SiteConfig.order_paid_msg_tpl, url, { first: '您的订单支付成功，我们会尽快为您发货。', remark: '如有问题请直接在微信留言，我们会第一时间为您服务！', values: values })
+  end
+  
+  def send_order_state_msg(first, state, remark = '')
+    values = []
+    values << { OrderSn: self.order_no }
+    values << { OrderStatus: state }
+    
+    url = Rails.application.routes.url_helpers.wechat_shop_order_path(self.order_no)
+    
+    PushMessageJob.perform_later(self.user.id, SiteConfig.order_state_msg_tpl, url, { first: first, remark: remark, values: values })
   end
   
   state_machine initial: :pending do # 默认状态，待付款
@@ -65,9 +83,7 @@ class Order < ActiveRecord::Base
     
     # 配送
     after_transition :paid => :shipping do |order, transition|
-      PushMessageJob.perform_later(order.user.id, SiteConfig.order_state_msg_tpl, '', { first: '订单配送中，请耐心等待:)', remark: '', values: ["#{order.order_no}", "已发货"] })
-      # order.send_msg('订单配送中，请耐心等待')
-      # Message.create!(content: '订单配送中，请耐心等待', to_user_type: Message::TO_USER_TYPE_WX, user_id: self.user_id)
+      order.send_order_state_msg('订单配送中，请耐心等待:)', '已发货')
     end
     event :ship do
       transition :paid => :shipping
@@ -76,9 +92,7 @@ class Order < ActiveRecord::Base
     # 取消订单
     # 只能系统管理员取消订单
     after_transition [:pending, :paid] => :canceled do |order, transition|
-      # order.send_msg('系统取消了您的订单')
-      PushMessageJob.perform_later(order.user.id, SiteConfig.order_state_msg_tpl, '', { first: '系统人工取消了您的订单', remark: '', values: ["#{order.order_no}", "已取消"] })
-      # Message.create!(content: '系统取消了您的订单', to_user_type: Message::TO_USER_TYPE_WX, user_id: self.user_id)
+      order.send_order_state_msg('系统人工取消了您的订单', '已取消')
     end
     event :cancel do
       transition [:pending, :paid] => :canceled
@@ -86,9 +100,7 @@ class Order < ActiveRecord::Base
     
     # 确认完成订单，系统管理员确认
     after_transition :shipping => :completed do |order, transition|
-      # order.send_msg('已经完成了本次订单，谢谢惠顾！')
-      PushMessageJob.perform_later(order.user.id, SiteConfig.order_state_msg_tpl, '', { first: '您已经完成了本次购物，谢谢惠顾！', remark: '欢迎到微信跟我们留言互动，多提意见！我们会加倍努力的哟:)', values: ["#{order.order_no}", "已完成"] })
-      # Message.create!(content: '已经完成了本次订单，谢谢惠顾！', to_user_type: Message::TO_USER_TYPE_WX, user_id: self.user_id)
+      order.send_order_state_msg('您已经完成了本次购物，谢谢惠顾！', '已完成', '欢迎到微信跟我们留言互动，多提意见！我们会加倍努力的哟:)')
     end
     event :complete do
       transition :shipping => :completed

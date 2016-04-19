@@ -1,7 +1,7 @@
 require 'rest-client'
 module WX
   class Message
-    
+        
     def self.send(to, tpl, url = '', data = {})
       return if to.blank? or tpl.blank? or data.blank?
       
@@ -14,10 +14,9 @@ module WX
          data: WX::Message.parse_data(data[:first], data[:values], data[:remark])
       }.to_json
       
-      puts post_body
-      
-      res = RestClient.post post_url, post_body, :content_type => :json, :accept => :json
-      puts res
+      # puts post_body
+      RestClient.post post_url, post_body, :content_type => :json, :accept => :json
+      # puts res
     end
     
     def self.parse_data(first, values = [], remark = '')
@@ -27,8 +26,7 @@ module WX
         color: '#173177'
       }
       
-      values.each_with_index do |value, idx|
-        key = 'keynote' + (idx + 1).to_s
+      values.each do |key, value|
         data[key.to_sym] = {
           value: value,
           color: '#173177'
