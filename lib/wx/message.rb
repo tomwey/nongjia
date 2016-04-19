@@ -13,7 +13,9 @@ module WX
          url: url,         
          data: WX::Message.parse_data(data[:first], data[:values], data[:remark])
       }.to_json
-       
+      
+      puts post_body
+      
       res = RestClient.post post_url, post_body, :content_type => :json, :accept => :json
       puts res
     end
