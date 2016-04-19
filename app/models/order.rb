@@ -58,7 +58,7 @@ class Order < ActiveRecord::Base
   end
   
   def order_detail_url
-    return '' if self.order_no
+    # return '' if self.order_no
     Setting.upload_url + Rails.application.routes.url_helpers.wechat_shop_order_path(self.order_no)
   end
   
