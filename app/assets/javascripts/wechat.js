@@ -54,7 +54,8 @@ window.App = {
       url: '/wx-shop/orders/payment',
       type: 'POST',
       data: {
-        order_no: orderNo
+        order_no: orderNo,
+        is_order_detail: $ele.data('order-detail')
       }
     })
     

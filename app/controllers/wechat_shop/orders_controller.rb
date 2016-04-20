@@ -122,6 +122,7 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
   
   def payment
     @order = Order.find_by(order_no: params[:order_no])
+    @is_order_detail = params[:is_order_detail].to_i == 1
     if @order.present? and @order.can_pay?
       
       prepay_id = $redis.get(@order.order_no)

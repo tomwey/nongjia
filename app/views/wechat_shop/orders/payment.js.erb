@@ -20,7 +20,12 @@
       signType: '<%= @jsapi_params[:signType] %>',
       paySign: '<%= @jsapi_params[:paySign] %>',
       success: function (res) {
-        window.location.href = '<%= wechat_shop_order_path(@order.order_no) %>';
+        <% if @is_order_detail %>
+          $("#pay-tip-div").remove();
+          $("#order-state").text("待配送");
+        <% else %>
+          window.location.href = '<%= wechat_shop_order_path(@order.order_no) %>';
+        <% end %>
       },
       cancel: function (res) {
         $btn1.text('去支付');
