@@ -8,12 +8,12 @@
     <a href="javascript:;" onclick="App.payment(event, this);" class="pay-button" data-order-no="<%= @order.order_no %>" data-remote="true" data-order-detail="1" id="order-detail-pay-button">去支付</a>
   </div>
   <%- end %>
-  <%- if @order.shipping? -%>
+  <%- if @order.shipping? and @order.express.present? -%>
   <div class="order-detail-item express-info">
     <h2>订单配送中</h2>
     <p>承运公司：<%= @order.express.name %></p>
     <p>运单编号：<%= @order.express.exp_no %></p>
-    <p>官方电话：<%= SiteConfig.exp_contact %></p>
+    <p>官方电话：<%= SiteConfig.sf_contact %></p>
   </div>
   <%- else -%>
   <div class="order-detail-item base-info">
