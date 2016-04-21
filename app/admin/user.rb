@@ -5,7 +5,7 @@ ActiveAdmin.register User do
 #
 permit_params :list, :of, [:nickname, :avatar, :mobile, :score, :balance], :on, :model
 
-actions :index, :show, :edit, :update
+actions :index, :show, :edit, :update, :destroy
 
 menu priority: 2, label: "用户"
 
