@@ -52,7 +52,7 @@ module Weixin
               new_user.wechat_auth = auth
               if new_user.save
                 invite = Invite.current_invite_for(user)
-              
+                
                 Invite.transaction do
                   # 送被邀请人一张现金券
                   Discounting.create!(user_id: new_user.id, coupon_id: invite.invitee_benefits)

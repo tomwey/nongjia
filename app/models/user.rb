@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   has_many :valid_discountings, -> { unused.unexpired }, class_name: 'Discounting'
   has_many :valid_coupons, through: :valid_discountings, class_name: 'Coupon', source: :coupon
   
-  has_one  :wechat_auth
+  has_one  :wechat_auth, dependent: :destroy
   # validates :mobile, presence: true
   # validates :mobile, format: { with: /\A1[3|4|5|7|8][0-9]\d{4,8}\z/, message: "请输入11位正确的手机号" },
   #                    length: { is: 11 },

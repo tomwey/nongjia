@@ -17,7 +17,7 @@ class WechatShop::ApplicationController < ActionController::Base
   end
   
   def check_from_wechat
-    puts request.user_agent
+    # puts request.user_agent
   end
   
   def require_user

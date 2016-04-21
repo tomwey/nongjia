@@ -65,6 +65,7 @@ index do
       item "启用", unblock_admin_user_path(user), method: :put
     end
     item "编辑", edit_admin_user_path(user)
+    item "删除", admin_user_path(user), method: :delete, data: { confirm: '你确定吗？' }
   end
   
 end
@@ -107,15 +108,13 @@ show do
     row :verified do |user|
       user.verified ? "可用" : "禁用"
     end
-    row '三方认证' do |user|
-      ul do
-        user.authorizations.each do |auth|
-          li do
-            auth.provider + ': ' + auth.uid
-          end
-        end
-      end
+    row 'access token' do |user|
+      user.wechat_auth.try(:access_token)
     end
+    row 'refresh token' do |user|
+      user.wechat_auth.try(:refresh_token)
+    end
+    
   end
 end
 
