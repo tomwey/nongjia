@@ -5,7 +5,7 @@ ActiveAdmin.register User do
 #
 permit_params :list, :of, [:nickname, :avatar, :mobile, :score, :balance], :on, :model
 
-actions :index, :show, :edit, :update, :destroy
+actions :index, :show, :edit, :update
 
 menu priority: 2, label: "用户"
 
@@ -65,7 +65,6 @@ index do
       item "启用", unblock_admin_user_path(user), method: :put
     end
     item "编辑", edit_admin_user_path(user)
-    item "删除", admin_user_path(user), method: :delete, data: { confirm: '你确定吗？' }
   end
   
 end
