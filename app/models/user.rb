@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   
   has_many :authorizations, dependent: :destroy, inverse_of: :user
-  has_many :orders, inverse_of: :user
+  has_many :orders, dependent: :destroy, inverse_of: :user
   has_many :shipments, dependent: :destroy, inverse_of: :user
   
   has_many :discountings
