@@ -5,6 +5,8 @@ class WechatShop::ApplicationController < ActionController::Base
   
   protect_from_forgery with: :exception
   
+  before_filter :check_from_wechat
+  
   layout "wechat"
   
   helper_method :render_page_title
@@ -12,6 +14,10 @@ class WechatShop::ApplicationController < ActionController::Base
     site_name = "农家风味"
     @page_title || site_name
     # content_tag(:title, title, nil, false)
+  end
+  
+  def check_from_wechat
+    puts request.user_agent
   end
   
   def require_user

@@ -15,6 +15,7 @@
       discount_event: '优惠活动'
       site_config: '站点配置'
       invite: '邀请'
+      express: '快递'
     attributes:
       user:
         mobile: "手机"
@@ -116,6 +117,11 @@
         title: "标题"
         body: "内容"
         category_id: "所属类别"
+      express:
+        name: "快递名字"
+        exp_no: '运单号'
+        company_code: '快递公司代号'
+        order_id: '所属订单'
         
     errors:
       models:

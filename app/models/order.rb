@@ -2,6 +2,8 @@ class Order < ActiveRecord::Base
   belongs_to :product, counter_cache: true
   belongs_to :user, inverse_of: :orders
   
+  has_one :express
+  
   validates :user_id, :product_id, presence: true
   validate :total_fee_greator_discount_fee
   def total_fee_greator_discount_fee

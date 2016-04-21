@@ -8,12 +8,22 @@
     <a href="javascript:;" onclick="App.payment(event, this);" class="pay-button" data-order-no="<%= @order.order_no %>" data-remote="true" data-order-detail="1" id="order-detail-pay-button">去支付</a>
   </div>
   <%- end %>
+  <%- if @order.shipping? -%>
+  <div class="order-detail-item express-info">
+    <h2>订单配送中</h2>
+    <p>承运公司：<%= @order.express.name %></p>
+    <p>运单编号：<%= @order.express.exp_no %></p>
+    <p>官方电话：<%= SiteConfig.exp_contact %></p>
+  </div>
+  <%- else -%>
   <div class="order-detail-item base-info">
     <p>订单号: <%= @order.order_no %></p>
     <p>下单时间: <%= @order.created_at.strftime('%Y-%m-%d %H:%M:%S') %></p>
     <p>订单状态: <span class="green" id="order-state"><%= @order.state_info %></span></p>
     <p>订单总价: <span class="green">¥ <%= @order.total_fee - @order.discount_fee %></span></p> 
   </div>
+  <%- end -%>
+  
   <div class="order-detail-item shipment-info">
     <h2>收货信息</h2>
     <p><%= @order.shipment_info.try(:name) %><span class="mobile"><%= @order.shipment_info.try(:mobile) %></span></p>

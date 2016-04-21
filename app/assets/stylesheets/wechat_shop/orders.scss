@@ -223,6 +223,7 @@
       font-weight: normal;
       color: $w_black;
     }
+    
     .base-info {
       margin-left: 70px;
       .product-title {
@@ -245,6 +246,15 @@
     p {
       padding: 2px 0;
       font-size: 1em;
+    }
+  }
+  
+  .express-info {
+    h2 {
+      font-size: 1.2em;
+      color: $w_green;
+      margin-bottom: 5px;
+      margin-top: 5px;
     }
   }
   
