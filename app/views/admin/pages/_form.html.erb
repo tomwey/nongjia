@@ -11,7 +11,7 @@
   
   <div style="width: 80%; margin-bottom: 20px;">
     <%= f.label :body, '*内容' %>
-    <%= text_area_tag :body,  "", name: 'page[body]', :class => "redactor", :rows => 40, :cols => 120 %>
+    <%= text_area_tag :body,  @page.body, name: 'page[body]', :class => "redactor", :rows => 40, :cols => 120 %>
   </div>
   
   <%= f.submit '提交' %>
