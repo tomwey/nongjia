@@ -13,7 +13,13 @@ $(document).ready(
       "fileGetJson":"/redactor_rails/documents",
       "path":"/assets/redactor-rails",
       "css":"style.css",
-      "lang":'zh_cn'
+      "plugins": ['fontsize',
+                  'fontcolor',
+                  'fontfamily',
+                  'fullscreen',
+                  'textdirection',
+                  'clips'],
+      "lang":'zh_cn',
     }
   );
 });
