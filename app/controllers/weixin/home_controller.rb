@@ -10,7 +10,7 @@ class Weixin::HomeController < Weixin::ApplicationController
   end
   
   def fetch_access_token
-    create_wechat_menu
+    # create_wechat_menu
     render text: fetch_wechat_access_token
   end
   

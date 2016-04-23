@@ -49,6 +49,12 @@ module WX
       result['ticket']
     end
     
+    # 创建自定义菜单
+    def create_wechat_menu(menu_json)
+      resp = RestClient.post "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=#{fetch_access_token}", menu_json, :content_type => :json, :accept => :json
+      puts resp
+    end
+    
     # 检测请求是否来自微信服务器
     def self.check_weixin_legality(timestamp, nonce, signature)
       if timestamp.blank? or nonce.blank? or signature.blank?
