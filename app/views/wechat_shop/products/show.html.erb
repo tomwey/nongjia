@@ -26,7 +26,7 @@
     </div>
   </div>
   <div class="toolbar-item pull-right">
-    <div class="buy <%= @product.stock <= 0 ? 'no-stock' : '' %>">
+    <div class="buy <%= @product.has_stock? ? '' : 'no-stock' %>">
       <a href="javascript:;" onclick="checkout()"><%= @product.stock <= 0 ? '无货' : '立即购买' %></a>
     </div>
   </div>

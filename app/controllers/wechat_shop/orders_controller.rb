@@ -53,7 +53,7 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
       return
     end
     
-    if product.stock <= 0
+    if not product.has_stock?
       flash[:error] = '该产品无货'
       redirect_to wechat_shop_root_path
       return
@@ -198,7 +198,7 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
   end
   
   def check_stock?(product)
-    user_order_quantity <= product.stock
+    user_order_quantity.to_i <= product.stock.to_i
   end
   
   def save_pid_and_quantity_to_session(pid, quantity)

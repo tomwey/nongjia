@@ -28,6 +28,11 @@ class Product < ActiveRecord::Base
     end
   end
   
+  # 是否有货
+  def has_stock?
+    self.stock.to_i > 0
+  end
+  
   def sale!
     self.on_sale = true
     self.save!
