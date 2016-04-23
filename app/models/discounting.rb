@@ -12,6 +12,17 @@ class Discounting < ActiveRecord::Base
     self.expired_on = (Time.now + coupon.expired_days.days) if self.expired_on.blank?
   end
   
+  # 通知用户获得了一张优惠券
+  after_create :notify_user
+  def notify_user
+    # PushMessageJob.perform_later(self.user.id, SiteConfig.coupon_fetch_msg_tpl, my_coupons_url, { first: '送您一张优惠券', remark: '如有问题请直接在微信留言，我们会第一时间为您服务！', values: values })
+  end
+  
+  def my_coupons_url
+    # return '' if self.order_no
+    Setting.upload_url + Rails.application.routes.url_helpers.wechat_shop_coupons_path
+  end
+  
   def expired?
     Time.now > self.expired_on.end_of_day
   end

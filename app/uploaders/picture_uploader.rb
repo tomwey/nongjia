@@ -3,11 +3,11 @@ require 'digest/md5'
 class PictureUploader < BaseUploader
 
   version :large do
-    process resize_to_limit: [nil, 732]
+    process resize_to_fill: [1080, 668]
   end
   
   version :thumb, from_version: :large do
-    process resize_to_fill: [452, 452]
+    process resize_to_fill: [412, 412]
   end
   
   version :small, from_version: :thumb do

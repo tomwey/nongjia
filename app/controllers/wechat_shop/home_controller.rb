@@ -4,7 +4,10 @@ class WechatShop::HomeController < WechatShop::ApplicationController
     @products = Product.no_delete.saled.hot
     @current  = 'home_index' 
     
-    fresh_when(etag: [@products])
+    # 加载广告，最多5个
+    @banners = Banner.sorted.recent.limit(5)
+    
+    fresh_when(etag: [@products, @banners])
   end
     
 end

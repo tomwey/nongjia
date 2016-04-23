@@ -1,0 +1,21 @@
+<div class="home-banners">
+  <div id="carousel-images" class="carousel slide" data-ride="carousel">    
+    <!-- Indicators -->
+    <% if @banners.size > 1 %>
+    <ol class="carousel-indicators">
+      <% @banners.each_with_index do |banner, index| %>
+        <li data-target="#carousel-images" data-slide-to="<%= index %>" class="<%= index == 0 ? "active" : "" %>"></li>
+      <% end %>
+    </ol>
+    <% end %>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+      <% @banners.each_with_index do |banner, index| %>
+        <div class="item <%= index == 0 ? "active" : "" %>" onclick="App.openUrl('<%= banner.link %>')">
+          <%= image_tag banner.image.url(:large), class: 'img-responsive' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
