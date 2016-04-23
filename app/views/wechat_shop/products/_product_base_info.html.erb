@@ -1,6 +1,7 @@
 <div class="base-info">
   <h2 class="title"><%= product.title %></h2>
   <p class="green price">¥ <%= product.price %></p>
+  <%= render_stock_tag(product) %>
   <%- if product.intro -%>
   <p><%= product.intro %></p>
   <%- end -%>

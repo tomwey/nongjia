@@ -53,6 +53,12 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
       return
     end
     
+    if product.stock <= 0
+      flash[:error] = '该产品无货'
+      redirect_to wechat_shop_root_path
+      return
+    end
+    
     @order = Order.new
     @order.product = product
     @order.quantity = user_order_quantity
@@ -77,46 +83,59 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
     @has_shipment = current_user.current_shipment_id.present?
     
     if @has_shipment
-      @success = false
       
-      @order = current_user.orders.new(order_params)
-      @order.product_id = user_product_id
-      @order.quantity   = user_order_quantity
-      
-      if @order.save
-        # 删除session里面的用户下单相关信息
-        session.delete(user_session_key)
-        
-        @success = true
-        
-        # 激活优惠券
-        if session[:current_discounting_id].present?
-          discounting = current_user.valid_discountings.find_by(id: session[:current_discounting_id])
-          if discounting && discounting.update_attribute(:discounted_at, Time.now)
-            session[:current_discounting_id] = nil
-          end
-        end
-        
-        # 调起微信支付统一下单接口
-        @result = WX::Pay.unified_order(@order, request.remote_ip)
-        if @result and @result['return_code'] == 'SUCCESS' and @result['return_msg'] == 'OK' and @result['result_code'] == 'SUCCESS'
-          $redis.set(@order.order_no, @result['prepay_id'])
-          
-          @jsapi_params = WX::Pay.generate_jsapi_params(@result['prepay_id'])
-          
-        else
-          # 微信统一下单失败
-          # 关闭当前订单
-          WX::Pay.close_order(@order)
-          @jsapi_params = nil
-        end # end 结束调用微信支付
-        
+      product = Product.find_by(id: user_product_id)
+      if product.blank?
+        @has_product = false
       else
-        # 创建订单失败
-        @success = false
-      end
+        @has_product = true
+        
+        @has_stock = check_stock?(product)
+        
+        if @has_stock
+          @success = false
+    
+          @order = current_user.orders.new(order_params)
+          @order.product_id = user_product_id
+          @order.quantity   = user_order_quantity
+    
+          if @order.save
+            # 删除session里面的用户下单相关信息
+            session.delete(user_session_key)
       
-    end
+            @success = true
+      
+            # 激活优惠券
+            if session[:current_discounting_id].present?
+              discounting = current_user.valid_discountings.find_by(id: session[:current_discounting_id])
+              if discounting && discounting.update_attribute(:discounted_at, Time.now)
+                session[:current_discounting_id] = nil
+              end
+            end
+      
+            # 调起微信支付统一下单接口
+            @result = WX::Pay.unified_order(@order, request.remote_ip)
+            if @result and @result['return_code'] == 'SUCCESS' and @result['return_msg'] == 'OK' and @result['result_code'] == 'SUCCESS'
+              $redis.set(@order.order_no, @result['prepay_id'])
+        
+              @jsapi_params = WX::Pay.generate_jsapi_params(@result['prepay_id'])
+        
+            else
+              # 微信统一下单失败
+              # 关闭当前订单
+              WX::Pay.close_order(@order)
+              @jsapi_params = nil
+            end # end 结束调用微信支付
+      
+          else
+            # 创建订单失败
+            @success = false
+          end
+        end # end stock check
+        
+      end # end product blank check
+      
+    end # end shipment check
     
   end
   
@@ -176,6 +195,10 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
   private
   def order_params
     params.require(:order).permit(:note, :quantity, :product_id, :total_fee, :discount_fee)
+  end
+  
+  def check_stock?(product)
+    user_order_quantity <= product.stock
   end
   
   def save_pid_and_quantity_to_session(pid, quantity)

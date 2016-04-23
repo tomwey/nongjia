@@ -1,33 +1,38 @@
 var $btn = $('#order-payment-btn');
 <% if @has_shipment %>
-  <% if @success %>
-    <% if @jsapi_params.blank? %>
-      $btn.text('立即支付');
-      $btn.data('loading', '0');
-      $btn.data('order-no', '<%= @order.order_no %>');
-      alert('发起微信支付失败, 请重试!');
-    <% else %>
-      wx.chooseWXPay({
-        timestamp: <%= @jsapi_params[:timeStamp] %>,
-        nonceStr: '<%= @jsapi_params[:nonceStr] %>',
-        package: '<%= @jsapi_params[:package] %>',
-        signType: '<%= @jsapi_params[:signType] %>',
-        paySign: '<%= @jsapi_params[:paySign] %>',
-        success: function (res) {
-          window.location.href = '<%= wechat_shop_order_path(@order.order_no) %>';
-        },
-        cancel: function (res) {
-          $btn.text('立即支付');
-          $btn.data('loading', '0');
-          $btn.data('order-no', '<%= @order.order_no %>');
-          alert('支付未完成, 请尽快支付, 否则30分钟后系统会自动取消该订单');
-          window.location.href = '<%= wechat_shop_order_path(@order.order_no) %>';
-        }
-      });
+  <% if @has_stock %>
+    <% if @success %>
+      <% if @jsapi_params.blank? %>
+        $btn.text('立即支付');
+        $btn.data('loading', '0');
+        $btn.data('order-no', '<%= @order.order_no %>');
+        alert('发起微信支付失败, 请重试!');
+      <% else %>
+        wx.chooseWXPay({
+          timestamp: <%= @jsapi_params[:timeStamp] %>,
+          nonceStr: '<%= @jsapi_params[:nonceStr] %>',
+          package: '<%= @jsapi_params[:package] %>',
+          signType: '<%= @jsapi_params[:signType] %>',
+          paySign: '<%= @jsapi_params[:paySign] %>',
+          success: function (res) {
+            window.location.href = '<%= wechat_shop_order_path(@order.order_no) %>';
+          },
+          cancel: function (res) {
+            $btn.text('立即支付');
+            $btn.data('loading', '0');
+            $btn.data('order-no', '<%= @order.order_no %>');
+            alert('支付未完成, 请尽快支付, 否则30分钟后系统会自动取消该订单');
+            window.location.href = '<%= wechat_shop_order_path(@order.order_no) %>';
+          }
+        });
+      <% end %>
+    <% else %>    
+      alert('创建订单失败!');
+      window.location.href = '<%= new_wechat_shop_order_path %>';
     <% end %>
-  <% else %>    
-    alert('创建订单失败!');
-    window.location.href = '<%= new_wechat_shop_order_path %>';
+  <% else %>
+    alert('产品库存不足，请重新选择产品下单！');
+    window.location.href = '<%= wechat_shop_root_path %>';
   <% end %>
 
 <% else %>

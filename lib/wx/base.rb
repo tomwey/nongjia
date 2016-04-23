@@ -53,6 +53,11 @@ module WX
     def self.create_wechat_menu(menu_json)
       resp = RestClient.post "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=#{WX::Base.fetch_access_token}", menu_json, :content_type => :json, :accept => :json
       puts resp
+      result = JSON.parse(resp)
+      if result['errcode'].to_s != '0'
+        Rails.cache.write("wechat.access_token", '')
+        create_wechat_menu(menu_json)
+      end
     end
     
     # 检测请求是否来自微信服务器

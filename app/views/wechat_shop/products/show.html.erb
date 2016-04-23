@@ -21,13 +21,13 @@
   <div class="toolbar-item">
     <div class="input-digit-control">
       <a class="adds-on minus" href="javascript:;" onclick="changeDigit(false)">－</a>
-      <span class="digit" data-minimum='1' data-maximum='5' id="digit-control">1</span>
+      <span class="digit" data-minimum='1' data-maximum='<%= [5, @product.stock].min %>' id="digit-control">1</span>
       <a class="adds-on plus" href="javascript:;" onclick="changeDigit(true)">＋</a>
     </div>
   </div>
   <div class="toolbar-item pull-right">
-    <div class="buy">
-      <a href="javascript:;" onclick="checkout()">立即购买</a>
+    <div class="buy <%= @product.stock <= 0 ? 'no-stock' : '' %>">
+      <a href="javascript:;" onclick="checkout()"><%= @product.stock <= 0 ? '无货' : '立即购买' %></a>
     </div>
   </div>
 </nav>
@@ -55,20 +55,25 @@ function changeDigit(flag) {
   var digit = parseInt($digitControl.text());
   var min = parseInt($digitControl.data('minimum'));
   var max = parseInt($digitControl.data('maximum'));
-  // alert(min + ':' + max)
+
+  if (max <= 0) {
+    alert('该产品无货');
+    return false;
+  }
+  
   if (flag) {
     if ( digit < max ) {
       digit ++;
     } else {
       alert('不能超过' + max);
-      return;
+      return false;
     }
   } else {
     if ( digit > min ) {
       digit --;
     } else {
       alert('至少为' + min);
-      return;
+      return false;
     }
   }
   
@@ -79,6 +84,11 @@ function changeDigit(flag) {
 }
 
 function checkout() {
+  var stock = parseInt('<%= @product.stock %>');
+  if ( stock <= 0 ) {
+    return false;
+  }
+  
   window.location.href = '<%= new_wechat_shop_order_path(pid: @product.id) %>' + '&q=' + $('#digit-control').text();
 }
 </script>

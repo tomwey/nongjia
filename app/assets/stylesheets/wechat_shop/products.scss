@@ -42,6 +42,9 @@
       height: 51px;
       line-height: 50px;
       margin-top: -1px;
+      &.no-stock {
+        background-color: #ccc;
+      }
       a {
         display: block;
         text-decoration: none;
