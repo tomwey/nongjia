@@ -11,6 +11,11 @@ class WechatShop::DiscountingsController < WechatShop::ApplicationController
       session[:from_for_coupons] = params[:from]
     end
     @from = params[:from] || session[:from_for_coupons]
+    
+    if @from.blank?
+      @from = "#{settings_wechat_shop_user_path}"
+    end
+    
   end
   
   def create
