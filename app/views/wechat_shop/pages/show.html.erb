@@ -1,6 +1,6 @@
 <% if @ticket.blank? %>
 <%= render_navbar_for(@page.title, 
-  { icon: 'fa fa-angle-left', link: "javascript:history.go(-1)" }) %>
+  { icon: 'fa fa-angle-left', link: "#{@from}" }) %>
 <% end %>
 
 <div class="pages <%= @ticket.present? ? "qrcode-pages" : "" %>">

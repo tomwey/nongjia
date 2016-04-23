@@ -7,6 +7,11 @@ class WechatShop::PagesController < WechatShop::ApplicationController
       @ticket = WX::Base.fetch_qrcode_ticket(params[:code])
     end
     
+    if @page.slug == 'help' && params[:from] == 'wx'
+      @from = "#{settings_wechat_shop_user_path}"
+    else
+      @from = 'javascript:history.go(-1)'
+    end
   end
     
 end
