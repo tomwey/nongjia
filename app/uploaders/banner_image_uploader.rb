@@ -3,11 +3,11 @@
 class BannerImageUploader < BaseUploader
 
   version :large do
-    process resize_to_fill: [1080, 624]
+    process resize_to_fill: [1080, 412]
   end
   
   version :thumb do
-    process resize_to_fill: [540, 312]
+    process resize_to_fill: [540, 206]
   end
   
   version :small do
