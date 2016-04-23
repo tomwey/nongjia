@@ -50,8 +50,8 @@ module WX
     end
     
     # 创建自定义菜单
-    def create_wechat_menu(menu_json)
-      resp = RestClient.post "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=#{fetch_access_token}", menu_json, :content_type => :json, :accept => :json
+    def self.create_wechat_menu(menu_json)
+      resp = RestClient.post "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=#{WX::Base.fetch_access_token}", menu_json, :content_type => :json, :accept => :json
       puts resp
     end
     
