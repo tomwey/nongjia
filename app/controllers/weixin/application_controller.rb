@@ -25,40 +25,45 @@ class Weixin::ApplicationController < ActionController::Base
           name: '商城',
           url: 'https://nj.afterwind.cn/wx-shop'
         },
-        {
-          name: '福利',
-          sub_button: [
-            { type: 'view',
-              name: '拔鸡毛',
-              url: 'https://nj.afterwind.cn/wx-shop'
-            }
-          ]
+        { type: 'view',
+          name: '个人中心',
+          url: 'https://nj.afterwind.cn/wx-shop/user/settings'
         },
-        {
-          name: '我',
-          sub_button: [
-            {
-              type: 'view',
-              name: '我的订单',
-              url: 'https://nj.afterwind.cn/wx-shop/orders'
-            },
-            {
-              type: 'view',
-              name: '个人中心',
-              url: 'https://nj.afterwind.cn/wx-shop/user/settings'
-            },
-            {
-              type: 'view',
-              name: '优惠券',
-              url: 'https://nj.afterwind.cn/wx-shop/coupons'
-            },
-            {
-              type: 'view',
-              name: '帮助',
-              url: 'https://nj.afterwind.cn/wx-shop/p/help'
-            }
-          ]
-        }
+        
+        # {
+        #   name: '福利',
+        #   sub_button: [
+        #     { type: 'view',
+        #       name: '拔鸡毛',
+        #       url: 'https://nj.afterwind.cn/wx-shop'
+        #     }
+        #   ]
+        # },
+        # {
+        #   name: '我',
+        #   sub_button: [
+        #     {
+        #       type: 'view',
+        #       name: '我的订单',
+        #       url: 'https://nj.afterwind.cn/wx-shop/orders'
+        #     },
+        #     {
+        #       type: 'view',
+        #       name: '个人中心',
+        #       url: 'https://nj.afterwind.cn/wx-shop/user/settings'
+        #     },
+        #     {
+        #       type: 'view',
+        #       name: '优惠券',
+        #       url: 'https://nj.afterwind.cn/wx-shop/coupons'
+        #     },
+        #     {
+        #       type: 'view',
+        #       name: '帮助',
+        #       url: 'https://nj.afterwind.cn/wx-shop/p/help'
+        #     }
+        #   ]
+        # }
       ]
     }.to_json
     resp = RestClient.post "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=#{fetch_wechat_access_token}", post_body, :content_type => :json, :accept => :json
