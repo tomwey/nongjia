@@ -31,6 +31,7 @@ class SiteConfig < ActiveRecord::Base
     Rails.cache.write("site_config:#{self.key}", self.value)
     if self.key == 'wechat_menu'
       # 创建自定义菜单
+      puts self.value
       WX::Base.create_wechat_menu(self.value)
     end
   end
