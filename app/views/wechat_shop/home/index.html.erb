@@ -17,7 +17,7 @@
           <%= image_tag product.images.first.url(:small) %>
           <div class="product-info">
             <div class="block-ellipsis"><%= product.title %></div>
-            <p class="price">¥ <%= product.price %></p>
+            <p><span class="price">¥ <%= product.price %></span><span class="m-price">¥ <%= product.m_price %></span></p>
           </div>
         </a>
       </div>
