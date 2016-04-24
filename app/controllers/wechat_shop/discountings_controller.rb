@@ -5,7 +5,12 @@ class WechatShop::DiscountingsController < WechatShop::ApplicationController
   
   def index
     # @coupons = current_user.valid_coupons
-    @discountings = current_user.valid_discountings.order('expired_on asc, id DESC')
+    if params[:pid].present?
+      @coupon_ids = current_user.valid_coupons.where.not('except_products @> ?', "{#{params[:pid]}}").pluck(:id)
+      @discountings = Discounting.where(coupon_id: @coupon_ids).order('expired_on asc, id DESC')
+    else
+      @discountings = current_user.valid_discountings.order('expired_on asc, id DESC')
+    end
     
     if params[:from]
       session[:from_for_coupons] = params[:from]

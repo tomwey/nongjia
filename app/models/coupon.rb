@@ -40,6 +40,15 @@ class Coupon < ActiveRecord::Base
     end
   end
   
+  before_save :remove_blank_value_for_except_products
+  def remove_blank_value_for_except_products
+    self.except_products = self.except_products.compact.reject(&:blank?)
+  end
+  
+  def except_product_titles
+    Product.where(id: self.except_products).map { |p| p.title }
+  end
+  
   def coupon_type_info
     case(coupon_type)
     when Coupon::DISCOUNT then "打折"

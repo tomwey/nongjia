@@ -65,8 +65,12 @@ class WechatShop::OrdersController < WechatShop::ApplicationController
     @order.total_fee = product.price * @order.quantity
     @order.discount_fee = 0
     
+    @coupon_counts ||= current_user.valid_coupons.where.not('except_products @> ?', "{#{product.id}}").count
+    
     if params[:coupon_id].present?
-      @discounting = current_user.valid_discountings.find_by(id: params[:coupon_id])
+      @coupon_ids = current_user.valid_coupons.where.not('except_products @> ?', "{#{product.id}}").pluck(:id)
+      @discounting = Discounting.where(coupon_id: @coupon_ids).find_by(id: params[:coupon_id])
+      # @discounting = current_user.valid_discountings.find_by(id: params[:coupon_id])
       if @discounting.present?
         @coupon = @discounting.coupon
         @order.discount_fee = @discounting.discount_value_for(@order.total_fee)

@@ -3,7 +3,7 @@ ActiveAdmin.register Coupon do
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
-permit_params :list, :of, [:title, :note, :body, :value, :max_value, :expired_days, :coupon_type, :use_type], :on, :model
+permit_params :title, :note, :body, :value, :max_value, :expired_days, :coupon_type, :use_type, { except_products: [] }
 #
 # or
 #
@@ -34,14 +34,22 @@ index do
   column '最大优惠额度', :max_value, sortable: false do |coupon|
     "¥#{coupon.max_value}"
   end
-  column '优惠券类型', sortable: false do |coupon|
+  column '类型', sortable: false do |coupon|
     coupon.coupon_type_info
   end
-  column '优惠券发放方式', sortable: false do |coupon|
+  column '发放方式', sortable: false do |coupon|
     coupon.use_type_info
   end
+  column '限制使用的产品', sortable: false do |coupon|
+    ul do
+      coupon.except_product_titles.each_with_index do |title,index|
+        li do
+          (index + 1).to_s + '. ' + title
+        end
+      end
+    end
+  end
   column :note, sortable: false
-  column :body, sortable: false
   column '所有者', sortable: false do |coupon|
     if coupon.users.count == 0 
       '未发放'
@@ -82,6 +90,7 @@ form do |f|
     f.input :expired_days, placeholder: '用户获取该优惠券的过期时间间隔，以天为单位的整数，例如：60，表示两个月'
     f.input :coupon_type, as: :select, collection: Coupon::COUPON_TYPES
     f.input :use_type, as: :select, collection: Coupon::USE_TYPES
+    f.input :except_products, as: :check_boxes, label: "限制使用的产品", collection: Product.no_delete.saled.hot.map { |product| [product.title, product.id] }
     f.input :note,      placeholder: '优惠券使用限制说明，例如：仅限成都使用，最大优惠8元'
     f.input :body,      placeholder: '可选，对优惠券的简介', label: '简介'
   end

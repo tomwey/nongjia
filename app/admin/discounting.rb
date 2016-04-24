@@ -54,7 +54,7 @@ form do |f|
   f.semantic_errors
   f.inputs do
     f.input :coupon_id, as: :select, collection: Coupon.recent.map { |c| [c.title, c.id] }
-    f.input :user_id, label: '所属用户', as: :select, collection: User.where(verified: true).map { |u| [u.nickname, u.id] }
+    f.input :user_id, label: '所属用户', as: :select, collection: User.where(verified: true).map { |u| [u.nickname || u.private_token, u.id] }
   end
   f.actions
 end
