@@ -74,6 +74,7 @@ a {
   
   list-style: none;
   clear: left;
+    
   li {
     float: left;
     
@@ -87,21 +88,53 @@ a {
     &:last-child {
       border: 0;
     };
+    
+    &.item-home {
+      background: url(asset-path('wechat_shop/icon-home.gif')) no-repeat center center;
+      background-size: 25px;
+    }
+  
+    &.item-order {
+      background: url(asset-path('wechat_shop/icon-order.gif')) no-repeat center center;
+      background-size: 25px;
+    }
+  
+    &.item-user {
+      background: url(asset-path('wechat_shop/icon-user.gif')) no-repeat center center;
+      background-size: 25px;
+    }
+    
     a {
       display: block;
       width: 100%;
       height: 100%;
       color: $w_black;
       text-decoration: none;
+      text-indent: -9999px;
     }
-    
+        
     &.active {
-      a {
-        color: $w_green;
+      &.item-home {
+        background: url(asset-path('wechat_shop/icon-home-active.gif')) no-repeat center center;
+        background-size: 25px;
       }
+      
+      &.item-order {
+        background: url(asset-path('wechat_shop/icon-order-active.gif')) no-repeat center center;
+        background-size: 25px;
+      }
+      
+      &.item-user {
+        background: url(asset-path('wechat_shop/icon-user-active.gif')) no-repeat center center;
+        background-size: 25px;
+      }
+//      a {
+//        color: $w_green;
+//      }
       
     }
   }
+  
 }
 
 .wechat-shop-toolbar {
