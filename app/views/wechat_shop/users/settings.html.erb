@@ -11,30 +11,30 @@
       <td class="cell-right"><i class='fa fa-angle-right' style='font-size: 24px'></i></td>
     </tr-->
     <tr onclick="gotoLink('<%= invite_wechat_shop_user_path %>')">
-      <td class="cell-left">推荐朋友得优惠</td>
+      <td class="cell-left"><span class="invite row-label-1">推荐朋友得优惠</span></td>
       <td class="cell-right"><i class='fa fa-angle-right' style='font-size: 24px'></i></td>
     </tr>
     <tr onclick="gotoLink('<%= wechat_shop_coupons_path(from: settings_wechat_shop_user_path) %>')">
-      <td class="cell-left">我的优惠券</td>
+      <td class="cell-left"><span class="coupon row-label-1">我的优惠券</span></td>
       <td class="cell-right"><i class='fa fa-angle-right' style='font-size: 24px'></i></td>
     </tr>
-    <tr class="blank-row">
+    <tr class="blank-row-1">
         <td colspan="2"></td>
     </tr>
     
     <tr onclick="gotoLink('<%= wechat_shop_shipments_path(from: settings_wechat_shop_user_path) %>')">
-      <td class="cell-left">收货地址管理</td>
+      <td class="cell-left"><span class="address row-label-1">收货地址管理</span></td>
       <td class="cell-right"><i class='fa fa-angle-right' style='font-size: 24px'></i></td>
     </tr>
-    <tr class="blank-row">
+    <tr class="blank-row-1">
         <td colspan="2"></td>
     </tr>
     <tr onclick="gotoLink('<%= wechat_shop_page_path('service') %>')">
-      <td class="cell-left">售后服务</td>
+      <td class="cell-left"><span class="service row-label-1">售后服务</span></td>
       <td class="cell-right"><i class='fa fa-angle-right' style='font-size: 24px'></i></td>
     </tr>
     <tr onclick="gotoLink('<%= wechat_shop_page_path('help') %>')">
-      <td class="cell-left">帮助</td>
+      <td class="cell-left"><span class="help row-label-1">帮助</span></td>
       <td class="cell-right"><i class='fa fa-angle-right' style='font-size: 24px'></i></td>
     </tr>
     

@@ -23,6 +23,32 @@
     cursor: pointer;
   }
   
+  .invite {
+    background: url(asset-path('wechat_shop/icon-invite.gif')) left center no-repeat;
+  }
+  
+  .coupon {
+    background: url(asset-path('wechat_shop/icon-coupon.gif')) left center no-repeat;
+  }
+  
+  .address {
+    background: url(asset-path('wechat_shop/icon-address.gif')) left center no-repeat;
+  }
+  
+  .service {
+    background: url(asset-path('wechat_shop/icon-service.gif')) left center no-repeat;
+  }
+  
+  .help {
+    background: url(asset-path('wechat_shop/icon-help.gif')) left center no-repeat;
+
+  }
+  
+  .row-label-1 {
+    background-size: 16px;
+    padding-left: 20px;
+  }
+  
   td {
     vertical-align: middle;
     padding: 15px 0;
@@ -39,9 +65,12 @@
     text-align: right;
   }
   
-  .blank-row {
-    height: 10px !important;
+  .blank-row-1 {
+//    height: 5px;
     background-color: #eaeaea;
+    td {
+      padding: 10px 0;
+    }
   }
   
   .cell-label {
