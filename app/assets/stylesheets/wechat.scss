@@ -91,7 +91,7 @@ a {
     
     &.item-home {
       background: url(asset-path('wechat_shop/icon-home.gif')) no-repeat center center;
-      background-size: 25px;
+      background-size: 32px;
     }
   
     &.item-order {
@@ -116,7 +116,7 @@ a {
     &.active {
       &.item-home {
         background: url(asset-path('wechat_shop/icon-home-active.gif')) no-repeat center center;
-        background-size: 25px;
+        background-size: 32px;
       }
       
       &.item-order {
