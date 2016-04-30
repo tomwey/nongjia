@@ -90,6 +90,18 @@
     padding: 15px;
 //    padding-left: 0;
     border-bottom: 1px solid $w_borderColor;
+    .label-1 {
+      font-size: 1.2em;
+    }
+    
+    input[type='text'] {
+      width: 75%;
+//      background-color: red;
+    }
+    select {
+      width: 30%;
+      font-size: 1.2em;
+    }
     
     &.first {
       border-top: 1px solid $w_borderColor;

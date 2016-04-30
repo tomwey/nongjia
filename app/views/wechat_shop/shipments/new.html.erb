@@ -8,14 +8,16 @@
   <%= render "/wechat_shop/shared/error_messages", target: @shipment %>
   
   <div class="input-control first">
-    <%= f.label :name, '收货人：' %>
-    <%= f.text_field :name, placeholder: '姓名', class: 'form-control' %>
+    <span class="label-1">收货人：</span><%= f.text_field :name, placeholder: '', class: '' %>
   </div>
   <div class="input-control">
-    <%= f.text_field :mobile, placeholder: '手机', class: 'form-control' %>
+    <span class="label-1">手机号码：</span><%= f.text_field :mobile, placeholder: '', class: '' %>
   </div>
   <div class="input-control">
-    <%= f.text_field :address, placeholder: '收货地址', class: 'form-control' %>
+    <span class="label-1">所在区域：</span><%= f.select :region, SiteConfig.regions.split(','), prompt: '-- 选择区域 --', class: '' %>
+  </div>
+  <div class="input-control">
+    <span class="label-1">详细地址：</span><%= f.text_field :address, placeholder: '', class: '' %>
   </div>
   <div class="input-control input-button">
     <%= f.submit '保存', class: 'button' %>

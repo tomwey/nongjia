@@ -30,6 +30,7 @@
         name: "姓名"
         mobile: "手机"
         address: "收货地址"
+        region: "所在区域"
       page:
         title: '标题'
         slug: '链接'
