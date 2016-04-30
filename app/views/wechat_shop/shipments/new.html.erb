@@ -8,6 +8,7 @@
   <%= render "/wechat_shop/shared/error_messages", target: @shipment %>
   
   <div class="input-control first">
+    <%= f.label :name, '收货人：' %>
     <%= f.text_field :name, placeholder: '姓名', class: 'form-control' %>
   </div>
   <div class="input-control">

@@ -3,6 +3,6 @@
   <p class="green price">¥ <%= product.price %></p>
   <%= render_stock_tag(product) %>
   <%- if product.intro -%>
-  <p><%= product.intro %></p>
+  <p><%= raw product.intro %></p>
   <%- end -%>
 </div>
