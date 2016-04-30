@@ -23,29 +23,51 @@
     cursor: pointer;
   }
   
+  .rewards {
+    margin-right: 10px;
+    margin-top: 0;
+    padding: 4px;
+    background-color: red;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -o-border-radius: 2px;
+    -ms-border-radius: 2px;
+    color: white;
+    font-size: 0.6em;
+  }
   .invite {
     background: url(asset-path('wechat_shop/icon-invite.gif')) left center no-repeat;
+    background-size: 20px;
   }
   
   .coupon {
     background: url(asset-path('wechat_shop/icon-coupon.gif')) left center no-repeat;
+    background-size: 20px;
   }
   
   .address {
     background: url(asset-path('wechat_shop/icon-address.gif')) left center no-repeat;
+    background-size: 18px;
   }
   
   .service {
     background: url(asset-path('wechat_shop/icon-service.gif')) left center no-repeat;
+    background-size: 20px;
   }
   
   .help {
     background: url(asset-path('wechat_shop/icon-help.gif')) left center no-repeat;
+    background-size: 20px;
   }
   
   .row-label-1 {
-    background-size: 16px;
-    padding-left: 20px;
+    display: block;
+    height: 24px;
+    line-height: 24px;
+//    background-size: 16px;
+//    padding: 12px 0;
+    padding-left: 28px;
   }
   
   td {
@@ -63,6 +85,7 @@
   .cell-right {
     padding-right: 15px;
     text-align: right;
+    vertical-align: middle;
   }
   
   .blank-row-1 {
@@ -79,15 +102,16 @@
 }
 
 .share-invite-icon {
-  margin: 0 auto;
+//  margin: 0 auto;
   text-align: center;
-  margin-top: 20px;
+//  margin-top: 20px;
   margin-bottom: 20px;
 }
 
 .share-invite-body {
   padding: 0 20px;
   font-size: 1.2em;
+  text-align: center;
 }
 
 .share-buttons {

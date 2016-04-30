@@ -152,9 +152,10 @@
     text-decoration: none;
     
     .pay-button {
-      color: $w_green;
+      color: white;//$w_green;
+      background-color: $w_green;
       padding: 5px; 
-      padding-right:0; 
+//      padding-right:0; 
       text-decoration: none;
     }
     
@@ -168,7 +169,7 @@
       -ms-border-radius: 50%;
       -o-border-radius: 50%;
     
-      border: 1px dashed #ccc;
+      border: 1px solid #ccc;
     
       position: absolute;
       top: 5%;
@@ -198,11 +199,11 @@
 
       }
     
-      border: 1px dashed #aaa;
+      border: 1px solid #aaa;
       color: #aaa;
     
       &.canceled-state {
-        border: 1px dashed red;
+        border: 1px solid red;
         color: red;
       }
     

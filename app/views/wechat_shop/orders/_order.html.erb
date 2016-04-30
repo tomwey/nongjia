@@ -18,9 +18,11 @@
     </div>
     <div class="panel-footer">
       <div class="pull-right">
-        <span class="state label label-info"><%= render_order_state(order) %></span>
+        <% unless %W(canceled completed).include?(order.state.to_s) %>
+        <span class="state">状态：<span class="green"><%= render_order_state(order) %></span></span>
+        <% end %>
         <% if order.can_pay? %>
-        <a href="javascript:;" onclick="App.payment(event,this);" data-order-no="<%= order.order_no %>" class="pay-button" data-remote="true" data-loading="0" data-order-detail="0" id="pay-button-<%= order.order_no %>">去支付</a>
+        <a href="javascript:;" onclick="App.payment(event,this);" data-order-no="<%= order.order_no %>" class="pay-button label" data-remote="true" data-loading="0" data-order-detail="0" id="pay-button-<%= order.order_no %>">去支付</a>
         <% end %>
       </div>
       <span class="fee">订单金额: ¥ <%= order.total_fee - order.discount_fee %></span>
