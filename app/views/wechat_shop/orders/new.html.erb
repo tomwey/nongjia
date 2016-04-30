@@ -5,9 +5,10 @@
 <div class="new-order">  
   <%= form_for [:wechat_shop, @order], remote: true do |f| %>
   
-    <a class="input-item shipment-info" href="<%= wechat_shop_shipments_path(from: new_wechat_shop_order_path) %>">
+    <a class="input-item" href="<%= wechat_shop_shipments_path(from: new_wechat_shop_order_path) %>">
       <%= render_shipment_info %>
     </a>
+    <div class="empty-section"></div>
     <div class="input-item product-info">
       <table class="product-info-table">
         <tr>
@@ -22,14 +23,14 @@
       </table>
     </div>
     
-    <div class="input-item">
-      <p class="shipment-intro">配送说明：下单后1-3天发货</p>
+    <div class="input-item shipment-intro-item">
+      <p class="shipment-intro">配送说明：<%= SiteConfig.ship_and_stock_info %></p>
       <%= f.text_field :note, placeholder: '订单备注', class: 'note-field' %>
     </div>
-    
+    <div class="empty-section"></div>
     <a class="input-item" href="<%= wechat_shop_coupons_path(from: new_wechat_shop_order_path, pid: @order.product.id) %>">
       <div class="pull-right right-arrow">
-        <span style="padding-right: 5px; color: red; font-size: 1em;">
+        <span class="coupon-tips">
           <% if @coupon.present? %>
           <%= @coupon.title %>
           <% else %>
@@ -39,7 +40,7 @@
       </div>
       <span style="font-size: 1.1em;">优惠券</span>
     </a>
-    
+    <div class="empty-section"></div>
     <div class="input-item fee-info">
       <table class="fee-info-table">
         <tr>
@@ -49,7 +50,7 @@
         </tr>
         <tr>
           <td class="td-label">运费</td>
-          <td class="td-value">¥ 0</td>
+          <td class="td-value">免运费</td>
         </tr>
         <tr>
           <td class="td-label">优惠</td>
@@ -62,7 +63,6 @@
         </tr>
       </table>
     </div>
-    
   <% end %>
 </div>
 
