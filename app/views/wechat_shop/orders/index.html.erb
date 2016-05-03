@@ -10,7 +10,7 @@
 <%= render_empty_result %>
 <% else %>
   <div class="orders">
-    <% cache ['orders', @orders.to_a] do %>
+    <% cache ['orders', @orders.to_a, 'v1'] do %>
     <%= render @orders %>
     <% end %>
   </div>
