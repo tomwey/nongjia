@@ -8,7 +8,7 @@ class Weixin::ApplicationController < ActionController::Base
   before_filter :check_weixin_legality
   
   # 验证当前微信用户是否可用
-  before_filter :check_weixin_user
+  # before_filter :check_weixin_user
   
   # 获取微信的access token
   helper_method :fetch_wechat_access_token
