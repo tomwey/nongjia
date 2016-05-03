@@ -24,9 +24,10 @@
   }
   
   .rewards {
+    margin: 0;
+    padding: 4px;
     margin-right: 10px;
     margin-top: 0;
-    padding: 4px;
     background-color: red;
     border-radius: 2px;
     -webkit-border-radius: 2px;
@@ -36,6 +37,12 @@
     color: white;
     font-size: 0.6em;
   }
+  
+  .fa-icon {
+    font-size: 1.2em;
+//    display: inline-block;
+  }
+  
   .invite {
     background: url(asset-path('wechat_shop/icon-invite.gif')) left center no-repeat;
     background-size: 20px;
@@ -65,9 +72,8 @@
     display: block;
     height: 24px;
     line-height: 24px;
-//    background-size: 16px;
-//    padding: 12px 0;
     padding-left: 28px;
+//    background-color: red;
   }
   
   td {
