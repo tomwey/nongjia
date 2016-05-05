@@ -80,23 +80,3 @@
   </div>
 </nav>
 <% end %>
-
-<% content_for :scripts do %>
-
-<script>
-<%
-@sign_package = WX::Sign.sign_package(request.original_url)
-%>
-wx.config({
-  debug: <%= @sign_package[:debug] %>,
-  appId: '<%= @sign_package[:appId] %>',
-  timestamp: <%= @sign_package[:timestamp] %>,
-  nonceStr: '<%= @sign_package[:nonceStr] %>',
-  signature: '<%= @sign_package[:signature] %>',
-  jsApiList: ['chooseWXPay','onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareQZone','openLocation','getLocation']
-  
-});
-
-</script>
-
-<% end %>

@@ -13,9 +13,6 @@ window.App = {
     window.location.href = url;
     return false;
   },
-  wx_config: function(config) {
-    wx.config(JSON.parse(config));
-  },
   payment2: function(orderNo) {
     $.ajax({
       url: '/wx-shop/orders/payment',

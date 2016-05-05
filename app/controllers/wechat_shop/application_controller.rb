@@ -7,6 +7,17 @@ class WechatShop::ApplicationController < ActionController::Base
   
   before_filter :check_from_wechat
   
+  before_action :set_wx_share
+  def set_wx_share
+    if controller_name == 'users' and action_name == 'invite'
+      @wx_share = nil
+    elsif controller_name == 'products' and action_name == 'show'
+      @wx_share = nil
+    else
+      @wx_share = WXShare.new("#{Setting.upload_url}/wx-shop/" + ActionController::Base.helpers.asset_path('nj-logo.jpg'), SiteConfig.wx_share_link, SiteConfig.wx_share_title, SiteConfig.wx_share_body)
+    end
+  end
+  
   layout "wechat"
   
   helper_method :render_page_title
@@ -40,6 +51,7 @@ class WechatShop::ApplicationController < ActionController::Base
     # 保证 etag 参数是 Array 类型
     opts[:etag] = [opts[:etag]] unless opts[:etag].is_a?(Array)
     opts[:etag] << current_user
+    opts[:etag] << @wx_share
     # 加入flash，确保当页面刷新后flash不会再出现
     opts[:etag] << flash
     # 所有etag保持一天
