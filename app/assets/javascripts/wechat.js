@@ -2,7 +2,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
-//= require jquery.touchSwipe.min
+//= require jquery.mobile.custom.min
 //= require_self
 
 window.App = {
@@ -64,5 +64,14 @@ window.App = {
     
   }
 };
+
+$(document).ready(function() {
+  $(".carousel-inner").swiperight(function() {
+    $(this).parent().carousel('prev');
+  });
+  $(".carousel-inner").swipeleft(function() {
+    $(this).parent().carousel('next');
+  });
+});
 
 
