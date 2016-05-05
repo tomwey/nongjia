@@ -24,10 +24,24 @@
     }
     
     .cell-icon {
-      text-align: left;
-      padding-left: 15px;
+      text-align: center;
+      vertical-align: middle;
       width: 15%;
-      font-size: 20px;
+      
+      .check-normal {
+        background: url(asset-path('wechat_shop/icon-check-normal.jpg')) no-repeat center center;
+      }
+      
+      .check-selected {
+        background: url(asset-path('wechat_shop/icon-check-selected.jpg')) no-repeat center center;
+      }
+      
+      .check {
+        background-size: 20px;
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+      }
     }
     
     .cell-left {

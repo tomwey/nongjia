@@ -76,6 +76,7 @@ class WechatShop::UsersController < WechatShop::ApplicationController
     end
     
     @current = 'user_settings'
+    fresh_when(etag: [@current])
   end
   
   def invite

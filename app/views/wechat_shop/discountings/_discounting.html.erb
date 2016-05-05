@@ -1,3 +1,4 @@
+<% cache [current_user, discounting] do %>
 <div class="panel panel-default" onclick="applyCouponIfNeeded(this)" data-id="<%= discounting.id %>">
   <div class="panel-body">
     <div class="coupon-caption">
@@ -16,3 +17,4 @@
     </span>
   </div>
 </div>
+<% end %>

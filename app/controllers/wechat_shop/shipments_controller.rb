@@ -11,6 +11,7 @@ class WechatShop::ShipmentsController < WechatShop::ApplicationController
       session[:from_for_shipments] = params[:from]
     end
     @from = params[:from] || session[:from_for_shipments]
+    fresh_when(etag: [@shipments, @from])
   end
   
   def new

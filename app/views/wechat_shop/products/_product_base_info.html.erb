@@ -1,3 +1,4 @@
+<% cache product do %>
 <div class="base-info">
   <h2 class="title"><%= product.title %></h2>
   <p class="green price">¥ <%= product.price %></p>
@@ -6,3 +7,4 @@
   <p><%= raw product.intro %></p>
   <%- end -%>
 </div>
+<% end %>

@@ -21,6 +21,8 @@ class WechatShop::DiscountingsController < WechatShop::ApplicationController
       @from = "#{settings_wechat_shop_user_path}"
     end
     
+    fresh_when(etag: [@discountings, @from])
+    
   end
   
   def create

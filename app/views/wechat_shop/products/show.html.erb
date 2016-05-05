@@ -12,6 +12,8 @@
 </div>
 
 <% content_for :toolbar do %>
+
+<% cache @product do %>
 <nav class="navbar navbar-fixed-bottom wechat-shop-toolbar">
   <div class="toolbar-item">
     <div class="price">
@@ -31,6 +33,8 @@
     </div>
   </div>
 </nav>
+<% end %>
+
 <% end %>
 
 <% content_for :scripts do %>

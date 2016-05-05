@@ -7,7 +7,9 @@
     <%= render_empty_result('没有可用优惠券!') %>
   <% else %>
   <div class="container">
+    <% cache [current_user, @discountings.to_a] do %>
     <%= render @discountings %>
+    <% end %>
   </div>
   <% end %>
   

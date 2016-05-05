@@ -1,10 +1,6 @@
 <tr data-id="<%= shipment.id %>">
   <td class="cell-icon">
-    <% if current_user.current_shipment_id == shipment.id %>
-    <i class="fa fa-check"></i>
-    <% else %>
-    &nbsp;
-    <% end %>
+    <i class="check check-<%= current_user.current_shipment_id == shipment.id ? "selected" : "normal" %>"></i>
   </td>
   <td class="cell-left" onclick="updateShipment(this)">
     <div>

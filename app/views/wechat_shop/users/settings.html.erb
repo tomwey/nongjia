@@ -1,7 +1,9 @@
+<% cache @user do %>
 <div class="user-header">
   <%= user_avatar_tag(@user, :big) %>
   <p class="nickname"><%= @user.nickname %></p>
 </div>
+<% end %>
 
 <div class="user-info">
   <table class="user-info-table">
