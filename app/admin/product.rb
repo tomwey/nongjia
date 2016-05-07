@@ -3,7 +3,7 @@ ActiveAdmin.register Product do
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
-permit_params :list, :of, [:category_id, :title, :price, :m_price, :intro, :stock, {images:[]}, {detail_images:[]}], :on, :model
+permit_params :category_id, :title, :price, :m_price, :intro, :stock, {images:[]}, {detail_images:[]}, :sort
 #
 # or
 #
@@ -129,6 +129,7 @@ form html: { multipart: true } do |f|
     f.input :images, as: :file, input_html: { multiple: true }
     f.input :detail_images, as: :file, input_html: { multiple: true }
     f.input :intro
+    f.input :sort, hint: '值越大，显示越靠前'
   end
   
   actions

@@ -1,7 +1,7 @@
 class WechatShop::HomeController < WechatShop::ApplicationController
 
   def index
-    @products = Product.no_delete.saled.hot
+    @products = Product.no_delete.saled.sorted.hot.recent
     @current  = 'home_index' 
     
     # 加载广告，最多5个
