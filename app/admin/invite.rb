@@ -3,7 +3,7 @@ ActiveAdmin.register Invite do
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
-permit_params :title, :body, :link, :icon, :inviter_benefits, :invitee_benefits, :score
+permit_params :title, :body, :share_body, :link, :icon, :inviter_benefits, :invitee_benefits, :score
 
 filter :title
 filter :body
@@ -16,6 +16,7 @@ index do
   selectable_column
   column('#',:id)
   column :title, sortable: false
+  column :share_body, sortable: false
   column :body, sortable: false
   column(:link, sortable: false) { |invite| link_to invite.link, invite.link, target: '__blank' }
   column :icon, sortable: false do |invite|
@@ -40,8 +41,9 @@ end
 
 form do |f|
   f.inputs "邀请信息" do
-    f.input :title, placeholder: '活动标题'
+    f.input :title, placeholder: '微信分享标题'
     f.input :body, placeholder: '活动详情，会在用户推荐页面展示'
+    f.input :share_body, placeholder: '分享到微信的内容详情'
     f.input :link, placeholder: '活动链接地址，该地址是微信分享后，可以点击的地址'
     f.input :icon, placeholder: '活动图标，微信分享的小图标'
     f.input :inviter_benefits, as: :select, collection: Coupon.where('coupon_type = ? and use_type = ?', Coupon::CASH, Coupon::USE_TYPE_EVENT).recent.map { |c| [c.title, c.id] }

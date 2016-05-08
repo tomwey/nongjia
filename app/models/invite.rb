@@ -1,5 +1,5 @@
 class Invite < ActiveRecord::Base
-  validates :title, :body, :link, :inviter_benefits, :invitee_benefits, presence: true
+  validates :title, :body, :share_body, :link, :inviter_benefits, :invitee_benefits, presence: true
   
   mount_uploader :icon, AvatarUploader
   

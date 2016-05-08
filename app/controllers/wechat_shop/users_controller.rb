@@ -81,7 +81,7 @@ class WechatShop::UsersController < WechatShop::ApplicationController
   
   def invite
     @invite = Invite.current_invite_for(current_user)
-    @wx_share = WXShare.new(@invite.share_icon_url, @invite.link, @invite.title, @invite.body)
+    @wx_share = WXShare.new(@invite.share_icon_url, @invite.link, @invite.title, @invite.share_body)
   end
   
   private

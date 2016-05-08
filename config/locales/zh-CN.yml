@@ -65,7 +65,8 @@
         value: '配置值'
         note: '描述'
       invite:
-        title: '标题'
+        title: '分享标题'
+        share_body: '分享内容'
         body: '活动详情'
         link: '活动链接'
         icon: '活动图标'
