@@ -14,7 +14,7 @@
       <% cache ['home-product', product, index % 2 == 1, 'v1'] do %>
       <div class="product <%= index % 2 == 1 ? "product-pull-right" : "" %>">
         <a class="product-link" href="<%= wechat_shop_product_path(product) %>">
-          <%= image_tag product.images.first.url(:small) %>
+          <%= image_tag product.images.first.url(:thumb) %>
           <div class="product-info">
             <div class="block-ellipsis"><%= product.title %></div>
             <p><span class="price">¥ <%= product.price %></span></p>
