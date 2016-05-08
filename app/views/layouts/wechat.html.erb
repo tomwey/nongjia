@@ -45,7 +45,7 @@
   
   var queryParam = "<%= action_name == 'invite' ? '?code=' + current_user.nb_code : '' %>";
   var lineLink = "<%= @wx_share.link %>" + queryParam;
-  
+  alert('<%= @wx_share.body %>' + ' --> ' + '<%= @wx_share.title %>');
   var descContent = "<%= @wx_share.body %>";
   var shareTitle = '<%= @wx_share.title %>';
     
