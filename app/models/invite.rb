@@ -19,7 +19,7 @@ class Invite < ActiveRecord::Base
     if icon.blank?
       ActionController::Base.helpers.asset_path('wechat_shop/default_invite_share_icon.png')
     else
-      icon.url
+      icon.url(:small)
     end
   end
 end

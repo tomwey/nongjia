@@ -23,7 +23,7 @@ index do
     if invite.icon.blank?
       image_tag 'wechat_shop/default_invite_share_icon.png', class: "img-circle"
     else
-      image_tag invite.icon.url(:large), class: 'img-circle'
+      image_tag invite.icon.url(:small), class: 'img-circle'
     end
   end
   

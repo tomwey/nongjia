@@ -2,12 +2,17 @@
 require 'digest/md5'
 class InviteImageUploader < BaseUploader
 
-  process resize_to_limit: [1280, nil]
+  version :big do
+    process resize_to_limit: [1280, nil]
+  end
+  
+  version :small, from_version: :big do
+    process resize_to_fill: [64, 64]
+  end
 
   def filename
     if super.present?
-      @name ||= Digest::MD5.hexdigest(current_path)
-      "#{@name}.#{file.extension.downcase}"
+      "#{secure_token}.#{file.extension}"
     end
   end
   
