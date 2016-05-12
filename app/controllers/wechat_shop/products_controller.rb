@@ -6,7 +6,7 @@ class WechatShop::ProductsController < WechatShop::ApplicationController
     
     @wx_share = WXShare.new(@product.images.first.url(:small), "#{Setting.upload_url}/wx-shop/products/#{@product.id}", "农家风味商城", @page_title)
     
-    fresh_when(etag: [@product])
+    # fresh_when(etag: [@product])
   end
     
 end
