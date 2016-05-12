@@ -24,7 +24,7 @@ class WechatShop::UsersController < WechatShop::ApplicationController
     @current = 'orders_index'
     @page_title = '我的订单'
     
-    fresh_when(etag: [@orders, @current])
+    fresh_when(etag: [@orders, @current, CacheVersion.product_latest_updated_at])
   end
   
   def no_pay_orders

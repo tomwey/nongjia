@@ -30,6 +30,11 @@ class Product < ActiveRecord::Base
     end
   end
   
+  after_update :update_orders_304_cache
+  def update_orders_304_cache
+    CacheVersion.save_product_latest_updated_time(Time.now)
+  end
+  
   # 是否有货
   def has_stock?
     self.stock.to_i > 0

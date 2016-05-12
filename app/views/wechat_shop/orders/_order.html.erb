@@ -1,4 +1,4 @@
-<% cache ['order', order, order.state, 'v1'] do %>
+<% cache ['order', order, order.state, order.product.updated_at] do %>
 <div class="order" onclick="showOrder(this);" data-order-no="<%= order.order_no %>">
   <% if %W(canceled completed).include?(order.state.to_s) %>
   <div class="nb-state-container rotate <%= order.state.to_s %>-state">
