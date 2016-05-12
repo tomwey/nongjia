@@ -47,12 +47,13 @@
   var queryParam = "<%= action_name == 'invite' ? '?code=' + current_user.nb_code : '' %>";
   var lineLink = "<%= @wx_share.link %>" + queryParam;
   var descContent = "<%= @wx_share.body %>";
-  var shareTitle = '<%= @wx_share.title %>';
+  var shareTitle = "<%= @wx_share.title %>";
   
   // alert('2');
   wx.ready(function() {
     // console.log('配置成功');
     alert(descContent);
+    alert(shareTitle);
     wx.onMenuShareAppMessage({
         title: shareTitle, // 分享标题
         desc: descContent, // 分享描述
