@@ -89,19 +89,42 @@ a {
       border: 0;
     };
     
+    .item-icon {
+      width: 100%;
+      height: $w_tabbarHeight / 2;
+//      background-color: green;
+    }
+    
+    .item-title {
+      width: 100%;
+      height: $w_tabbarHeight / 2;
+      line-height: $w_tabbarHeight / 2;
+      text-align: center;
+      font-size: 12px;
+//      background-color: red;
+    }
     &.item-home {
-      background: url(asset-path('wechat_shop/icon-home.gif')) no-repeat center center;
-      background-size: 30px;
+      .item-icon {
+        background: url(asset-path('wechat_shop/icon-home.gif')) no-repeat center bottom;
+        background-size: 21px;
+      }
+      
     }
   
     &.item-order {
-      background: url(asset-path('wechat_shop/icon-order.gif')) no-repeat center center;
-      background-size: 25px;
+      .item-icon {
+        background: url(asset-path('wechat_shop/icon-order.gif')) no-repeat center bottom;
+        background-size: 16px;
+      }
+      
     }
   
     &.item-user {
-      background: url(asset-path('wechat_shop/icon-user.gif')) no-repeat center center;
-      background-size: 25px;
+      .item-icon {
+        background: url(asset-path('wechat_shop/icon-user.gif')) no-repeat center bottom;
+        background-size: 16px;
+      }
+      
     }
     
     a {
@@ -110,27 +133,35 @@ a {
       height: 100%;
       color: $w_black;
       text-decoration: none;
-      text-indent: -9999px;
+//      text-indent: -9999px;
     }
         
     &.active {
       &.item-home {
-        background: url(asset-path('wechat_shop/icon-home-active.gif')) no-repeat center center;
-        background-size: 30px;
+        .item-icon {
+          background: url(asset-path('wechat_shop/icon-home-active.gif')) no-repeat center bottom;
+          background-size: 21px;
+        }
+        
       }
       
       &.item-order {
-        background: url(asset-path('wechat_shop/icon-order-active.gif')) no-repeat center center;
-        background-size: 25px;
+        .item-icon {
+          background: url(asset-path('wechat_shop/icon-order-active.gif')) no-repeat center bottom;
+          background-size: 16px;
+        }
+        
       }
       
       &.item-user {
-        background: url(asset-path('wechat_shop/icon-user-active.gif')) no-repeat center center;
-        background-size: 25px;
+        .item-icon {
+          background: url(asset-path('wechat_shop/icon-user-active.gif')) no-repeat center bottom;
+          background-size: 16px;
+        }
       }
-//      a {
-//        color: $w_green;
-//      }
+      a {
+        color: $w_green;
+      }
       
     }
   }
