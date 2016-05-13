@@ -59,6 +59,9 @@ class Order < ActiveRecord::Base
     values << { keyword4: self.order_no }
     
     PushMessageJob.perform_later(self.user.id, SiteConfig.order_paid_msg_tpl, order_detail_url, { first: '您的订单支付成功，我们会尽快为您发货。', remark: '如有问题请直接在微信留言，我们会第一时间为您服务！', values: values })
+  
+    # 新建一条采购统计，不考虑创建失败，如果失败，还可以后台人为添加
+    OrderProduct.create(order_id: self.id)
   end
   
   def order_detail_url
@@ -100,6 +103,8 @@ class Order < ActiveRecord::Base
     # 只能系统管理员取消订单
     after_transition [:pending, :paid] => :canceled do |order, transition|
       # order.send_order_state_msg('系统取消了您的订单', '已取消')
+      # 所有的取消都要移除采购统计，不考虑删除失败
+      OrderProduct.where(order_id: order.id).delete_all
     end
     event :cancel do
       transition [:pending, :paid] => :canceled

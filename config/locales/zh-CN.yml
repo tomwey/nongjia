@@ -17,6 +17,7 @@
       invite: '邀请'
       express: '快递'
       partner: '合作伙伴'
+      order_product: '订单产品'
     attributes:
       user:
         mobile: "手机"
@@ -74,6 +75,14 @@
         pay_card_no: '收款账号'
         orders_count: '订单数'
         pay_account: '收款人姓名'
+      order_product:
+        sku: '产品编号'
+        product_images: '产品图片'
+        price: '产品单价'
+        unit: '计量单位'
+        quantity: '采购时计量'
+        shipment_quantity: '打包后计量'
+        order_id: '所属订单'
       invite:
         title: '分享标题'
         share_body: '分享内容'
