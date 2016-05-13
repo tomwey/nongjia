@@ -15,6 +15,8 @@ class Order < ActiveRecord::Base
   
   scope :no_pay,   -> { with_state(:pending) }
   scope :shipping, -> { with_state(:shipping) }
+  scope :paid,     -> { with_state(:paid) }
+  scope :recent,   -> { order('id desc') }
   
   before_create :generate_order_no
   def generate_order_no

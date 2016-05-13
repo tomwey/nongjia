@@ -1,22 +1,23 @@
 ActiveAdmin.register_page "Dashboard" do
 
-  menu priority: 1, label: proc{ I18n.t("active_admin.dashboard") }
+  menu priority: 1, label: '农家' 
 
-  content title: proc{ I18n.t("active_admin.dashboard") } do
+  content title: '农家' do
     
     columns do
       
       column do
-        panel "最新订单" do
-          table_for Order.order('id desc').limit(10) do
+        panel "最新待配送订单" do
+          table_for Order.paid.recent do
             column('产品Icon') { |order| image_tag order.product.images.first.url(:small), size: '60x60' }
             column('产品标题') { |order| order.product.title }
             column('购买数量') { |order| order.quantity }
-            column('收货人') { |order| order.user.shipment_info.try(:mobile) }
-            column('配送地址') { |order| order.user.shipment_info.try(:address) }
+            column('收货人') { |order| "#{order.user.shipment_info.try(:name) || '匿名'} #{order.user.shipment_info.try(:mobile)}" }
+            column('配送地址') { |order| "#{order.user.shipment_info.try(:region) || '成都'} #{order.user.shipment_info.try(:address)}" }
             column('订单号') { |order| order.order_no }
             column('下单时间') { |order| order.created_at }
             column('订单状态') { |order| order.state_info }
+            column('下单人') { |order| order.user.try(:nickname) }
           end
         end
       end # end order

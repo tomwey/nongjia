@@ -28,7 +28,7 @@ index do
     "-¥ #{order.discount_fee}"
   end
   column '收货人', sortable: false do |order|
-    if order.user.blank? or order.user.shipment_info
+    if order.user.blank? or order.user.shipment_info.blank?
       ''
     else
       "#{order.user.shipment_info.name}\n#{order.user.shipment_info.mobile}"
