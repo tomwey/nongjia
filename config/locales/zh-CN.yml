@@ -16,6 +16,7 @@
       site_config: '站点配置'
       invite: '邀请'
       express: '快递'
+      partner: '合作伙伴'
     attributes:
       user:
         mobile: "手机"
@@ -64,6 +65,15 @@
         key: '配置项'
         value: '配置值'
         note: '描述'
+      partner:
+        name: '姓名'
+        mobile: '手机'
+        address: '服务地址'
+        service_scope: '经营范围'
+        pay_type: '收款方式'
+        pay_card_no: '收款账号'
+        orders_count: '订单数'
+        pay_account: '收款人姓名'
       invite:
         title: '分享标题'
         share_body: '分享内容'
