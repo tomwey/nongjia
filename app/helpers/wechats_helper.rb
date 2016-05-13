@@ -6,6 +6,13 @@ module WechatsHelper
     content_tag :div, msg, class: 'empty-result-box'
   end
   
+  def user_mobile_tag(mobile)
+    return "" if mobile.blank?
+    hack_mobile = String.new(mobile)
+    hack_mobile[3..6] = "****"
+    hack_mobile
+  end
+  
   def back_button
     content_tag(:a, class: 'nb-circle-button', href: "javascript:history.go(-1);") do
       content_tag :i, '', class: "fa fa-arrow-left"

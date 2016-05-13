@@ -4,8 +4,8 @@
   </td>
   <td class="cell-left" onclick="updateShipment(this)">
     <div>
-      <p><span class="name"><%= shipment.name %></span><span class="mobile"><%= shipment.mobile %></span></p>
-      <p class="address"><%= shipment.address %></p>
+      <p><span class="name"><%= shipment.name %></span><span class="mobile"><%= user_mobile_tag(shipment.mobile) %></span></p>
+      <p class="address"><%= shipment_address_tag(shipment) %></p>
     </div>
   </td>
   <td class="cell-right">
