@@ -123,5 +123,16 @@
   <%= javascript_include_tag 'wechat', 'data-turbolinks-track' => true %>
   
   <%= yield :scripts %>
+<!-- 添加百度统计代码 -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?<%= SiteConfig.bda_key %>";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
 </body>
 </html>
