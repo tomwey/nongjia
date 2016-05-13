@@ -18,6 +18,7 @@
       express: '快递'
       partner: '合作伙伴'
       order_product: '订单产品'
+      trade: '财务记录'
     attributes:
       user:
         mobile: "手机"
@@ -75,6 +76,10 @@
         pay_card_no: '收款账号'
         orders_count: '订单数'
         pay_account: '收款人姓名'
+      trade:
+        money: '支付金额'
+        partner_id: '合作伙伴'
+        operator: '操作人'
       order_product:
         sku: '产品编号'
         product_images: '产品图片'

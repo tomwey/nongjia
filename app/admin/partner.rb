@@ -12,6 +12,17 @@ permit_params :name, :mobile, :address, :service_scope, :pay_type, :pay_account,
 #   permitted << :other if params[:action] == 'create' && current_user.admin?
 #   permitted
 # end
+index do
+  selectable_column
+  column :id
+  column :name, sortable: false
+  column :address, sortable: false
+  column :service_scope, sortable: false
+  column '收款信息' do |p|
+    "#{p.pay_type} #{p.pay_account} #{p.pay_card_no}"
+  end
+  actions
+end
 
 form do |f|
   f.semantic_errors
