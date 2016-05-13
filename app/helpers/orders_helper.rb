@@ -18,8 +18,8 @@ module OrdersHelper
       content_tag :table, class: 'order-shipment-table' do
         content_tag :tr do
           "<td width='80%'>
-            <h2>#{shipment.name}</h2>
-            <p>#{shipment.address}</p>
+            <h2>#{shipment.name} #{shipment.hack_mobile}</h2>
+            <p>#{shipment.region || '成都'} #{shipment.address}</p>
           </td>
           <td align='right'>
             <i class='fa fa-angle-right' style='font-size: 24px'></i>
