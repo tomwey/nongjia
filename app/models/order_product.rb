@@ -1,5 +1,8 @@
 class OrderProduct < ActiveRecord::Base
   validates :order_id, presence: true
+  
+  validates_numericality_of :quantity, :shipment_quantity, :price, :pack_cost, :shipment_cost, :pay_buyer_loss, on: :save
+  
   belongs_to :order
   
   mount_uploaders :product_images, PictureUploader
@@ -20,6 +23,28 @@ class OrderProduct < ActiveRecord::Base
   
   def self.product_units
     (SiteConfig.product_units || '元/斤,元/个').split(',')
+  end
+  
+  # 包装以及物流成本
+  def extra_cost
+    (self.pack_cost + self.shipment_cost).to_f
+  end
+  
+  # 采购成本
+  def purchase_cost
+    return 0 if quantity.blank? or price.blank?
+    (self.quantity.to_f * self.price).to_f
+  end
+  
+  # 净营收
+  def sale_benefits
+    return 0 if order.blank?
+    (order.total_fee - order.discount_fee).to_f
+  end
+  
+  # 总收益
+  def total_benefits
+    self.sale_benefits - self.extra_cost - self.purchase_cost - self.pay_buyer_loss.to_f
   end
   
 end

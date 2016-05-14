@@ -88,6 +88,9 @@
         quantity: '采购时计量'
         shipment_quantity: '打包后计量'
         order_id: '所属订单'
+        pack_cost: '包装成本'
+        shipment_cost: '物流成本'
+        pay_buyer_loss: '赔偿买家'
       invite:
         title: '分享标题'
         share_body: '分享内容'
