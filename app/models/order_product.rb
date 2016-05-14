@@ -27,6 +27,7 @@ class OrderProduct < ActiveRecord::Base
   
   # 包装以及物流成本
   def extra_cost
+    return 0 if self.pack_cost.blank? or self.shipment_cost.blank?
     (self.pack_cost + self.shipment_cost).to_f
   end
   
