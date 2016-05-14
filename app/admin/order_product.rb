@@ -18,7 +18,7 @@ index do
   # selectable_column
   column :sku, sortable: false
   column '所属订单', sortable: false do |op|
-    raw("#{op.order.order_no}<br>#{op.order.product.title}<br>#{op.order.shipment_info.try(:name) || op.order.shipment_info.try(:mobile)}")
+    raw("订单号：#{op.order.order_no}<br><br>产品标题：#{op.order.product.title}<br><br>收货人：#{op.order.shipment_info.try(:name) || op.order.shipment_info.try(:mobile)}")
   end
   
   column :product_images, sortable: false do |op|
@@ -47,7 +47,7 @@ index do
     "-#{op.pay_buyer_loss}"
   end
   column '收益统计' do |op|
-    raw("净营收：#{op.sale_benefits}<br>净利润：#{op.total_benefits}")
+    raw("净营收：#{op.sale_benefits}<br>总成本：-#{op.total_cost}<br>净利润：#{op.total_benefits}")
   end
   
   actions

@@ -18,7 +18,8 @@ class OrderProduct < ActiveRecord::Base
   end
   
   def self.preferred_orders
-    Order.without_state([:canceled, :completed]).recent.map { |order| ["#{order.product.title} - #{order.order_no}", order.id] }
+    order_ids = OrderProduct.all.pluck(:order_id)
+    Order.where.not(id: order_ids).without_state([:canceled, :completed]).recent.map { |order| ["#{order.product.title} - #{order.order_no} - #{order.shipment_info.try(:name) || order.shipment_info.try(:mobile)}", order.id] }
   end
   
   def self.product_units
@@ -43,9 +44,14 @@ class OrderProduct < ActiveRecord::Base
     (order.total_fee - order.discount_fee).to_f
   end
   
+  # 总成本
+  def total_cost
+    self.extra_cost + self.purchase_cost
+  end
+  
   # 总收益
   def total_benefits
-    self.sale_benefits - self.extra_cost - self.purchase_cost - self.pay_buyer_loss.to_f
+    self.sale_benefits - self.total_cost
   end
   
 end
