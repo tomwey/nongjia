@@ -17,7 +17,7 @@
       invite: '邀请'
       express: '快递'
       partner: '合作伙伴'
-      order_product: '订单产品'
+      order_product: '订单信息统计'
       trade: '财务记录'
     attributes:
       user:
@@ -80,6 +80,8 @@
         money: '支付金额'
         partner_id: '合作伙伴'
         operator: '操作人'
+        orders: '支付的订单'
+        note: '备注'
       order_product:
         sku: '产品编号'
         product_images: '产品图片'
