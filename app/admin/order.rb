@@ -2,6 +2,8 @@ ActiveAdmin.register Order do
 
 menu priority: 5, label: "订单"
 
+permit_params :note, :quantity, :total_fee, :discount_fee
+
 filter :order_no
 filter :product, label: '所属产品', collection: proc { Product.all.map { |p| [p.title, p.id] } }
 filter :user, label: '下单人', collection: proc { User.all.map { |u| [u.nickname, u.id] } }
@@ -62,7 +64,7 @@ index do
     end
   end
   actions defaults: false do |order|
-    item '编辑 ', edit_admin_order_path(order), method: :put
+    item '编辑 ', edit_admin_order_path(order)
     if order.can_cancel?
       item '取消订单 ', cancel_admin_order_path(order), method: :put
     end
@@ -114,6 +116,18 @@ end
 member_action :complete, method: :put do
   resource.complete
   redirect_to admin_orders_path, notice: "已完成"
+end
+
+form do |f|
+  f.semantic_errors
+  
+  f.inputs '修改订单' do
+    f.input :note
+    f.input :quantity
+    f.input :total_fee
+    f.input :discount_fee
+  end
+  actions
 end
 
 end
