@@ -30,17 +30,17 @@ index do
     "-¥ #{order.discount_fee}"
   end
   column '收货人', sortable: false do |order|
-    if order.user.blank? or order.user.shipment_info.blank?
+    if order.shipment_info.blank?
       ''
     else
-      "#{order.user.shipment_info.name}\n#{order.user.shipment_info.mobile}"
+      "#{order.shipment_info.try(:name)}\n#{order.shipment_info.try(:mobile)}"
     end
   end
   column '收货地址', sortable: false do |order|
-    if order.user.blank? or order.user.shipment_info.blank?
+    if order.shipment_info.blank?
       ''
     else
-      "#{order.user.shipment_info.address}"
+      "#{order.shipment_info.try(:address)}"
     end
   end
   column '下单人', sortable: false do |order|

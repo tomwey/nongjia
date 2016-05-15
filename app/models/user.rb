@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
   
   # 获取用户的收货信息
   def shipment_info
-    Shipment.find_by(id: self.current_shipment_id)
+    shipments.find_by(id: self.current_shipment_id)
   end
   
   def avatar_url(size)

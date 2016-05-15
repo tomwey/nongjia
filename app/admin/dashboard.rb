@@ -12,8 +12,8 @@ ActiveAdmin.register_page "Dashboard" do
             column('产品Icon') { |order| image_tag order.product.images.first.url(:small), size: '60x60' }
             column('产品标题') { |order| order.product.title }
             column('购买数量') { |order| order.quantity }
-            column('收货人') { |order| "#{order.user.shipment_info.try(:name) || '匿名'} #{order.user.shipment_info.try(:mobile)}" }
-            column('配送地址') { |order| "#{order.user.shipment_info.try(:region) || '成都'} #{order.user.shipment_info.try(:address)}" }
+            column('收货人') { |order| "#{order.shipment_info.try(:name) || '匿名'} #{order.shipment_info.try(:mobile)}" }
+            column('配送地址') { |order| "#{order.shipment_info.try(:region) || '成都'} #{order.shipment_info.try(:address)}" }
             column('订单号') { |order| order.order_no }
             column('下单时间') { |order| order.created_at }
             column('订单状态') { |order| order.state_info }

@@ -13,7 +13,7 @@ module OrdersHelper
     end
   end
   def render_shipment_info
-    if current_user.current_shipment_id.present? and (shipment = Shipment.find_by(id: current_user.current_shipment_id))
+    if current_user.current_shipment_id.present? and (shipment = Shipment.find_by(id: current_user.current_shipment_id, user_id: current_user.id))
       # content_tag :div, '请选择地址'
       content_tag :table, class: 'order-shipment-table' do
         content_tag :tr do

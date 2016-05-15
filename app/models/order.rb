@@ -21,6 +21,7 @@ class Order < ActiveRecord::Base
   before_create :generate_order_no
   def generate_order_no
     self.order_no = Time.now.to_s(:number)[2,6] + (Time.now.to_i - Date.today.to_time.to_i).to_s + Time.now.nsec.to_s[0,6]
+    self.shipment_id = user.current_shipment_id
   end
   
   # 提示下单成功
@@ -42,7 +43,7 @@ class Order < ActiveRecord::Base
   end
   
   def shipment_info
-    user.shipment_info
+    user.shipments.find_by(id: shipment_id) || user.shipment_info
   end
   
   # def send_msg(msg)
@@ -55,7 +56,7 @@ class Order < ActiveRecord::Base
     fee = [0, (self.total_fee - self.discount_fee)].max
     values << { keyword1: "#{fee}元"  }
     values << { keyword2: self.product.title }
-    values << { keyword3: self.user.shipment_info.try(:address)}
+    values << { keyword3: self.shipment_info.try(:region) + self.shipment_info.try(:address)}
     values << { keyword4: self.order_no }
     
     PushMessageJob.perform_later(self.user.id, SiteConfig.order_paid_msg_tpl, order_detail_url, { first: '您的订单支付成功，我们会尽快为您发货。', remark: '如有问题请直接在微信留言，我们会第一时间为您服务！', values: values })
