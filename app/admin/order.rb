@@ -9,7 +9,7 @@ filter :total_fee
 filter :state
 filter :created_at
 
-actions :all, except: [:new, :create, :update, :edit, :destroy]
+actions :all, except: [:new, :create, :destroy]
 
 index do
   selectable_column
@@ -35,7 +35,7 @@ index do
     end
   end
   column '收货地址', sortable: false do |order|
-    if order.user.blank? or order.user.shipment_info
+    if order.user.blank? or order.user.shipment_info.blank?
       ''
     else
       "#{order.user.shipment_info.address}"
@@ -62,14 +62,15 @@ index do
     end
   end
   actions defaults: false do |order|
+    item '编辑 ', edit_admin_order_path(order), method: :put
     if order.can_cancel?
-      item '取消订单', cancel_admin_order_path(order), method: :put
+      item '取消订单 ', cancel_admin_order_path(order), method: :put
     end
     if order.can_ship?
-      item '配送订单', ship_admin_order_path(order), method: :put
+      item '配送订单 ', ship_admin_order_path(order), method: :put
     end
     if order.can_complete?
-      item '完成订单', complete_admin_order_path(order), method: :put
+      item '完成订单 ', complete_admin_order_path(order), method: :put
     end
   end
 end
