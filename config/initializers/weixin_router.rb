@@ -73,13 +73,14 @@ module Weixin
     end
     
     class WeixinXml
-      attr_accessor :content, :type, :from_user, :to_user, :pic_url
+      attr_accessor :content, :type, :from_user, :to_user, :pic_url, :event
       def initialize(hash)
         @content   = hash[:Content]
         @type      = hash[:MsgType]
         @from_user = hash[:FromUserName]
         @to_user   = hash[:ToUserName]
         @pic_url   = hash[:PicUrl]
+        @event     = hash[:Event]
       end
     end
   end
