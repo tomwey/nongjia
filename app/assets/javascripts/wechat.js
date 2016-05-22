@@ -10,6 +10,10 @@ window.App = {
     $(to).before("<div class='alert alert-danger' id='alert-comp'><a class='close' href='#' data-dismiss='alert'>×</a>" + msg + "</div>");
   },
   openUrl: function(url) {
+    if (url.length == 0 ) {
+      return false;
+    }
+    
     window.location.href = url;
     return false;
   },
