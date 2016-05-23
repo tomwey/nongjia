@@ -44,6 +44,11 @@ class User < ActiveRecord::Base
     u.nickname || u.hack_mobile
   end
   
+  # 是否是推广人员
+  def marketer? 
+    SiteConfig.marketers.split(',').include?(self.id.to_s)
+  end
+  
   # 推广奖励策略
   def reward_stragy
     still_users = SiteConfig.still_reward_users

@@ -69,7 +69,7 @@ class Order < ActiveRecord::Base
   def add_reward!
     if user && user.recommender.present?
       recommender = User.find_by(id: user.recommender)
-      if recommender
+      if recommender and recommender.marketer? # 推荐人是我们的市场推广人员
         money = Reward::Helper.calcu_rewards(self.total_fee - self.discount_fee, recommender.reward_stragy)
         Reward.create(order_id: self.id, 
                       recommending_id: recommender.id, 

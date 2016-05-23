@@ -55,12 +55,6 @@ index do
   column 'openid' do |user|
     user.wechat_auth.try(:open_id)
   end
-  column "推广二维码" do |user|
-    user.nb_code.blank? ? '' : 
-    raw("<div style='text-align:center'><img src=#{user.temp_qrcode_url} width='120' height='120'><p>临时二维码</p></div>
-    <div style='text-align:center'><img src=#{user.limit_qrcode_url} width='120' height='120'><p>永久二维码</p></div>
-    ")
-  end
   column '推荐人', sortable: false do |user|
     user.recommender_info
   end
@@ -110,6 +104,12 @@ show do
     row :nickname
     row :mobile
     row :private_token
+    row "推广二维码" do |user|
+      user.nb_code.blank? ? '' : 
+      raw("<div style='text-align:center'><img src=#{user.temp_qrcode_url} width='120' height='120'><p>临时二维码</p></div>
+      <div style='text-align:center'><img src=#{user.limit_qrcode_url} width='120' height='120'><p>永久二维码</p></div>
+      ")
+    end
     row :verified do |user|
       user.verified ? "可用" : "禁用"
     end
