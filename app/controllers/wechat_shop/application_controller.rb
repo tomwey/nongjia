@@ -11,8 +11,8 @@ class WechatShop::ApplicationController < ActionController::Base
   def set_wx_share
     if controller_name == 'users' and action_name == 'invite'
       @wx_share = nil
-    elsif controller_name == 'products' and action_name == 'show'
-      @wx_share = nil
+    # elsif controller_name == 'products' and action_name == 'show'
+      # @wx_share = nil
     else
       @wx_share = WXShare.new("#{Setting.upload_url}" + ActionController::Base.helpers.asset_path('wechat_shop/nj-logo.jpg'), SiteConfig.wx_share_link, SiteConfig.wx_share_title, SiteConfig.wx_share_body)
     end
