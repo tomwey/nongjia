@@ -50,6 +50,7 @@ module Weixin
               auth = WechatAuth.new(open_id: hash[:FromUserName],
                                     access_token: SecureRandom.uuid) # 此处系统生成一个不正确的access token，以防插入空值
               new_user.wechat_auth = auth
+              new_user.recommender = user.id # 自动绑定推荐关系
               if new_user.save
                 invite = Invite.current_invite_for(user)
                 

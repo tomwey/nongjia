@@ -29,6 +29,7 @@
         verified: "账户可用"
         score: '积分'
         balance: '余额'
+        recommender: '推荐人'
       shipment:
         name: "姓名"
         mobile: "手机"

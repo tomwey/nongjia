@@ -34,6 +34,16 @@ class User < ActiveRecord::Base
     end while self.class.exists?(:nb_code => nb_code)
   end
   
+  # 推荐人
+  def recommender_info
+    return '无' if self.recommender.blank?
+    
+    u = User.find_by(id: self.recommender)
+    return '无' if u.blank?
+    
+    u.nickname || u.hack_mobile
+  end
+  
   # 初次注册生成一个优惠券
   after_create :generate_coupon
   def generate_coupon

@@ -61,6 +61,9 @@ index do
     <div style='text-align:center'><img src=#{user.limit_qrcode_url} width='120' height='120'><p>永久二维码</p></div>
     ")
   end
+  column '推荐人', sortable: false do |user|
+    user.recommender_info
+  end
   actions defaults: false do |user|
     if user.verified
       item "禁用", block_admin_user_path(user), method: :put
