@@ -58,6 +58,9 @@ index do
   column '推荐人', sortable: false do |user|
     user.recommender_info
   end
+  column '推荐码', sortable: false do |user|
+    user.nb_code
+  end
   actions defaults: false do |user|
     if user.verified
       item "禁用", block_admin_user_path(user), method: :put
@@ -106,8 +109,8 @@ show do
     row :private_token
     row "推广二维码" do |user|
       user.nb_code.blank? ? '' : 
-      raw("<div style='text-align:center'><img src=#{user.temp_qrcode_url} width='120' height='120'><p>临时二维码</p></div>
-      <div style='text-align:center'><img src=#{user.limit_qrcode_url} width='120' height='120'><p>永久二维码</p></div>
+      raw("<div style='text-align:center'><img src='#{user.temp_qrcode_url}' width='120' height='120'><p>临时二维码</p></div>
+      <div style='text-align:center'><img src='#{user.limit_qrcode_url}' width='120' height='120'><p>永久二维码</p></div>
       ")
     end
     row :verified do |user|
