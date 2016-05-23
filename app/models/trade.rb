@@ -19,7 +19,7 @@ class Trade < ActiveRecord::Base
   
   def self.preferred_orders
     order_ids = Trade.all.pluck(:orders).to_a.flatten
-    Order.where.not(id: order_ids).without_state([:canceled, :completed]).map { |order| [order.product.title + ' - ' + order.order_no + ' - ' + order.shipment_info.try(:name) || order.shipment_info.try(:mobile), order.id] }
+    Order.where.not(id: order_ids).without_state([:canceled, :pending]).map { |order| [order.product.title + ' - ' + order.order_no + ' - ' + order.shipment_info.try(:name) || order.shipment_info.try(:mobile), order.id] }
   end
   
   # before_create :calcu_payment

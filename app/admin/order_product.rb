@@ -58,7 +58,7 @@ form html: { multipart: true } do |f|
   f.semantic_errors
   
   f.inputs do
-    f.input :order_id, as: :select, collection: OrderProduct.preferred_orders, prompt: '-- 选择所属订单 --'
+    f.input(:order_id, as: :select, collection: OrderProduct.preferred_orders, prompt: '-- 选择所属订单 --') if f.object.order_id.blank?
     f.input :product_images, as: :file, input_html: { multiple: true }, hint: '支持多图上传'
     f.input :unit, as: :select, collection: OrderProduct.product_units, prompt: '-- 选择计量单位 --'
     f.input :price, placeholder: '填入的值根据计量单位决定', hint: '如果计量单位为斤，那么该值表示的意义为“值/斤”，其他同理'
