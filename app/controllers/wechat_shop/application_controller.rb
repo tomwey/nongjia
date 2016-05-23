@@ -51,6 +51,12 @@ class WechatShop::ApplicationController < ActionController::Base
     # 保证 etag 参数是 Array 类型
     opts[:etag] = [opts[:etag]] unless opts[:etag].is_a?(Array)
     opts[:etag] << current_user
+    
+    # 加入微信分享
+    opts[:etag] << SiteConfig.wx_share_title
+    opts[:etag] << SiteConfig.wx_share_body
+    opts[:etag] << SiteConfig.wx_share_link
+    
     # 加入flash，确保当页面刷新后flash不会再出现
     opts[:etag] << flash
     # 所有etag保持一天
