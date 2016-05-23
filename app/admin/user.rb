@@ -55,8 +55,11 @@ index do
   column 'openid' do |user|
     user.wechat_auth.try(:open_id)
   end
-  column "三方认证" do |user|
-    user.authorizations.map(&:provider).join(',')
+  column "推广二维码" do |user|
+    user.nb_code.blank? ? '' : 
+    raw("<div style='text-align:center'><img src=#{user.temp_qrcode_url} width='120' height='120'><p>临时二维码</p></div>
+    <div style='text-align:center'><img src=#{user.limit_qrcode_url} width='120' height='120'><p>永久二维码</p></div>
+    ")
   end
   actions defaults: false do |user|
     if user.verified

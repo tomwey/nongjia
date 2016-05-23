@@ -34,19 +34,43 @@ module WX
       @jsapi_ticket
     end
     
-    def self.fetch_qrcode_ticket(code)
+    def self.fetch_qrcode_ticket(code, limit = true)
       post_url = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=#{WX::Base.fetch_access_token}"
-      post_data = {
-        action_name: "QR_LIMIT_STR_SCENE",
-        action_info: {
-          scene: {
-            scene_str: code
+      # "expire_seconds": 604800, "action_name": "QR_SCENE" 
+      if limit
+        @ticket = Rails.cache.read("wechat.qr_limit.ticket")
+        return @ticket unless @ticket.blank?
+        
+        post_data = {
+          action_name: "QR_LIMIT_STR_SCENE",
+          action_info: {
+            scene: {
+              scene_id: 518,
+              scene_str: code
+            }
           }
-        }
-      }.to_json
+        }.to_json
+      else
+        post_data = {
+          expire_seconds: 30 * 24 * 3600,
+          action_name: "QR_SCENE",
+          action_info: {
+            scene: {
+              scene_id: 518,
+              scene_str: code
+            }
+          }
+        }.to_json
+      end
+      
       resp = RestClient.post post_url, post_data, :content_type => :json, :accept => :json
       result = JSON.parse(resp)
-      result['ticket']
+      ticket = result['ticket']
+      
+      # 将永久二维码放到缓存中
+      Rails.cache.write('wechat.qr_limit.ticket', ticket) if limit
+      
+      ticket
     end
     
     # 创建自定义菜单

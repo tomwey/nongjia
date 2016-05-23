@@ -40,6 +40,20 @@ class User < ActiveRecord::Base
     # TODO
   end
   
+  # 临时二维码图片地址
+  def temp_qrcode_url
+    @ticket = WX::Base.fetch_qrcode_ticket(self.nb_code, false)
+    return "" if @ticket.blank?
+    "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=#{@ticket}"
+  end
+  
+  # 永久二维码地址
+  def limit_qrcode_url
+    @ticket = WX::Base.fetch_qrcode_ticket(self.nb_code)
+    return "" if @ticket.blank?
+    "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=#{@ticket}"
+  end
+  
   # 获取用户的收货信息
   def shipment_info
     shipments.find_by(id: self.current_shipment_id)
