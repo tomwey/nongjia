@@ -44,6 +44,21 @@ class User < ActiveRecord::Base
     u.nickname || u.hack_mobile
   end
   
+  # 推广奖励策略
+  def reward_stragy
+    still_users = SiteConfig.still_reward_users
+    if still_users and still_users.split(',').include?(self.id.to_s)
+      return SiteConfig.still_reward_stragy
+    end
+    
+    scale_users = SiteConfig.ratio_reward_users
+    if scale_users and scale_users.split(',').include?(self.id.to_s)
+      return SiteConfig.ratio_reward_stragy
+    end
+    
+    return SiteConfig.scope_reward_stragy
+  end
+  
   # 初次注册生成一个优惠券
   after_create :generate_coupon
   def generate_coupon

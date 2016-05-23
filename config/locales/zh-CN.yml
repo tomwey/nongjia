@@ -19,6 +19,7 @@
       partner: '合作伙伴'
       order_product: '订单信息统计'
       trade: '财务记录'
+      reward: '推广奖励'
     attributes:
       user:
         mobile: "手机"
@@ -153,6 +154,11 @@
         exp_no: '运单号'
         company_code: '快递公司代号'
         order_id: '所属订单'
+      reward:
+        money: '奖励金额'
+        order_id: '所属订单'
+        recommending_id: '推荐人'
+        recommended_id: '被推荐人'
         
     errors:
       models:

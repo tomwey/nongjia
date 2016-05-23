@@ -13,15 +13,23 @@
       <td class="cell-right"><i class='fa fa-angle-right' style='font-size: 24px'></i></td>
     </tr-->
     <tr onclick="gotoLink('<%= invite_wechat_shop_user_path %>')">
-      <td class="cell-left"><span class="invite row-label-1">推荐朋友</span></td>
-      <td class="cell-right"><span class="rewards">有奖</span><i class='fa fa-angle-right fa-icon'></i></td>
+      <td class="cell-left"><span class="invite row-label-1">推荐有奖</span></td>
+      <!-- td class="cell-right"><span class="rewards">有奖</span><i class='fa fa-angle-right fa-icon'></i></td -->
     </tr>
+    <tr onclick="gotoLink('<%= rewards_wechat_shop_user_path %>')">
+      <td class="cell-left"><span class="reward row-label-1">获得的奖励</span></td>
+      <!-- td class="cell-right"><span class="rewards">有奖</span><i class='fa fa-angle-right fa-icon'></i></td -->
+    </tr>
+    <tr class="blank-row-1">
+      <td colspan="2"></td>
+    </tr>
+    
     <tr onclick="gotoLink('<%= wechat_shop_coupons_path(from: settings_wechat_shop_user_path) %>')">
       <td class="cell-left"><span class="coupon row-label-1">优惠券</span></td>
       <td class="cell-right"><i class='fa fa-angle-right fa-icon'></i></td>
     </tr>
     <tr class="blank-row-1">
-        <td colspan="2"></td>
+      <td colspan="2"></td>
     </tr>
     
     <tr onclick="gotoLink('<%= wechat_shop_shipments_path(from: settings_wechat_shop_user_path) %>')">

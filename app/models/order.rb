@@ -65,6 +65,29 @@ class Order < ActiveRecord::Base
     OrderProduct.create(order_id: self.id)
   end
   
+  # 奖励推荐人, 如果订单已经支付
+  def add_reward!
+    if user && user.recommender.present?
+      recommender = User.find_by(id: user.recommender)
+      if recommender
+        money = Reward::Helper.calcu_rewards(self.total_fee - self.discount_fee, recommender.reward_stragy)
+        Reward.create(order_id: self.id, 
+                      recommending_id: recommender.id, 
+                      recommended_id: user.id, 
+                      money: money) if money > 0
+      end
+      
+    end
+  end
+  
+  # 删除奖励，如果订单已经取消
+  def remove_reward!
+    if user && user.recommender.present?
+      reward = Reward.find_by(order_id: self.id, recommending_id: user.recommender)
+      reward.delete unless reward.blank?
+    end
+  end
+  
   def order_detail_url
     # return '' if self.order_no
     Setting.upload_url + Rails.application.routes.url_helpers.wechat_shop_order_path(self.order_no)
@@ -87,6 +110,8 @@ class Order < ActiveRecord::Base
     # 支付
     after_transition :pending => :paid do |order, transition|
       order.send_pay_msg
+      # 生成奖励记录
+      order.add_reward!
     end
     event :pay do
       transition :pending => :paid
@@ -106,6 +131,9 @@ class Order < ActiveRecord::Base
       # order.send_order_state_msg('系统取消了您的订单', '已取消')
       # 所有的取消都要移除采购统计，不考虑删除失败
       OrderProduct.where(order_id: order.id).delete_all
+      
+      # 取消订单会移除奖励
+      order.remove_reward!
     end
     event :cancel do
       transition [:pending, :paid] => :canceled

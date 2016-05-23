@@ -45,6 +45,17 @@ class WechatShop::UsersController < WechatShop::ApplicationController
     @event = DiscountEvent.where('owners @> ? and expired_on > ?', "{#{current_user.id}}", Time.now - 1.days).order('score desc').first
   end
   
+  def rewards
+    @page_title = "获得的奖励"
+    
+    @rewards = Reward.where(recommending_id: self.id).paginate page: params[:page], per_page: 30
+    
+    @total_money ||= Reward.where(recommending_id: self.id).pluck('money').sum
+    @today_money ||= Reward.where(recommending_id: self.id).where(where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)).pluck('money')
+  
+    fresh_when(etag: [@rewards])
+  end
+  
   def settings
     
     session[:from_for_shipments] = nil
