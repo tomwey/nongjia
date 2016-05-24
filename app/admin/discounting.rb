@@ -25,7 +25,7 @@ index do
   selectable_column
   column('#', :id)
   column '所属用户',   sortable: false do |discounting|
-    discounting.user.try(:nickname) || discounting.user.try(:mobile)
+    discounting.user.try(:nickname) || "用户ID : #{discounting.user.try(:id)}"#discounting.user.try(:mobile)
   end
   column '所属优惠券', sortable: false do |discounting|
     discounting.coupon.title
