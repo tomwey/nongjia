@@ -7,19 +7,16 @@ class WechatShop::PagesController < WechatShop::ApplicationController
       @ticket = WX::Base.fetch_qrcode_ticket(params[:code])
     end
     
-    puts request.referer
-    
     if @page.slug == 'help' && params[:from] == 'wx'
       @from = "#{settings_wechat_shop_user_path}"
     else
-      if params[:from] == 'wx'
-        @from = nil
-      else
+      if request.referer and request.referer.include?('nj.afterwind.cn')
         @from = request.referer
+      else
+        @from = nil
       end
-      # puts request.referer
-      # @from = 'javascript:history.go(-1)'
     end
+    
   end
     
 end

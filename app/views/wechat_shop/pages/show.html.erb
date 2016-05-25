@@ -1,9 +1,9 @@
-<% if @ticket.blank? %>
+<% unless @from.blank? %>
 <%= render_navbar_for(@page.title, 
   { icon: 'fa fa-angle-left', link: "#{@from}" }) %>
 <% end %>
 
-<div class="pages <%= @ticket.present? ? "qrcode-pages" : "" %>">
+<div class="pages <%= @from.blank? ? "qrcode-pages" : "" %>">
   <%= raw @page.body %>
   
   <% if @ticket.present? %>
