@@ -10,7 +10,13 @@ class WechatShop::PagesController < WechatShop::ApplicationController
     if @page.slug == 'help' && params[:from] == 'wx'
       @from = "#{settings_wechat_shop_user_path}"
     else
-      @from = 'javascript:history.go(-1)'
+      if params[:from] == 'wx'
+        @from = nil
+      else
+        @from = request.referer
+      end
+      puts request.referer
+      # @from = 'javascript:history.go(-1)'
     end
   end
     
