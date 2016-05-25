@@ -1,5 +1,5 @@
 <%= render_navbar_for('邀请朋友得优惠', 
-{ icon: 'fa fa-angle-left', link: "#{settings_wechat_shop_user_path}" }) %>
+{ icon: 'fa fa-angle-left', link: "#{request.referer}" }) %>
 
 <div class="share-invite-icon">
   <%= invite_icon_tag(@invite) %>
