@@ -6,6 +6,10 @@ class PictureUploader < BaseUploader
     process resize_to_fill: [1080, 668] # process resize_to_limit: [nil, 732]
   end
   
+  version :cover_image do
+    process resize_to_fill: [1080, 810]
+  end
+  
   version :thumb, from_version: :large do
     process resize_to_fill: [412, 412]
   end

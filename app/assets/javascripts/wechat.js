@@ -17,6 +17,12 @@ window.App = {
     window.location.href = url;
     return false;
   },
+  showProductDetail: function(ele) {
+    var $ele = $(ele);
+    var id = $ele.data("id");
+    window.location.href = "/wx-shop/products/" + id;
+    return false;
+  },
   payment2: function(orderNo) {
     $.ajax({
       url: '/wx-shop/orders/payment',

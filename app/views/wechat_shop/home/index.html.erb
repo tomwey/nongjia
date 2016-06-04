@@ -1,14 +1,13 @@
 <div class="home-container">
-  <!-- div class="box home-help-link-container">
-    <a class="home-help-link" href="<%= wechat_shop_page_path('about') %>">农家：让城里人直接购买乡下的土货
-      <span class="right-arrow pull-right">
-        <i class="fa fa-angle-right" style="font-size: 20px"></i>
-      </span>
-    </a>
-  </div -->
   <%= render '/wechat_shop/home/banners' %>
   
-  <div class="home-products">
+  <%= render '/wechat_shop/home/sale_events' %>
+  
+  <%= render '/wechat_shop/home/ad' %>
+  
+  <%= render @products %>
+  
+  <!-- div class="home-section home-products">
     <% cache ['home-products', @products.to_a, 'v2'] do %>
       <% @products.each_with_index do |product, index| %>
       <% cache ['home-product', product, index % 2 == 1, 'v2'] do %>
@@ -24,7 +23,7 @@
       <% end %>
       <% end %>
     <% end %>
-  </div>
+  </div-->
 </div>
 
 <% content_for :tabbar do %>

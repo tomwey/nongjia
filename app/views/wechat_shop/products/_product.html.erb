@@ -1,0 +1,10 @@
+<% cache product do %>
+<div class="home-section product" onclick="App.showProductDetail(this)" data-id="<%= product.id %>">
+  <%= image_tag product.images.first.url(:large), class: 'img-responsive' %>
+  <div class="info">
+    <h2 class="title"><%= product.title %></h2>
+    <div class="buy-tip pull-right">购买</div>
+    <div class="price red">¥ <%= product.price %></div>
+  </div>
+</div>
+<% end %>

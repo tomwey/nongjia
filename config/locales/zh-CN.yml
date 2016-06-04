@@ -20,6 +20,7 @@
       order_product: '订单信息统计'
       trade: '财务记录'
       reward: '推广奖励'
+      ad: '腰风'
     attributes:
       user:
         mobile: "手机"
@@ -159,6 +160,12 @@
         order_id: '所属订单'
         recommending_id: '推荐人'
         recommended_id: '被推荐人'
+      ad:
+        image: '图片'
+        title: '标题'
+        body: '简介'
+        link: '链接地址'
+        sort: '权重'
         
     errors:
       models:
