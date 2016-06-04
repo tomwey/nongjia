@@ -51,6 +51,14 @@ a {
   border: 1px solid $w_borderColor; 
 }
 
+.nj-logo {
+  text-align: center;
+  padding: 40px 0;
+  img {
+    max-width: 128px;
+  }
+}
+
 // 回首页按钮
 .nb-circle-button {
   display: block;
