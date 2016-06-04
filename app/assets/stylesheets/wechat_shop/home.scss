@@ -1,10 +1,11 @@
 // 首页
 .home-container {
   margin-top: -50px;
-  margin-bottom: 80px;
-  .home-help-link-container {
-    margin-top: 20px;
-  }
+  margin-bottom: 50px;
+  background-color: rgb(240,240,240);
+//  .home-help-link-container {
+//    margin-top: 20px;
+//  }
 }
 //.home-help-link-container {
 //  margin-top: 30px;
@@ -21,8 +22,25 @@
 }
 
 .home-banners {
-  margin-top: 15px;
+//  margin-top: 15px;
   
+  .carousel-indicators {
+    position: absolute;
+    bottom: -5px;
+    li {
+      width: 8px;
+      height: 8px;
+      border-radius: 8px;
+      margin: 0;
+      background-color: rgba(255,255,255,0.3);
+      border: 0;
+      &.active {
+        width: 8px;
+        height: 8px;
+        background-color: white;
+      }
+    }
+  }
 //  .carousel-indicators {
 ////    bottom: 10px;
 //    left: 90% !important;

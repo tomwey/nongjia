@@ -3,15 +3,15 @@
 class BannerImageUploader < BaseUploader
 
   version :large do
-    process resize_to_fill: [1080, 412]
+    process resize_to_fill: [1080, 604]
   end
   
   version :thumb do
-    process resize_to_fill: [540, 206]
+    process resize_to_fill: [540, 302]
   end
   
   version :small do
-    process resize_to_fill: [138, 80]
+    process resize_to_fill: [138, 78]
   end
 
   def filename
