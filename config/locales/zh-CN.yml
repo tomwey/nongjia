@@ -21,6 +21,7 @@
       trade: '财务记录'
       reward: '推广奖励'
       ad: '腰风'
+      flash_sale: '限时抢购'
     attributes:
       user:
         mobile: "手机"
@@ -136,6 +137,7 @@
         visit: "访问量"
         visible: "是否可见"
         created_at: "创建时间"
+        sort: '显示顺序'
       order:
         user_id: '用户'
         product_id: '产品'
@@ -166,6 +168,12 @@
         body: '简介'
         link: '链接地址'
         sort: '权重'
+      flash_sale:
+        begin_time: '开始时间'
+        end_time: '结束时间'
+        title: '活动标题'
+        body: '活动简介'
+        product_ids: '活动产品'
         
     errors:
       models:

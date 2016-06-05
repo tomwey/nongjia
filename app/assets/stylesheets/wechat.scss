@@ -59,6 +59,32 @@ a {
   }
 }
 
+.custom-carousel {
+//  margin-top: 15px;
+  
+  .carousel-indicators {
+    position: absolute;
+    bottom: -5px;
+    li {
+      width: 8px;
+      height: 8px;
+      border-radius: 8px;
+      margin: 0;
+      background-color: rgba(255,255,255,0.3);
+      border: 0;
+      &.active {
+        width: 8px;
+        height: 8px;
+        background-color: white;
+      }
+    }
+  }
+//  .carousel-indicators {
+////    bottom: 10px;
+//    left: 90% !important;
+//  }
+}
+
 // 回首页按钮
 .nb-circle-button {
   display: block;

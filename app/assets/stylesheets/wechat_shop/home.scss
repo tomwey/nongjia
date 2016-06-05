@@ -21,6 +21,69 @@
 //  margin-top: 30px;
 //}
 
+.flash-sales {
+  .sales-inner {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+  
+  .col-xs-5 {
+    width: 45.666667%;
+  }
+  
+  .col-xs-7 {
+    width: 54.333333%;
+  }
+  
+  .sale-info {
+    padding-left: 10px;
+    .caption {
+      margin: 0;
+      padding: 0;
+      margin-top: 15px;
+      height: 30px;
+      line-height: 30px;
+      font-size: 20px;
+      background: url(asset-path('wechat_shop/icon-fs.jpg')) left center no-repeat;
+      background-size: 18px;
+      text-indent: 25px;
+    }
+    .time-tip {
+      font-size: 15px;
+      color: rgb(145,150,156);
+      margin-top: 5px;
+      margin-left: 3px;
+    }
+    .countdown {
+      color: rgb(40,41,44);
+      font-size: 15px;
+      font-weight: bold;
+      margin: 10px 4px 12px 0;
+//      margin-bottom: 10px;
+      .digit {
+        border: 1px solid rgb(230,230,230);
+        border-radius: 4px;
+        padding: 5px;
+      }
+      .dot {
+        padding: 0 5px;
+      }
+    }
+    .price {
+      font-size: 18px;
+    }
+    .m-price {
+      color: rgb(146,151,157);
+      font-size: 14px;
+      margin-left: 5px;
+      text-decoration: line-through;
+    }
+  }
+  .product-image {
+    padding: 10px 0;
+  }
+}
+
 .box .home-help-link {
   display: block;
   width: 100%;
@@ -29,32 +92,6 @@
   color: $w_green;
   font-size: 1.1em;
   text-decoration: none;
-}
-
-.home-banners {
-//  margin-top: 15px;
-  
-  .carousel-indicators {
-    position: absolute;
-    bottom: -5px;
-    li {
-      width: 8px;
-      height: 8px;
-      border-radius: 8px;
-      margin: 0;
-      background-color: rgba(255,255,255,0.3);
-      border: 0;
-      &.active {
-        width: 8px;
-        height: 8px;
-        background-color: white;
-      }
-    }
-  }
-//  .carousel-indicators {
-////    bottom: 10px;
-//    left: 90% !important;
-//  }
 }
 
 .product {

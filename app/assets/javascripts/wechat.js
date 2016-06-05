@@ -20,7 +20,13 @@ window.App = {
   showProductDetail: function(ele) {
     var $ele = $(ele);
     var id = $ele.data("id");
-    window.location.href = "/wx-shop/products/" + id;
+    var sale_id = $ele.data("sale-id");
+    if (sale_id === undefined) {
+      sale_id = "";
+    } else {
+      sale_id = "?sid=" + sale_id
+    }
+    window.location.href = "/wx-shop/products/" + id + sale_id;
     return false;
   },
   payment2: function(orderNo) {
@@ -79,6 +85,51 @@ $(document).ready(function() {
   $(".carousel-inner").swipeleft(function() {
     $(this).parent().carousel('next');
   });
+  
+//   var time = $(".countdown").data("duration").to_i;
+//   
+//   var timer = setInterval(function() {
+//   if (time < 0) {
+//     clearInterval(timer);
+//     return;
+//   }
+// 
+//   var hour = time / 3600;
+//   var min  = ( time - 3600 * 24 ) / 60;
+//   var sec  = time - 3600 * 24 - min * 60;
+// 
+//   $(".countdown .hour").text(hour);
+//   $(".countdown .min").text(min);
+//   $(".countdown .sec").text(sec);
+// }, 1000);
+var time = parseInt($(".flash-sales .countdown").data("duration"));
+var timer = setInterval(function() {
+  // console.log(time);
+  if (time < 0) {
+    clearInterval(timer);
+    return;
+  }
+
+  var hour = Math.floor(time / 3600);
+  var min  = Math.floor(( time - 3600 * hour ) / 60);
+  var sec  = time - 3600 * hour - min * 60;
+
+  $(".countdown .hour").text(pad(hour,2));
+  $(".countdown .min").text(pad(min,2));
+  $(".countdown .sec").text(pad(sec,2));
+  
+  time --;
+}, 1000);
+
+function pad(num, n) {  
+    var len = num.toString().length;  
+    while(len < n) {  
+        num = "0" + num;  
+        len++;  
+    }  
+    return num;  
+} 
 });
+
 
 

@@ -1,0 +1,27 @@
+<% if @sale.present? and @product.present? %>
+<div class="home-section flash-sales" onclick="App.showProductDetail(this);" data-id="<%= @product.id %>" data-sale-id="<%= @sale.id %>">
+  <div class="row">
+    <div class="col-xs-5">
+      <div class="sale-info">
+        <h2 class="caption red">限时抢购</h2>
+        <p class="time-tip">
+          <% if @start > 0 %>
+          距离开始时间
+          <% else %>
+          距离结束时间
+          <% end %>
+        </p>
+        <p class="countdown" data-duration="<%= @start > 0 ? @start : @end %>">
+          <span class="digit hour">19</span><span class="dot">:</span><span class="digit min">28</span><span class="dot">:</span><span class="digit sec">59</span>
+        </p>
+        <p><span class="red price">¥ <%= @product.price %></span><span class="m-price">¥ <%= @product.m_price %></span></p>
+      </div>
+    </div>
+    <div class="col-xs-7">
+      <div class="product-image">
+        <%= image_tag @product.images.first.url(:cover_image), class: 'img-responsive' %>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
