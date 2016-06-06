@@ -1,9 +1,13 @@
 <div class="home-container">
   <%= render '/wechat_shop/home/banners' %>
   
+  <% if @sale.present? and @product.present? %>
   <%= render '/wechat_shop/home/flash_sales' %>
+  <% end %>
   
+  <% unless @ad.blank? %>
   <%= render '/wechat_shop/home/ad' %>
+  <% end %>
   
   <%= render @products %>
   

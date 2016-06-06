@@ -10,8 +10,15 @@ class WechatShop::HomeController < WechatShop::ApplicationController
     # 加载限时活动
     @sale = FlashSale.order('id desc').limit(1).first
     @product = Product.where(id: @sale.product_ids).order('id desc').first
+    
     @start = (@sale.begin_time - Time.now).to_i
     @end   = (@sale.end_time - Time.now).to_i
+    
+    @duration = @start > 0 ? @start : @end
+    
+    @hour = @duration / 3600
+    @min  = ( @duration - 3600 * @hour ) / 60
+    @sec  = @duration - @hour * 3600 - @min * 60;
     
     # 加载腰风
     @ad = Ad.order('sort desc, id desc').limit(1).first
