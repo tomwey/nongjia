@@ -1,5 +1,5 @@
 # config valid only for Capistrano 3.1
-lock '3.5.0'
+lock '3.7.2'
 
 set :application, 'nongjia'
 set :deploy_user, "deployer"
